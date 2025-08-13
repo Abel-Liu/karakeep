@@ -199,7 +199,7 @@ function CompactView({ bookmark, title, footer, className }: Props) {
       )}
     >
       <MultiBookmarkSelector bookmark={bookmark} />
-      <div className="flex h-full justify-between gap-2 overflow-hidden p-2">
+      <div className="flex h-full justify-between gap-2 overflow-hidden px-2">
         <div className="flex items-center gap-2">
           {bookmark.content.type === BookmarkTypes.LINK &&
             bookmark.content.favicon && (
@@ -219,7 +219,7 @@ function CompactView({ bookmark, title, footer, className }: Props) {
             <ImageIcon className="size-5" />
           )}
           {
-            <div className="shrink-1 text-md line-clamp-1 overflow-hidden text-ellipsis break-words">
+            <div className="shrink-1 text-sm line-clamp-1 overflow-hidden text-ellipsis break-words">
               {title ?? "Untitled"}
             </div>
           }
