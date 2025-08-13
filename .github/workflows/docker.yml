@@ -1,11 +1,8 @@
 name: Build and Push Docker
 on:
-  release:
-    types:
-      - created
   push:
     branches:
-      - main
+      - mainxxx
 
 jobs:
   push:

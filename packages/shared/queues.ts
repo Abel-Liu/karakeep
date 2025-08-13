@@ -26,7 +26,7 @@ export const LinkCrawlerQueue = new SqliteQueue<ZCrawlLinkRequest>(
   queueDB,
   {
     defaultJobArgs: {
-      numRetries: 5,
+      numRetries: serverConfig.crawler.retryTimes,
     },
     keepFailedJobs: false,
   },
