@@ -55,6 +55,7 @@ jobs:
           context: .
           build-args: SERVER_VERSION=nightly
           file: docker/Dockerfile
+          target: aio
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=gha
