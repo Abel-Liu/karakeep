@@ -13,12 +13,6 @@ import { bookmarks, bookmarkLinks, bookmarkTexts, bookmarkAssets, tagsOnBookmark
 import { envConfig } from "./env";
 
 class SQLiteIndexClient implements SearchIndexClient {
-  private db: Database;
-
-  constructor(dbInstance: Database) {
-    this.db = dbInstance;
-  }
-
   async addDocuments(documents: BookmarkSearchDocument[]): Promise<void> {
     // SQLite LIKE 搜索不需要预建索引，直接存储文档即可
     console.log(`Indexed ${documents.length} documents for SQLite search`);
@@ -70,7 +64,7 @@ class SQLiteIndexClient implements SearchIndexClient {
       like(bookmarks.summary, searchTerm),
       like(bookmarkLinks.title, searchTerm),
       like(bookmarkLinks.description, searchTerm),
-      like(bookmarkLinks.htmlContent, searchTerm),
+      like(bookmarkLinks.url, searchTerm),
       like(bookmarkTexts.text, searchTerm),
       like(bookmarkAssets.content, searchTerm),
       like(bookmarkTags.name, searchTerm)
@@ -124,7 +118,7 @@ class SQLiteIndexClient implements SearchIndexClient {
       if (bookmark.title?.toLowerCase().includes(query.toLowerCase())) {
         score += 0.5;
       }
-      
+
       // 提高标签匹配的权重
       const tagNames = bookmark.tagsOnBookmarks?.map(tb => tb.tag.name) || [];
       if (tagNames.some(tag => tag.toLowerCase().includes(query.toLowerCase()))) {
@@ -157,7 +151,7 @@ export class SQLiteSearchProvider implements PluginProvider<SearchIndexClient> {
 
   constructor() {
     if (SQLiteSearchProvider.isConfigured()) {
-      this.client = new SQLiteIndexClient(db as any);
+      this.client = new SQLiteIndexClient();
     }
   }
 
