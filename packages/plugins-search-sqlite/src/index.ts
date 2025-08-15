@@ -1,5 +1,4 @@
-import { and, eq, inArray, like, or, sql } from "drizzle-orm";
-import type { Database } from "better-sqlite3";
+import { and, eq, like, or, sql } from "drizzle-orm";
 
 import type {
   BookmarkSearchDocument,
@@ -11,6 +10,7 @@ import { PluginProvider } from "@karakeep/shared/plugins";
 import { db } from "@karakeep/db";
 import { bookmarks, bookmarkLinks, bookmarkTexts, bookmarkAssets, tagsOnBookmarks, bookmarkTags } from "@karakeep/db/schema";
 import { envConfig } from "./env";
+import logger from "@karakeep/shared/logger";
 
 class SQLiteIndexClient implements SearchIndexClient {
   async addDocuments(documents: BookmarkSearchDocument[]): Promise<void> {
@@ -54,6 +54,8 @@ class SQLiteIndexClient implements SearchIndexClient {
       };
     }
 
+    logger.info(`Search user:[${userId}], keyword:[${query}]`);
+
     // 构建搜索条件
     const searchTerm = `%${query}%`;
     
@@ -91,6 +93,8 @@ class SQLiteIndexClient implements SearchIndexClient {
       orderBy: [sql`createdAt DESC`],
     });
 
+    logger.info(`Search result:${JSON.stringify(searchResults)}`);
+
     // 获取总数
     const countResult = await db.select({
       count: sql<number>`count(*)`
@@ -107,6 +111,8 @@ class SQLiteIndexClient implements SearchIndexClient {
         searchConditions
       )
     );
+
+    logger.info(`Search count:${JSON.stringify(countResult)}`);
 
     const totalHits = countResult[0]?.count || 0;
 
@@ -134,6 +140,8 @@ class SQLiteIndexClient implements SearchIndexClient {
     // 按分数排序
     hits.sort((a, b) => b.score - a.score);
 
+    logger.info("Search return.")
+    
     return {
       hits,
       totalHits: Number(totalHits),
