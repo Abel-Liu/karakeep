@@ -8,7 +8,8 @@ import type {
   SearchResponse,
 } from "@karakeep/shared/search";
 import { PluginProvider } from "@karakeep/shared/plugins";
-import { db, bookmarks, bookmarkLinks, bookmarkTexts, bookmarkAssets, tagsOnBookmarks, bookmarkTags } from "@karakeep/db";
+import { db } from "@karakeep/db";
+import { bookmarks, bookmarkLinks, bookmarkTexts, bookmarkAssets, tagsOnBookmarks, bookmarkTags } from "@karakeep/db/schema";
 import { envConfig } from "./env";
 
 class SQLiteIndexClient implements SearchIndexClient {
