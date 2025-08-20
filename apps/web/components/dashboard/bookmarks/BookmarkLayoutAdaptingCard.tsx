@@ -219,7 +219,7 @@ function CompactView({ bookmark, title, footer, className }: Props) {
             <ImageIcon className="size-5" />
           )}
           {
-            <div className="shrink-1 text-sm line-clamp-1 overflow-hidden text-ellipsis break-words">
+            <div className="shrink-1 line-clamp-1 overflow-hidden text-ellipsis break-words text-sm">
               {title ?? "Untitled"}
             </div>
           }
