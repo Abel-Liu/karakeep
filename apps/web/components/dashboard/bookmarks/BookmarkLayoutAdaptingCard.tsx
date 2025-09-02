@@ -224,13 +224,13 @@ function CompactView({ bookmark, title, footer, className }: Props) {
             </div>
           }
           {footer && (
-            <p className="flex shrink-0 gap-2 text-gray-500">•{footer}</p>
+            <p className="hidden sm:flex shrink-0 gap-2 text-gray-500">•{footer}</p>
           )}
-          <p className="text-gray-500">•</p>
+          <p className="hidden sm:flex text-gray-500">•</p>
           <Link
             href={`/dashboard/preview/${bookmark.id}`}
             suppressHydrationWarning
-            className="shrink-0 gap-2 text-gray-500"
+            className="hidden sm:flex shrink-0 gap-2 text-gray-500"
           >
             <BookmarkFormattedCreatedAt createdAt={bookmark.createdAt} />
           </Link>
