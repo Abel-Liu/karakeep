@@ -199,43 +199,53 @@ function CompactView({ bookmark, title, footer, className }: Props) {
       )}
     >
       <MultiBookmarkSelector bookmark={bookmark} />
-      <div className="flex h-full justify-between gap-2 overflow-hidden px-2">
-        <div className="flex items-center gap-2">
-          {bookmark.content.type === BookmarkTypes.LINK &&
-            bookmark.content.favicon && (
-              <Image
-                src={bookmark.content.favicon}
-                alt="favicon"
-                width={5}
-                unoptimized
-                height={5}
-                className="size-5"
-              />
+      <div className="flex h-full flex-1 flex-col justify-between overflow-hidden">
+        <div className="flex h-full justify-between overflow-hidden px-2">
+          <div className="flex items-center gap-2">
+            {bookmark.content.type === BookmarkTypes.LINK &&
+              bookmark.content.favicon && (
+                <Image
+                  src={bookmark.content.favicon}
+                  alt="favicon"
+                  width={5}
+                  unoptimized
+                  height={5}
+                  className="size-5"
+                />
+              )}
+            {bookmark.content.type === BookmarkTypes.TEXT && (
+              <NotebookPen className="size-5" />
             )}
-          {bookmark.content.type === BookmarkTypes.TEXT && (
-            <NotebookPen className="size-5" />
-          )}
-          {bookmark.content.type === BookmarkTypes.ASSET && (
-            <ImageIcon className="size-5" />
-          )}
-          {
-            <div className="shrink-1 line-clamp-1 overflow-hidden text-ellipsis break-words text-sm">
-              {title ?? "Untitled"}
-            </div>
-          }
-          {footer && (
-            <p className="hidden sm:flex shrink-0 gap-2 text-gray-500">•{footer}</p>
-          )}
-          <p className="hidden sm:flex text-gray-500">•</p>
-          <Link
-            href={`/dashboard/preview/${bookmark.id}`}
-            suppressHydrationWarning
-            className="hidden sm:flex shrink-0 gap-2 text-gray-500"
-          >
-            <BookmarkFormattedCreatedAt createdAt={bookmark.createdAt} />
-          </Link>
+            {bookmark.content.type === BookmarkTypes.ASSET && (
+              <ImageIcon className="size-5" />
+            )}
+            {
+              <div className="shrink-1 line-clamp-1 overflow-hidden text-ellipsis break-words text-sm">
+                {title ?? "Untitled"}
+              </div>
+            }
+            {footer && (
+              <p className="hidden shrink-0 gap-2 text-gray-500 sm:flex">
+                •{footer}
+              </p>
+            )}
+            <p className="hidden text-gray-500 sm:flex">•</p>
+            <Link
+              href={`/dashboard/preview/${bookmark.id}`}
+              suppressHydrationWarning
+              className="hidden shrink-0 gap-2 text-gray-500 sm:flex"
+            >
+              <BookmarkFormattedCreatedAt createdAt={bookmark.createdAt} />
+            </Link>
+          </div>
+          <BookmarkActionBar bookmark={bookmark} />
         </div>
-        <BookmarkActionBar bookmark={bookmark} />
+        {/* want to show dashbaord list here, style is ok, just return list data and put into span */}
+        {/* <div className="justify -mt-2 mb-1 flex w-full shrink-0 justify-between px-2 text-gray-500">
+          <div className="flex items-center gap-2 overflow-hidden text-nowrap font-light">
+            <span>aaaaaaa</span>
+          </div>
+        </div> */}
       </div>
     </div>
   );
