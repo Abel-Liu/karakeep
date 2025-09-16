@@ -72,7 +72,7 @@ class SQLiteIndexClient implements SearchIndexClient {
     });
 
     // 构建复杂的LIKE查询
-    const searchConditions = or(...termConditions);
+    const searchConditions = and(...termConditions);
 
     // 获取搜索结果
     const searchResults = await db.select({
