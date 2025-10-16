@@ -55,17 +55,24 @@ class SQLiteIndexClient implements SearchIndexClient {
     }
 
     // 构建搜索条件
-    const searchTerm = `%${query}%`;
+    const terms = query
+      ? query.split(/\s+/).filter(term => term.trim() !== '')
+      : [];
+
+    const termConditions = terms.map(term => {
+      const searchTerm = `%${term}%`;
+      return or(
+        like(bookmarks.title, searchTerm),
+        like(bookmarks.note, searchTerm),
+        like(bookmarks.summary, searchTerm),
+        like(bookmarkLinks.title, searchTerm),
+        like(bookmarkLinks.description, searchTerm),
+        like(bookmarkLinks.url, searchTerm)
+      );
+    });
 
     // 构建复杂的LIKE查询
-    const searchConditions = or(
-      like(bookmarks.title, searchTerm),
-      like(bookmarks.note, searchTerm),
-      like(bookmarks.summary, searchTerm),
-      like(bookmarkLinks.title, searchTerm),
-      like(bookmarkLinks.description, searchTerm),
-      like(bookmarkLinks.url, searchTerm)
-    );
+    const searchConditions = and(...termConditions);
 
     // 获取搜索结果
     const searchResults = await db.select({
