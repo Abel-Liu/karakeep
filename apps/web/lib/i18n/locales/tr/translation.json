@@ -86,7 +86,11 @@
       "relevant_first": "En İlgili Olan Önce"
     },
     "open_editor": "Düzenleyiciyi Aç",
-    "toggle_show_archived": "Arşivlenmiş Olanları Göster"
+    "toggle_show_archived": "Arşivlenmiş Olanları Göster",
+    "confirm": "Onayla",
+    "regenerate": "Yeniden oluştur",
+    "load_more": "Daha Fazla Yükle",
+    "edit_notes": "Notları Düzenle"
   },
   "highlights": {
     "no_highlights": "Henüz hiçbir öne çıkarılmış içeriğiniz yok."
@@ -146,14 +150,20 @@
       "export_links_and_notes": "Bağlantı ve Notları Dışa Aktar",
       "imported_bookmarks": "İçe Aktarılan Yer İşaretleri",
       "import_bookmarks_from_linkwarden_export": "Linkwarden dışa aktarımından Yer İşaretlerini İçe Aktar",
-      "import_bookmarks_from_tab_session_manager_export": "Sekme Oturum Yöneticisi'nden Yer İşaretlerini İçe Aktar"
+      "import_bookmarks_from_tab_session_manager_export": "Sekme Oturum Yöneticisi'nden Yer İşaretlerini İçe Aktar",
+      "import_bookmarks_from_mymind_export": "Mymind dışa aktarımından Yer İşaretlerini İçe Aktar"
     },
     "api_keys": {
       "api_keys": "API Anahtarları",
       "new_api_key": "Yeni API Anahtarı",
       "new_api_key_desc": "API anahtarınıza benzersiz bir ad verin",
       "key_success": "Anahtar başarıyla oluşturuldu",
-      "key_success_please_copy": "Lütfen anahtarı kopyalayın ve güvenli bir yerde saklayın. Diyaloğu kapattıktan sonra tekrar erişemezsiniz."
+      "key_success_please_copy": "Lütfen anahtarı kopyalayın ve güvenli bir yerde saklayın. Diyaloğu kapattıktan sonra tekrar erişemezsiniz.",
+      "regenerate_api_key": "API Anahtarını Yeniden Oluştur",
+      "key_regenerated": "Anahtar başarıyla yeniden oluşturuldu",
+      "key_regenerated_please_copy": "Lütfen yeni anahtarı kopyalayın ve güvenli bir yerde saklayın. Eski anahtar iptal edildi ve artık çalışmayacak.",
+      "regenerate_warning": "\"{{name}}\" API anahtarını yeniden oluşturmak istediğinizden emin misiniz?",
+      "regenerate_confirmation": "Bu, mevcut anahtarı iptal edecek ve yeni bir tane oluşturacaktır. Mevcut anahtarı kullanan uygulamaların hiçbiri çalışmayacak."
     },
     "broken_links": {
       "broken_links": "Bozuk Bağlantılar",
@@ -284,6 +294,10 @@
       },
       "storage_breakdown": {
         "title": "Depolama Dökümü"
+      },
+      "bookmark_sources": {
+        "title": "Kaynakları işaretle",
+        "empty": "Kullanılabilir kaynak verisi yok"
       }
     },
     "subscription": {
@@ -306,6 +320,82 @@
       "loading_usage": "Kullanım bilgileri yükleniyor...",
       "free": "Ücretsiz",
       "paid": "Ücretli"
+    },
+    "import_sessions": {
+      "title": "İçe Aktarma Oturumları",
+      "description": "Toplu içe aktarma oturumlarını görüntüle ve yönet. Oturumlar, yer imlerini içe aktardığında otomatik olarak oluşturulur.",
+      "load_error": "İçe aktarma oturumları yüklenemedi",
+      "no_sessions": "Henüz içe aktarma oturumu yok",
+      "no_sessions_detail": "Yer imlerini içe aktardığında, içe aktarma oturumları burada otomatik olarak görünecektir.",
+      "created_at": "Oluşturulma zamanı: {{time}}",
+      "progress": "İlerleme durumu",
+      "status": {
+        "pending": "Bekliyor",
+        "in_progress": "Devam ediyor",
+        "completed": "Tamamlandı",
+        "failed": "Başarısız",
+        "processing": "İşleniyor"
+      },
+      "badges": {
+        "pending": "{{count}} beklemede",
+        "processing": "{{count}} işleniyor",
+        "completed": "{{count}} tamamlandı",
+        "failed": "{{count}} başarısız"
+      },
+      "imported_to": "İçe aktarıldığı yer:",
+      "view_list": "Listeyi Görüntüle",
+      "delete_dialog_title": "İçe Aktarma Oturumunu Sil",
+      "delete_dialog_description": "\"{{name}}\" öğesini silmek istediğinden emin misin? Bu işlem geri alınamaz. Yer imlerinin kendileri silinmeyecektir.",
+      "delete_session": "Oturumu Sil"
+    },
+    "backups": {
+      "backups": "Yedeklemeler",
+      "page_title": "Yedeklemeler",
+      "page_description": "Yer işaretlerinizin otomatik olarak yedeklerini oluşturun ve yönetin. Yedeklemeler sıkıştırılır ve güvenli bir şekilde saklanır.",
+      "configuration": {
+        "title": "Yedekleme Yapılandırması",
+        "enable_automatic_backups": "Otomatik Yedeklemeleri Etkinleştir",
+        "enable_automatic_backups_description": "Yer işaretlerinizin otomatik olarak yedeklerini oluştur.",
+        "backup_frequency": "Yedekleme Sıklığı",
+        "backup_frequency_description": "Yedeklemelerin ne sıklıkla oluşturulması gerektiği",
+        "retention_period": "Saklama Süresi (gün)",
+        "retention_period_description": "Yedekleri silmeden önce kaç gün saklanacağı",
+        "frequency": {
+          "daily": "Günlük",
+          "weekly": "Haftalık"
+        },
+        "select_frequency": "Sıklık seçin",
+        "save_settings": "Ayarları Kaydet"
+      },
+      "list": {
+        "title": "Yedeklemeleriniz",
+        "create_backup_now": "Şimdi Yedekleme Oluştur",
+        "no_backups": "Henüz herhangi bir yedeğiniz yok. Otomatik yedeklemeyi etkinleştirin veya manuel olarak bir tane oluşturun.",
+        "table": {
+          "created_at": "Oluşturulma Zamanı",
+          "bookmarks": "Yer İşaretleri",
+          "size": "Boyut",
+          "status": "Durum",
+          "actions": "Eylemler"
+        },
+        "status": {
+          "success": "Başarılı",
+          "failed": "Başarısız",
+          "pending": "Beklemede"
+        },
+        "actions": {
+          "download_backup": "Yedeklemeyi İndir",
+          "delete_backup": "Yedeklemeyi Sil"
+        }
+      },
+      "dialogs": {
+        "delete_backup_title": "Yedeklemeyi silmek mi istiyorsun?",
+        "delete_backup_description": "Bu yedeklemeyi silmek istediğinden emin misin? Bu işlem geri alınamaz."
+      },
+      "toasts": {
+        "backup_queued": "Yedekleme işi sıraya alındı! Kısa süre içinde işlenecek.",
+        "backup_deleted": "Yedekleme silindi!"
+      }
     }
   },
   "admin": {
@@ -329,7 +419,76 @@
       "video_jobs": "Video İndirme İşleri",
       "feed_jobs": "RSS Besleme İşleri",
       "webhook_jobs": "Webhook İşleri",
-      "asset_preprocessing_jobs": "Varlık Ön İşleme İşleri"
+      "asset_preprocessing_jobs": "Varlık Ön İşleme İşleri",
+      "jobs": {
+        "crawler": {
+          "title": "Crawler İşleri",
+          "description": "URL'lerden web kazıma ve içerik çıkarma"
+        },
+        "inference": {
+          "title": "Çıkarım İşleri",
+          "description": "İçeriğin yapay zeka destekli etiketlenmesi ve özetlenmesi"
+        },
+        "indexing": {
+          "title": "İndeksleme İşleri",
+          "description": "Arama indeksi güncellemeleri"
+        },
+        "asset_preprocessing": {
+          "title": "Varlık Ön İşleme İşleri",
+          "description": "Resim ve belge ön işleme (ekran görüntüleri, metin çıkarma vb.)"
+        },
+        "tidy_assets": {
+          "title": "Varlıkları Düzenleme İşleri",
+          "description": "Varlık temizleme ve depolama optimizasyonu"
+        },
+        "video": {
+          "title": "Video İndirme İşleri",
+          "description": "Video çıkarma ve indirme"
+        },
+        "webhook": {
+          "title": "Webhook İşleri",
+          "description": "Harici webhook bildirimleri"
+        },
+        "feed": {
+          "title": "RSS Besleme İşleri",
+          "description": "RSS besleme işleme ve içerik güncellemeleri"
+        },
+        "admin_maintenance": {
+          "title": "Yönetici Bakım İşleri",
+          "description": "Yönetimsel temizlik ve varlık bakımı"
+        }
+      },
+      "monitor_and_manage": "Arka plan iş kuyruklarını ve sistem işleme görevlerini izleyin ve yönetin",
+      "active": "Etkin",
+      "available_actions": "Kullanılabilir Eylemler",
+      "status": {
+        "title": "İş Durumlarını Anlama",
+        "queued": {
+          "title": "Sıraya alındı",
+          "description": "İşlenmeyi bekleyen işler. Kaynaklar kullanılabilir olduğunda otomatik olarak başlayacaklar."
+        },
+        "unprocessed": {
+          "title": "İşlenmemiş",
+          "description": "Henüz işlenmemiş yer imleri. Büyük olasılıkla zaten işlenmek üzere sıraya alınmış durumdalar, değilse manuel olarak yeniden sıraya almanız gerekebilir."
+        },
+        "failed": {
+          "title": "Başarısız oldu",
+          "description": "İşleme sırasında hatalarla karşılaşan yer imleri. Bunlar manuel müdahale gerektirebilir."
+        }
+      },
+      "actions": {
+        "recrawl_failed_links_only": "Yalnızca Başarısız Bağlantıları Yeniden Tara",
+        "recrawl_all_links": "Tüm Bağlantıları Yeniden Tara",
+        "without_inference": "Çıkarım olmadan",
+        "regenerate_ai_tags_for_failed_bookmarks_only": "Yalnızca Başarısız Yer İmleri için Yapay Zeka Etiketlerini Yeniden Oluştur",
+        "regenerate_ai_tags_for_all_bookmarks": "Tüm Yer İmleri için Yapay Zeka Etiketlerini Yeniden Oluştur",
+        "regenerate_ai_summaries_for_failed_bookmarks_only": "Yalnızca Başarısız Yer İmleri için Yapay Zeka Özetlerini Yeniden Oluştur",
+        "regenerate_ai_summaries_for_all_bookmarks": "Tüm Yer İmleri için Yapay Zeka Özetlerini Yeniden Oluştur",
+        "reindex_all_bookmarks": "Tüm Yer İmlerini Yeniden İndeksle",
+        "clean_assets": "Sallanan Varlıkları Temizle ve Meta Verileri Yeniden Eşitle",
+        "reprocess_assets_fix_mode": "İşlenmemiş Varlıkları Yeniden İşle",
+        "migrate_large_link_html_content": "Büyük Satır İçi HTML İçeriğini Varlıklara Taşı"
+      }
     },
     "actions": {
       "recrawl_failed_links_only": "Sadece Başarısız Bağlantıları Tekrar Tara",
@@ -355,6 +514,18 @@
       "confirm_password": "Şifreyi Onayla",
       "delete_user_confirm_description": "{{name}} kullanıcısını silmek istediğine emin misin?",
       "unlimited": "Sınırsız"
+    },
+    "service_connections": {
+      "title": "Hizmet Bağlantıları",
+      "description": "Harici sistem bağımlılıklarının sağlığını ve bağlantısını izle",
+      "search_engine": "Arama Motoru",
+      "browser": "Tarayıcı",
+      "queue_system": "Sıra Sistemi",
+      "status": {
+        "not_configured": "Yapılandırılmamış",
+        "connected": "Bağlı",
+        "disconnected": "Bağlantı Kesildi"
+      }
     }
   },
   "options": {
@@ -389,7 +560,63 @@
       "title": "Herkese Açık Liste",
       "description": "Başkalarının bu listeyi görüntülemesine izin ver",
       "share_link": "Bağlantıyı Paylaş"
-    }
+    },
+    "delete_list": {
+      "title": "Listeyi Sil",
+      "description": "Bir listeyi silmek, o listedeki hiçbir yer işaretini silmez.",
+      "delete_children": "Alt listeleri sil (özyinelemeli olarak)",
+      "delete_children_description": "İşaretli değilse, tüm doğrudan alt listeler kök listelere dönüşür"
+    },
+    "shared": "Paylaşılan",
+    "collaborators": {
+      "manage": "Ortak Çalışanları Yönet",
+      "view": "Ortak Çalışanları Görüntüle",
+      "collaborators": "Ortak Çalışanlar",
+      "add": "Ortak Çalışan Ekle",
+      "current": "Mevcut Ortak Çalışanlar",
+      "enter_email": "E-posta adresini girin",
+      "please_enter_email": "Lütfen bir e-posta adresi girin",
+      "added_successfully": "Ortak çalışan başarıyla eklendi",
+      "failed_to_add": "Ortak çalışan eklenemedi",
+      "removed": "Ortak çalışan kaldırıldı",
+      "failed_to_remove": "Ortak çalışan kaldırılamadı",
+      "role_updated": "Rol güncellendi",
+      "failed_to_update_role": "Rol güncellenemedi",
+      "viewer": "Görüntüleyici",
+      "editor": "Düzenleyici",
+      "owner": "Sahip",
+      "viewer_description": "Listedeki yer işaretlerini görüntüleyebilir",
+      "editor_description": "Yer işaretleri ekleyebilir ve kaldırabilir",
+      "no_collaborators": "Henüz ortak çalışan yok. İşbirliğine başlamak için birini ekleyin!",
+      "no_collaborators_readonly": "Bu listede işbirlikçi yok.",
+      "people_with_access": "Bu listeye erişimi olan kişiler",
+      "add_or_remove": "Bu listeye erişebilecek kişileri ekle veya kaldır",
+      "invitation_sent": "Davetiye başarıyla gönderildi",
+      "invitation_revoked": "Davetiye iptal edildi",
+      "failed_to_revoke": "Davetiye iptal edilemedi",
+      "pending": "Beklemede",
+      "revoke": "İptal et",
+      "declined": "Reddedildi"
+    },
+    "leave_list": {
+      "title": "Listeden Ayrıl",
+      "confirm_message": "{{icon}} {{name}} listesinden ayrılmak istediğinden emin misin?",
+      "warning": "Artık bu listedeki yer işaretlerini görüntüleyemeyecek veya bunlara erişemeyeceksin. Liste sahibi gerekirse seni geri ekleyebilir.",
+      "action": "Listeden Ayrıl",
+      "success": "\"{{icon}} {{name}}\" listesinden ayrıldın"
+    },
+    "invitations": {
+      "pending": "Bekleyen Davetiyeler",
+      "description": "Liste işbirliği davetlerini inceleyip yanıtlayın",
+      "invited_by": "Davet Eden",
+      "accept": "Kabul Et",
+      "decline": "Reddet",
+      "accepted": "Davetiye kabul edildi",
+      "declined": "Davetiye reddedildi",
+      "failed_to_accept": "Davetiye kabul edilemedi",
+      "failed_to_decline": "Davetiye reddedilemedi"
+    },
+    "shared_lists": "Paylaşılan Listeler"
   },
   "tags": {
     "all_tags": "Tüm Etiketler",
@@ -402,7 +629,18 @@
     "delete_all_unused_tags": "Kullanılmayan Tüm Etiketleri Sil",
     "drag_and_drop_merging": "Sürükle ve Bırak Birleştirme",
     "drag_and_drop_merging_info": "Etiketleri birbirlerinin üzerine sürükleyerek birleştirin",
-    "sort_by_name": "İsme Göre Sırala"
+    "sort_by_name": "İsme Göre Sırala",
+    "create_tag": "Etiket Oluştur",
+    "create_tag_description": "Herhangi bir yer işaretine iliştirmeden yeni bir etiket oluştur",
+    "tag_name": "Etiket Adı",
+    "enter_tag_name": "Etiket adını girin",
+    "sort_by_usage": "Kullanıma Göre Sırala",
+    "sort_by_relevance": "Alaka Düzeyine Göre Sırala",
+    "no_custom_tags": "Henüz özel etiket yok",
+    "no_ai_tags": "Henüz yapay zeka etiketi yok",
+    "no_unused_tags": "Kullanılmayan etiketiniz yok",
+    "no_unused_tags_match_your_search": "Aramanızla eşleşen kullanılmayan etiket yok",
+    "no_tags_match_your_search": "Aramanızla eşleşen etiket yok"
   },
   "preview": {
     "view_original": "Orijinali Görüntüle",
@@ -486,6 +724,10 @@
       "updated": "Liste güncellendi!",
       "merged": "Liste birleştirildi!",
       "deleted": "Liste silindi!"
+    },
+    "tags": {
+      "created": "Etiket oluşturuldu!",
+      "failed_to_create": "Etiket oluşturulamadı"
     }
   },
   "cleanups": {
@@ -531,7 +773,9 @@
     "day_s_ago": " Gün Önce",
     "week_s_ago": " Hafta Önce",
     "month_s_ago": " Ay Önce",
-    "history": "Son Aramalar"
+    "history": "Son Aramalar",
+    "title_contains": "Başlık İçeriyor",
+    "title_does_not_contain": "Başlık İçermiyor"
   },
   "dialogs": {
     "bookmarks": {
@@ -554,5 +798,27 @@
     "pick_a_date": "Bir tarih seç",
     "save_changes": "Değişiklikleri kaydet",
     "extracted_content": "Çıkarılan İçerik"
+  },
+  "view_options": {
+    "title": "Görünüm Seçenekleri",
+    "layout": "Yerleşim",
+    "columns": "Sütunlar",
+    "display_options": "Görüntüleme Seçenekleri",
+    "show_note_previews": "Notları Göster",
+    "show_tags": "Etiketleri Göster",
+    "show_title": "Başlığı Göster",
+    "image_options": "Görüntü Seçenekleri",
+    "image_fit_cover": "Kapak (Doldur)",
+    "image_fit_contain": "İçer (Sığdır)"
+  },
+  "version": {
+    "new_release_available": "Yeni sürüm notları mevcut",
+    "whats_new_title": "v{{version}} sürümünde ne var?",
+    "release_notes_description": "GitHub sürüm notlarından alınan en son güncellemeler burada.",
+    "loading_release_notes": "Sürüm notları yükleniyor…",
+    "unable_to_load_release_notes": "Şu anda sürüm notları yüklenemiyor. Lütfen daha sonra tekrar deneyin.",
+    "no_release_notes": "Bu sürüm için yayınlanmış sürüm notu yok.",
+    "release_notes_synced": "Sürüm notları GitHub'dan senkronize edilir.",
+    "view_on_github": "GitHub'da görüntüle"
   }
 }

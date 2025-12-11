@@ -58,6 +58,17 @@ export const users = sqliteTable("user", {
     .notNull()
     .default("show"),
   timezone: text("timezone").default("UTC"),
+
+  // Backup Settings
+  backupsEnabled: integer("backupsEnabled", { mode: "boolean" })
+    .notNull()
+    .default(false),
+  backupsFrequency: text("backupsFrequency", {
+    enum: ["daily", "weekly"],
+  })
+    .notNull()
+    .default("weekly"),
+  backupsRetentionDays: integer("backupsRetentionDays").notNull().default(30),
 });
 
 export const accounts = sqliteTable(
@@ -168,6 +179,18 @@ export const bookmarks = sqliteTable(
     type: text("type", {
       enum: [BookmarkTypes.LINK, BookmarkTypes.TEXT, BookmarkTypes.ASSET],
     }).notNull(),
+    source: text("source", {
+      enum: [
+        "api",
+        "web",
+        "extension",
+        "cli",
+        "mobile",
+        "singlefile",
+        "rss",
+        "import",
+      ],
+    }),
   },
   (b) => [
     index("bookmarks_userId_idx").on(b.userId),
@@ -216,6 +239,8 @@ export const enum AssetTypes {
   LINK_VIDEO = "linkVideo",
   LINK_HTML_CONTENT = "linkHtmlContent",
   BOOKMARK_ASSET = "bookmarkAsset",
+  USER_UPLOADED = "userUploaded",
+  BACKUP = "backup",
   UNKNOWN = "unknown",
 }
 
@@ -234,6 +259,8 @@ export const assets = sqliteTable(
         AssetTypes.LINK_VIDEO,
         AssetTypes.LINK_HTML_CONTENT,
         AssetTypes.BOOKMARK_ASSET,
+        AssetTypes.USER_UPLOADED,
+        AssetTypes.BACKUP,
         AssetTypes.UNKNOWN,
       ],
     }).notNull(),
@@ -397,11 +424,78 @@ export const bookmarksInLists = sqliteTable(
     addedAt: integer("addedAt", { mode: "timestamp" }).$defaultFn(
       () => new Date(),
     ),
+    // Tie the list's existence to the user's membership
+    // of this list.
+    listMembershipId: text("listMembershipId").references(
+      () => listCollaborators.id,
+      {
+        onDelete: "cascade",
+      },
+    ),
   },
   (tb) => [
     primaryKey({ columns: [tb.bookmarkId, tb.listId] }),
     index("bookmarksInLists_bookmarkId_idx").on(tb.bookmarkId),
     index("bookmarksInLists_listId_idx").on(tb.listId),
+  ],
+);
+
+export const listCollaborators = sqliteTable(
+  "listCollaborators",
+  {
+    id: text("id")
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => createId()),
+    listId: text("listId")
+      .notNull()
+      .references(() => bookmarkLists.id, { onDelete: "cascade" }),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    role: text("role", { enum: ["viewer", "editor"] }).notNull(),
+    addedAt: createdAtField(),
+    addedBy: text("addedBy").references(() => users.id, {
+      onDelete: "set null",
+    }),
+  },
+  (lc) => [
+    unique().on(lc.listId, lc.userId),
+    index("listCollaborators_listId_idx").on(lc.listId),
+    index("listCollaborators_userId_idx").on(lc.userId),
+  ],
+);
+
+export const listInvitations = sqliteTable(
+  "listInvitations",
+  {
+    id: text("id")
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => createId()),
+    listId: text("listId")
+      .notNull()
+      .references(() => bookmarkLists.id, { onDelete: "cascade" }),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    role: text("role", { enum: ["viewer", "editor"] }).notNull(),
+    status: text("status", { enum: ["pending", "declined"] })
+      .notNull()
+      .default("pending"),
+    invitedAt: integer("invitedAt", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    invitedEmail: text("invitedEmail"),
+    invitedBy: text("invitedBy").references(() => users.id, {
+      onDelete: "set null",
+    }),
+  },
+  (li) => [
+    unique().on(li.listId, li.userId),
+    index("listInvitations_listId_idx").on(li.listId),
+    index("listInvitations_userId_idx").on(li.userId),
+    index("listInvitations_status_idx").on(li.status),
   ],
 );
 
@@ -435,6 +529,9 @@ export const rssFeedsTable = sqliteTable(
     name: text("name").notNull(),
     url: text("url").notNull(),
     enabled: integer("enabled", { mode: "boolean" }).notNull().default(true),
+    importTags: integer("importTags", { mode: "boolean" })
+      .notNull()
+      .default(false),
     createdAt: createdAtField(),
     lastFetchedAt: integer("lastFetchedAt", { mode: "timestamp" }),
     lastFetchedStatus: text("lastFetchedStatus", {
@@ -487,6 +584,35 @@ export const rssFeedImportsTable = sqliteTable(
     index("rssFeedImports_feedIdIdx_idx").on(bl.rssFeedId),
     index("rssFeedImports_entryIdIdx_idx").on(bl.entryId),
     unique().on(bl.rssFeedId, bl.entryId),
+  ],
+);
+
+export const backupsTable = sqliteTable(
+  "backups",
+  {
+    id: text("id")
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => createId()),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    assetId: text("assetId").references(() => assets.id, {
+      onDelete: "cascade",
+    }),
+    createdAt: createdAtField(),
+    size: integer("size").notNull(),
+    bookmarkCount: integer("bookmarkCount").notNull(),
+    status: text("status", {
+      enum: ["pending", "success", "failure"],
+    })
+      .notNull()
+      .default("pending"),
+    errorMessage: text("errorMessage"),
+  },
+  (b) => [
+    index("backups_userId_idx").on(b.userId),
+    index("backups_createdAt_idx").on(b.createdAt),
   ],
 );
 
@@ -628,6 +754,49 @@ export const subscriptions = sqliteTable(
   ],
 );
 
+export const importSessions = sqliteTable(
+  "importSessions",
+  {
+    id: text("id")
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => createId()),
+    name: text("name").notNull(),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    message: text("message"),
+    rootListId: text("rootListId").references(() => bookmarkLists.id, {
+      onDelete: "set null",
+    }),
+    createdAt: createdAtField(),
+    modifiedAt: modifiedAtField(),
+  },
+  (is) => [index("importSessions_userId_idx").on(is.userId)],
+);
+
+export const importSessionBookmarks = sqliteTable(
+  "importSessionBookmarks",
+  {
+    id: text("id")
+      .notNull()
+      .primaryKey()
+      .$defaultFn(() => createId()),
+    importSessionId: text("importSessionId")
+      .notNull()
+      .references(() => importSessions.id, { onDelete: "cascade" }),
+    bookmarkId: text("bookmarkId")
+      .notNull()
+      .references(() => bookmarks.id, { onDelete: "cascade" }),
+    createdAt: createdAtField(),
+  },
+  (isb) => [
+    index("importSessionBookmarks_sessionId_idx").on(isb.importSessionId),
+    index("importSessionBookmarks_bookmarkId_idx").on(isb.bookmarkId),
+    unique().on(isb.importSessionId, isb.bookmarkId),
+  ],
+);
+
 // Relations
 
 export const userRelations = relations(users, ({ many, one }) => ({
@@ -637,6 +806,10 @@ export const userRelations = relations(users, ({ many, one }) => ({
   rules: many(ruleEngineRulesTable),
   invites: many(invites),
   subscription: one(subscriptions),
+  importSessions: many(importSessions),
+  listCollaborations: many(listCollaborators),
+  backups: many(backupsTable),
+  listInvitations: many(listInvitations),
 }));
 
 export const bookmarkRelations = relations(bookmarks, ({ many, one }) => ({
@@ -660,6 +833,7 @@ export const bookmarkRelations = relations(bookmarks, ({ many, one }) => ({
   bookmarksInLists: many(bookmarksInLists),
   assets: many(assets),
   rssFeeds: many(rssFeedImportsTable),
+  importSessionBookmarks: many(importSessionBookmarks),
 }));
 
 export const assetRelations = relations(assets, ({ one }) => ({
@@ -705,6 +879,8 @@ export const bookmarkListsRelations = relations(
   bookmarkLists,
   ({ one, many }) => ({
     bookmarksInLists: many(bookmarksInLists),
+    collaborators: many(listCollaborators),
+    invitations: many(listInvitations),
     user: one(users, {
       fields: [bookmarkLists.userId],
       references: [users.id],
@@ -726,6 +902,42 @@ export const bookmarksInListsRelations = relations(
     list: one(bookmarkLists, {
       fields: [bookmarksInLists.listId],
       references: [bookmarkLists.id],
+    }),
+  }),
+);
+
+export const listCollaboratorsRelations = relations(
+  listCollaborators,
+  ({ one }) => ({
+    list: one(bookmarkLists, {
+      fields: [listCollaborators.listId],
+      references: [bookmarkLists.id],
+    }),
+    user: one(users, {
+      fields: [listCollaborators.userId],
+      references: [users.id],
+    }),
+    addedByUser: one(users, {
+      fields: [listCollaborators.addedBy],
+      references: [users.id],
+    }),
+  }),
+);
+
+export const listInvitationsRelations = relations(
+  listInvitations,
+  ({ one }) => ({
+    list: one(bookmarkLists, {
+      fields: [listInvitations.listId],
+      references: [bookmarkLists.id],
+    }),
+    user: one(users, {
+      fields: [listInvitations.userId],
+      references: [users.id],
+    }),
+    invitedByUser: one(users, {
+      fields: [listInvitations.invitedBy],
+      references: [users.id],
     }),
   }),
 );
@@ -795,3 +1007,39 @@ export const passwordResetTokensRelations = relations(
     }),
   }),
 );
+
+export const importSessionsRelations = relations(
+  importSessions,
+  ({ one, many }) => ({
+    user: one(users, {
+      fields: [importSessions.userId],
+      references: [users.id],
+    }),
+    bookmarks: many(importSessionBookmarks),
+  }),
+);
+
+export const importSessionBookmarksRelations = relations(
+  importSessionBookmarks,
+  ({ one }) => ({
+    importSession: one(importSessions, {
+      fields: [importSessionBookmarks.importSessionId],
+      references: [importSessions.id],
+    }),
+    bookmark: one(bookmarks, {
+      fields: [importSessionBookmarks.bookmarkId],
+      references: [bookmarks.id],
+    }),
+  }),
+);
+
+export const backupsRelations = relations(backupsTable, ({ one }) => ({
+  user: one(users, {
+    fields: [backupsTable.userId],
+    references: [users.id],
+  }),
+  asset: one(assets, {
+    fields: [backupsTable.assetId],
+    references: [assets.id],
+  }),
+}));

@@ -80,7 +80,11 @@
       "relevant_first": "Najbardziej trafne na początku"
     },
     "open_editor": "Otwórz edytor",
-    "toggle_show_archived": "Pokaż zarchiwizowane"
+    "toggle_show_archived": "Pokaż zarchiwizowane",
+    "confirm": "Potwierdź",
+    "regenerate": "Wygeneruj ponownie",
+    "load_more": "Załaduj więcej",
+    "edit_notes": "Edytuj notatki"
   },
   "settings": {
     "info": {
@@ -116,7 +120,8 @@
       "export_links_and_notes": "Eksportuj linki i notatki",
       "imported_bookmarks": "Zaimportowane zakładki",
       "import_bookmarks_from_linkwarden_export": "Importuj zakładki z eksportu Linkwarden",
-      "import_bookmarks_from_tab_session_manager_export": "Importuj zakładki z Tab Session Manager"
+      "import_bookmarks_from_tab_session_manager_export": "Importuj zakładki z Tab Session Manager",
+      "import_bookmarks_from_mymind_export": "Importuj zakładki z eksportu mymind"
     },
     "back_to_app": "Powrót do aplikacji",
     "user_settings": "Ustawienia użytkownika",
@@ -144,7 +149,12 @@
       "new_api_key": "Nowy klucz API",
       "new_api_key_desc": "Nadaj swojemu kluczowi API unikalną nazwę",
       "key_success": "Klucz został pomyślnie utworzony",
-      "key_success_please_copy": "Skopiuj klucz i przechowaj go w bezpiecznym miejscu. Po zamknięciu tego okna dialogowego nie będzie można go ponownie zobaczyć."
+      "key_success_please_copy": "Skopiuj klucz i przechowaj go w bezpiecznym miejscu. Po zamknięciu tego okna dialogowego nie będzie można go ponownie zobaczyć.",
+      "regenerate_api_key": "Wygeneruj ponownie klucz API",
+      "key_regenerated": "Klucz został pomyślnie wygenerowany ponownie",
+      "key_regenerated_please_copy": "Skopiuj nowy klucz i przechowuj go w bezpiecznym miejscu. Stary klucz został unieważniony i nie będzie już działać.",
+      "regenerate_warning": "Czy na pewno chcesz wygenerować ponownie klucz API \"{{name}}\"?",
+      "regenerate_confirmation": "Spowoduje to odwołanie bieżącego klucza i wygenerowanie nowego. Wszystkie aplikacje korzystające z bieżącego klucza przestaną działać."
     },
     "broken_links": {
       "broken_links": "Uszkodzone linki",
@@ -275,6 +285,10 @@
       },
       "storage_breakdown": {
         "title": "Podział pamięci"
+      },
+      "bookmark_sources": {
+        "title": "Źródła zakładek",
+        "empty": "Brak dostępnych danych źródłowych"
       }
     },
     "subscription": {
@@ -297,6 +311,82 @@
       "loading_usage": "Ładowanie informacji o zużyciu...",
       "free": "Darmowy",
       "paid": "Płatny"
+    },
+    "import_sessions": {
+      "title": "Importuj sesje",
+      "description": "Przeglądaj i zarządzaj swoimi sesjami importu zbiorczego. Sesje są tworzone automatycznie podczas importowania zakładek.",
+      "load_error": "Nie udało się załadować sesji importu",
+      "no_sessions": "Jeszcze brak sesji importu",
+      "no_sessions_detail": "Sesje importu pojawią się tutaj automatycznie po zaimportowaniu zakładek",
+      "created_at": "Utworzono {{time}}",
+      "progress": "Postęp",
+      "status": {
+        "pending": "Oczekujące",
+        "in_progress": "W toku",
+        "completed": "Ukończone",
+        "failed": "Niepowodzenie",
+        "processing": "Przetwarzanie"
+      },
+      "badges": {
+        "pending": "{{count}} oczekujących",
+        "processing": "{{count}} w toku",
+        "completed": "{{count}} ukończonych",
+        "failed": "{{count}} nieudanych"
+      },
+      "imported_to": "Zaimportowano do:",
+      "view_list": "Wyświetl listę",
+      "delete_dialog_title": "Usuń sesję importu",
+      "delete_dialog_description": "Czy na pewno chcesz usunąć \"{{name}}\"? Tej czynności nie można cofnąć. Same zakładki nie zostaną usunięte.",
+      "delete_session": "Usuń sesję"
+    },
+    "backups": {
+      "backups": "Kopie zapasowe",
+      "page_title": "Kopie zapasowe",
+      "page_description": "Automatycznie twórz kopie zapasowe zakładek i zarządzaj nimi. Kopie zapasowe są kompresowane i bezpiecznie przechowywane.",
+      "configuration": {
+        "title": "Konfiguracja kopii zapasowej",
+        "enable_automatic_backups": "Włącz automatyczne kopie zapasowe",
+        "enable_automatic_backups_description": "Automatyczne tworzenie kopii zapasowych zakładek",
+        "backup_frequency": "Częstotliwość tworzenia kopii zapasowych",
+        "backup_frequency_description": "Jak często tworzyć kopie zapasowe",
+        "retention_period": "Okres przechowywania (dni)",
+        "retention_period_description": "Ile dni przechowywać kopie zapasowe przed ich usunięciem",
+        "frequency": {
+          "daily": "Codziennie",
+          "weekly": "Co tydzień"
+        },
+        "select_frequency": "Wybierz częstotliwość",
+        "save_settings": "Zapisz ustawienia"
+      },
+      "list": {
+        "title": "Twoje kopie zapasowe",
+        "create_backup_now": "Utwórz kopię zapasową teraz",
+        "no_backups": "Nie masz jeszcze żadnych kopii zapasowych. Włącz automatyczne tworzenie kopii zapasowych lub utwórz ją ręcznie.",
+        "table": {
+          "created_at": "Utworzono",
+          "bookmarks": "Zakładki",
+          "size": "Rozmiar",
+          "status": "Status",
+          "actions": "Akcje"
+        },
+        "status": {
+          "success": "Sukces",
+          "failed": "Niepowodzenie",
+          "pending": "Oczekuje"
+        },
+        "actions": {
+          "download_backup": "Pobierz kopię zapasową",
+          "delete_backup": "Usuń kopię zapasową"
+        }
+      },
+      "dialogs": {
+        "delete_backup_title": "Usunąć kopię zapasową?",
+        "delete_backup_description": "Czy na pewno chcesz usunąć tę kopię zapasową? Nie da się tego cofnąć."
+      },
+      "toasts": {
+        "backup_queued": "Zadanie utworzenia kopii zapasowej zostało dodane do kolejki! Przetwarzanie rozpocznie się wkrótce.",
+        "backup_deleted": "Kopia zapasowa została usunięta!"
+      }
     }
   },
   "admin": {
@@ -333,7 +423,76 @@
       "feed_jobs": "Praca z kanałem RSS",
       "webhook_jobs": "Zadania Webhook",
       "asset_preprocessing_jobs": "Zadania przetwarzania zasobów",
-      "video_jobs": "Zadania pobierania wideo"
+      "video_jobs": "Zadania pobierania wideo",
+      "jobs": {
+        "crawler": {
+          "title": "Zadania Crawlera",
+          "description": "Web crawling i wyciąganie treści z URL-i"
+        },
+        "inference": {
+          "title": "Zadania wnioskowania",
+          "description": "Tagowanie i podsumowywanie treści przy użyciu AI"
+        },
+        "indexing": {
+          "title": "Zadania indeksowania",
+          "description": "Aktualizacje indeksu wyszukiwania"
+        },
+        "asset_preprocessing": {
+          "title": "Zadania przetwarzania zasobów",
+          "description": "Przetwarzanie obrazów i dokumentów (zrzuty ekranu, wyciąganie tekstu, itp.)"
+        },
+        "tidy_assets": {
+          "title": "Zadania czyszczenia zasobów",
+          "description": "Czyszczenie zasobów i optymalizacja przechowywania"
+        },
+        "video": {
+          "title": "Zadania pobierania wideo",
+          "description": "Wyciąganie i pobieranie wideo"
+        },
+        "webhook": {
+          "title": "Zadania Webhook",
+          "description": "Zewnętrzne powiadomienia webhook"
+        },
+        "feed": {
+          "title": "Zadania kanału RSS",
+          "description": "Przetwarzanie kanałów RSS i aktualizacje treści"
+        },
+        "admin_maintenance": {
+          "title": "Zadania konserwacyjne administratora",
+          "description": "Administracyjne czyszczenie i konserwacja zasobów"
+        }
+      },
+      "monitor_and_manage": "Monitoruj i zarządzaj kolejkami zadań w tle i zadaniami przetwarzania systemu",
+      "active": "Aktywne",
+      "available_actions": "Dostępne akcje",
+      "status": {
+        "title": "Zrozumienie stanów zadań",
+        "queued": {
+          "title": "W kolejce",
+          "description": "Zadania czekają w kolejce do przetworzenia. Uruchomią się automatycznie, gdy zasoby będą dostępne."
+        },
+        "unprocessed": {
+          "title": "Nieprzetworzone",
+          "description": "Zakładki, które nie zostały jeszcze przetworzone. Najprawdopodobniej są już w kolejce do przetworzenia, jeśli nie, może być konieczne ręczne ponowne umieszczenie ich w kolejce."
+        },
+        "failed": {
+          "title": "Nie powiodło się",
+          "description": "Zakładki, które napotkały błędy podczas przetwarzania. Mogą one wymagać ręcznej interwencji."
+        }
+      },
+      "actions": {
+        "recrawl_failed_links_only": "Przeskanuj ponownie tylko uszkodzone linki",
+        "recrawl_all_links": "Przeskanuj ponownie wszystkie linki",
+        "without_inference": "Bez wnioskowania",
+        "regenerate_ai_tags_for_failed_bookmarks_only": "Wygeneruj ponownie tagi AI tylko dla zakładek, które się nie powiodły",
+        "regenerate_ai_tags_for_all_bookmarks": "Wygeneruj ponownie tagi AI dla wszystkich zakładek",
+        "regenerate_ai_summaries_for_failed_bookmarks_only": "Wygeneruj ponownie streszczenia AI tylko dla zakładek, które się nie powiodły",
+        "regenerate_ai_summaries_for_all_bookmarks": "Wygeneruj ponownie streszczenia AI dla wszystkich zakładek",
+        "reindex_all_bookmarks": "Zreindeksuj wszystkie zakładki",
+        "clean_assets": "Wyczyść wiszące zasoby i ponownie zsynchronizuj metadane",
+        "reprocess_assets_fix_mode": "Ponownie przetwarzaj nieprzetworzone zasoby",
+        "migrate_large_link_html_content": "Przenieś dużą zawartość HTML inline do zasobów."
+      }
     },
     "actions": {
       "recrawl_failed_links_only": "Ponowne skanowanie tylko nieudanych linków",
@@ -346,6 +505,18 @@
       "reprocess_assets_fix_mode": "Ponowne przetwarzanie zasobów (tryb fiksny)",
       "regenerate_ai_summaries_for_failed_bookmarks_only": "Wygeneruj ponownie podsumowania AI tylko dla nieudanych zakładek",
       "regenerate_ai_summaries_for_all_bookmarks": "Wygeneruj ponownie podsumowania AI dla wszystkich zakładek"
+    },
+    "service_connections": {
+      "title": "Połączenia z usługami",
+      "description": "Monitoruj stan i łączność zewnętrznych zależności systemowych",
+      "search_engine": "Wyszukiwarka",
+      "browser": "Przeglądarka",
+      "queue_system": "System kolejek",
+      "status": {
+        "not_configured": "Nieskonfigurowane",
+        "connected": "Połączono",
+        "disconnected": "Odłączono"
+      }
     }
   },
   "tags": {
@@ -359,7 +530,18 @@
     "unused_tags": "Nieużywane tagi",
     "unused_tags_info": "Tagi, które nie są przypisane do żadnych zakładek",
     "drag_and_drop_merging_info": "Przeciągnij i upuść tagi na siebie, aby je scalić",
-    "sort_by_name": "Sortuj według nazwy"
+    "sort_by_name": "Sortuj według nazwy",
+    "create_tag": "Stwórz etykietę",
+    "create_tag_description": "Stwórz nową etykietę bez dołączania jej do żadnej zakładki",
+    "tag_name": "Nazwa etykiety",
+    "enter_tag_name": "Wprowadź nazwę etykiety",
+    "sort_by_usage": "Sortuj wg użycia",
+    "sort_by_relevance": "Sortuj wg trafności",
+    "no_custom_tags": "Jeszcze brak własnych tagów",
+    "no_ai_tags": "Jeszcze brak tagów AI",
+    "no_unused_tags": "Nie masz nieużywanych tagów",
+    "no_unused_tags_match_your_search": "Żadne nieużywane tagi nie pasują do wyszukiwania",
+    "no_tags_match_your_search": "Żadne tagi nie pasują do wyszukiwania"
   },
   "editor": {
     "text_toolbar": {
@@ -441,6 +623,10 @@
       "full_page_archive": "Tworzenie pełnego archiwum strony zostało rozpoczęte",
       "delete_from_list": "Zakładka została usunięta z listy",
       "clipboard_copied": "Link został skopiowany do schowka!"
+    },
+    "tags": {
+      "created": "Etykieta została utworzona!",
+      "failed_to_create": "Nie udało się utworzyć etykiety"
     }
   },
   "layouts": {
@@ -481,7 +667,63 @@
       "title": "Kanał RSS",
       "description": "Włącz kanał RSS dla tej listy",
       "feed_url": "Adres URL kanału RSS"
-    }
+    },
+    "delete_list": {
+      "title": "Usuń listę",
+      "description": "Usunięcie listy nie powoduje usunięcia żadnych zakładek z tej listy.",
+      "delete_children": "Usuń listy potomne (rekurencyjnie)",
+      "delete_children_description": "Jeśli nie zaznaczone, wszystkie bezpośrednie listy potomne staną się listami głównymi"
+    },
+    "shared": "Udostępnione",
+    "collaborators": {
+      "manage": "Zarządzaj Współpracownikami",
+      "view": "Wyświetl Współpracowników",
+      "collaborators": "Współpracownicy",
+      "add": "Dodaj Współpracownika",
+      "current": "Aktualni Współpracownicy",
+      "enter_email": "Wprowadź adres e-mail",
+      "please_enter_email": "Wprowadź adres e-mail.",
+      "added_successfully": "Współpracownik został dodany pomyślnie",
+      "failed_to_add": "Nie udało się dodać współpracownika",
+      "removed": "Współpracownik usunięty",
+      "failed_to_remove": "Nie udało się usunąć współpracownika",
+      "role_updated": "Rola zaktualizowana",
+      "failed_to_update_role": "Nie udało się zaktualizować roli",
+      "viewer": "Przeglądający",
+      "editor": "Edytor",
+      "owner": "Właściciel",
+      "viewer_description": "Może wyświetlać zakładki na liście",
+      "editor_description": "Może dodawać i usuwać zakładki",
+      "no_collaborators": "Jeszcze nie ma żadnych współpracowników. Dodaj kogoś, aby rozpocząć współpracę!",
+      "no_collaborators_readonly": "Brak współpracowników dla tej listy.",
+      "people_with_access": "Osoby, które mają dostęp do tej listy",
+      "add_or_remove": "Dodaj lub usuń osoby, które mogą uzyskać dostęp do tej listy",
+      "invitation_sent": "Zaproszenie wysłane, ziom!",
+      "invitation_revoked": "Cofnięto zaproszenie",
+      "failed_to_revoke": "Nie udało się cofnąć zaproszenia",
+      "pending": "Oczekuje",
+      "revoke": "Cofnij",
+      "declined": "Odrzucone"
+    },
+    "leave_list": {
+      "title": "Opuść listę",
+      "confirm_message": "Na pewno chcesz opuścić {{icon}} {{name}}?",
+      "warning": "Nie będziesz już mógł przeglądać ani uzyskiwać dostępu do zakładek na tej liście. Właściciel listy może Cię ponownie dodać w razie potrzeby.",
+      "action": "Opuść listę",
+      "success": "Opuściłeś \"{{icon}} {{name}}\""
+    },
+    "invitations": {
+      "pending": "Zaproszenia oczekujące",
+      "description": "Sprawdź i odpowiedz na zaproszenia do współpracy na listach",
+      "invited_by": "Zaprosił(-a) przez",
+      "accept": "Akceptuj",
+      "decline": "Odrzuć",
+      "accepted": "Zaproszenie zaakceptowane",
+      "declined": "Zaproszenie odrzucone",
+      "failed_to_accept": "Nie udało się zaakceptować zaproszenia",
+      "failed_to_decline": "Nie udało się odrzucić zaproszenia"
+    },
+    "shared_lists": "Listy współdzielone"
   },
   "preview": {
     "view_original": "Zobacz oryginał",
@@ -531,7 +773,9 @@
     "week_s_ago": " Tygodni temu",
     "month_s_ago": " Miesięcy temu",
     "year_s_ago": " Lat(a) temu",
-    "history": "Ostatnie wyszukiwania"
+    "history": "Ostatnie wyszukiwania",
+    "title_contains": "Tytuł zawiera",
+    "title_does_not_contain": "Tytuł nie zawiera"
   },
   "dialogs": {
     "bookmarks": {
@@ -554,5 +798,27 @@
     "pick_a_date": "Wybierz datę",
     "save_changes": "Zapisz zmiany",
     "extracted_content": "Wyodrębniona zawartość"
+  },
+  "view_options": {
+    "title": "Opcje widoku",
+    "layout": "Układ",
+    "columns": "Kolumny",
+    "display_options": "Opcje wyświetlania",
+    "show_note_previews": "Pokaż notatki",
+    "show_tags": "Pokaż tagi",
+    "show_title": "Pokaż tytuł",
+    "image_options": "Opcje obrazu",
+    "image_fit_cover": "Okładka (Wypełnienie)",
+    "image_fit_contain": "Zawieraj (Dopasuj)"
+  },
+  "version": {
+    "new_release_available": "Dostępne nowe informacje o wydaniu",
+    "whats_new_title": "Co nowego w wersji {{version}}",
+    "release_notes_description": "Oto najnowsze aktualizacje pobrane z informacji o wydaniu GitHub.",
+    "loading_release_notes": "Ładowanie informacji o wydaniu…",
+    "unable_to_load_release_notes": "Nie można teraz załadować informacji o wydaniu. Spróbuj ponownie później.",
+    "no_release_notes": "Dla tej wersji nie opublikowano żadnych informacji o wydaniu.",
+    "release_notes_synced": "Informacje o wydaniu są synchronizowane z GitHub.",
+    "view_on_github": "Wyświetl na GitHub"
   }
 }

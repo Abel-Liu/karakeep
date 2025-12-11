@@ -1,16 +1,17 @@
 import { and, eq, inArray } from "drizzle-orm";
-import { DequeuedJob, Runner } from "liteque";
 import { workerStatsCounter } from "metrics";
+import { fetchWithProxy } from "network";
 import cron from "node-cron";
 import Parser from "rss-parser";
 import { buildImpersonatingTRPCClient } from "trpc";
 import { z } from "zod";
 
-import type { ZFeedRequestSchema } from "@karakeep/shared/queues";
+import type { ZFeedRequestSchema } from "@karakeep/shared-server";
 import { db } from "@karakeep/db";
 import { rssFeedImportsTable, rssFeedsTable } from "@karakeep/db/schema";
+import { FeedQueue, QuotaService } from "@karakeep/shared-server";
 import logger from "@karakeep/shared/logger";
-import { FeedQueue } from "@karakeep/shared/queues";
+import { DequeuedJob, getQueueClient } from "@karakeep/shared/queueing";
 import { BookmarkTypes } from "@karakeep/shared/types/bookmarks";
 
 export const FeedRefreshingWorker = cron.schedule(
@@ -21,17 +22,24 @@ export const FeedRefreshingWorker = cron.schedule(
       .findMany({
         columns: {
           id: true,
+          userId: true,
         },
         where: eq(rssFeedsTable.enabled, true),
       })
       .then((feeds) => {
+        const currentHour = new Date();
+        currentHour.setMinutes(0, 0, 0);
+        const hourlyWindow = currentHour.toISOString();
+
         for (const feed of feeds) {
+          const idempotencyKey = `${feed.id}-${hourlyWindow}`;
           FeedQueue.enqueue(
             {
               feedId: feed.id,
             },
             {
-              idempotencyKey: feed.id,
+              idempotencyKey,
+              groupId: feed.userId,
             },
           );
         }
@@ -44,9 +52,9 @@ export const FeedRefreshingWorker = cron.schedule(
 );
 
 export class FeedWorker {
-  static build() {
+  static async build() {
     logger.info("Starting feed worker ...");
-    const worker = new Runner<ZFeedRequestSchema>(
+    const worker = (await getQueueClient())!.createRunner<ZFeedRequestSchema>(
       FeedQueue,
       {
         run: run,
@@ -61,6 +69,9 @@ export class FeedWorker {
         },
         onError: async (job) => {
           workerStatsCounter.labels("feed", "failed").inc();
+          if (job.numRetriesLeft == 0) {
+            workerStatsCounter.labels("feed", "failed_permanent").inc();
+          }
           const jobId = job.id;
           logger.error(
             `[feed][${jobId}] Feed fetch job failed: ${job.error}\n${job.error.stack}`,
@@ -94,11 +105,23 @@ async function run(req: DequeuedJob<ZFeedRequestSchema>) {
       `[feed][${jobId}] Feed with id ${req.data.feedId} not found`,
     );
   }
+
+  // If the user doesn't have bookmark quota, don't bother with fetching the feed
+  {
+    const quotaResult = await QuotaService.canCreateBookmark(db, feed.userId);
+    if (!quotaResult.result) {
+      logger.debug(
+        `[feed][${jobId}] User ${feed.userId} doesn't have enough quota to create bookmarks. Skipping feed fetching.`,
+      );
+      return;
+    }
+  }
+
   logger.info(
     `[feed][${jobId}] Starting fetching feed "${feed.name}" (${feed.id}) ...`,
   );
 
-  const response = await fetch(feed.url, {
+  const response = await fetchWithProxy(feed.url, {
     signal: AbortSignal.timeout(5000),
     headers: {
       UserAgent:
@@ -136,6 +159,8 @@ async function run(req: DequeuedJob<ZFeedRequestSchema>) {
     id: z.coerce.string(),
     link: z.string().optional(),
     guid: z.string().optional(),
+    title: z.string().optional(),
+    categories: z.array(z.string()).optional(),
   });
 
   const feedItems = unparseFeedData.items
@@ -191,9 +216,37 @@ async function run(req: DequeuedJob<ZFeedRequestSchema>) {
       trpcClient.bookmarks.createBookmark({
         type: BookmarkTypes.LINK,
         url: item.link!,
+        title: item.title,
+        source: "rss",
       }),
     ),
   );
+
+  // If importTags is enabled, attach categories as tags to the created bookmarks
+  if (feed.importTags) {
+    await Promise.allSettled(
+      newEntries.map(async (item, idx) => {
+        const bookmark = createdBookmarks[idx];
+        if (
+          bookmark.status === "fulfilled" &&
+          item.categories &&
+          item.categories.length > 0
+        ) {
+          try {
+            await trpcClient.bookmarks.updateTags({
+              bookmarkId: bookmark.value.id,
+              attach: item.categories.map((tagName) => ({ tagName })),
+              detach: [],
+            });
+          } catch (error) {
+            logger.warn(
+              `[feed][${jobId}] Failed to attach tags to bookmark ${bookmark.value.id}: ${error}`,
+            );
+          }
+        }
+      }),
+    );
+  }
 
   // It's ok if this is not transactional as the bookmarks will get linked in the next iteration.
   await db

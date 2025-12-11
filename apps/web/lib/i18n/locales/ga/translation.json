@@ -80,7 +80,11 @@
       "relevant_first": "Is ábhartha ar dtús",
       "newest_first": "Is Nuaí ar dtús",
       "oldest_first": "Is Sine ar dtús"
-    }
+    },
+    "confirm": "Deimhnigh",
+    "regenerate": "Athghinigh",
+    "load_more": "Luchtaigh Níos Mó",
+    "edit_notes": "Nótaí a Chur in Eagar"
   },
   "settings": {
     "ai": {
@@ -119,7 +123,12 @@
       "api_keys": "Eochracha API",
       "new_api_key_desc": "Tabhair ainm uathúil do d'eochair API",
       "key_success": "Cruthaíodh an eochair go rathúil",
-      "key_success_please_copy": "Cóipeáil an eochair agus stóráil in áit shábháilte é. Nuair a dhúnann tú an dialóg, ní bheidh tú in ann rochtain a fháil air arís."
+      "key_success_please_copy": "Cóipeáil an eochair agus stóráil in áit shábháilte é. Nuair a dhúnann tú an dialóg, ní bheidh tú in ann rochtain a fháil air arís.",
+      "regenerate_api_key": "Eochair API a Athghiniúint",
+      "key_regenerated": "Athghineadh an eochair go rathúil",
+      "key_regenerated_please_copy": "Cóipeáil an eochair nua agus stóráil in áit shábháilte é, le do thoil. Tá an tseaneochair tarraingthe siar agus ní oibreoidh sí a thuilleadh.",
+      "regenerate_warning": "An bhfuil tú cinnte gur mhaith leat an eochair API \"{{name}}\" a athghiniúint?",
+      "regenerate_confirmation": "Tarraingeoidh sé seo siar an eochair reatha agus ginfear ceann nua. Stadfaidh aon fheidhmchláir a úsáideann an eochair reatha ag obair."
     },
     "manage_assets": {
       "asset_link": "Nasc Sócmhainne",
@@ -219,7 +228,8 @@
       "import_bookmarks_from_karakeep_export": "Iompórtáil Leabharmharcanna ó onnmhairiú Karakeep",
       "import_bookmarks_from_tab_session_manager_export": "Iompórtáil Leabhair Mharcála ó Bhainisteoir Seisiúin Cluaisíní",
       "export_links_and_notes": "Easpórtáil Naisc agus Nótaí",
-      "imported_bookmarks": "Leabharmharcanna Allmhairithe"
+      "imported_bookmarks": "Leabharmharcanna Allmhairithe",
+      "import_bookmarks_from_mymind_export": "Iompórtáil Leabharmharcanna ó onnmhairiú mymind"
     },
     "broken_links": {
       "broken_links": "Naisc Bhriste",
@@ -275,6 +285,10 @@
       },
       "storage_breakdown": {
         "title": "Miondealú Stórála"
+      },
+      "bookmark_sources": {
+        "title": "Foinseacha Leabhar Marcanna",
+        "empty": "Níl aon sonraí foinse ar fáil"
       }
     },
     "subscription": {
@@ -297,6 +311,82 @@
       "loading_usage": "Ag lódáil faisnéise úsáide...",
       "free": "Saor in aisce",
       "paid": "Íoctha"
+    },
+    "import_sessions": {
+      "title": "Seisiúin Iompórtála",
+      "load_error": "Theip ar na seisiúin allmhairithe a lódáil",
+      "no_sessions": "Gan aon seisiúin allmhairithe fós",
+      "no_sessions_detail": "Beidh seisiúin allmhairithe le feiceáil anseo go huathoibríoch nuair a allmhairíonn tú leabharmharcanna",
+      "created_at": "Cruthaithe {{time}}",
+      "progress": "Dul Chun Cinn",
+      "status": {
+        "pending": "Ar feitheamh",
+        "in_progress": "Ar siúl",
+        "completed": "Críochnaithe",
+        "failed": "Theip air",
+        "processing": "Próiseáil"
+      },
+      "badges": {
+        "pending": "{{count}} ar feitheamh",
+        "processing": "{{count}} phróiseáil",
+        "completed": "{{count}} críochnaithe",
+        "failed": "Theip ar {{count}}"
+      },
+      "imported_to": "Iompórtáilte chuig:",
+      "view_list": "Féach ar an Liosta",
+      "delete_dialog_title": "Scrios Seisiún Iompórtála",
+      "delete_dialog_description": "An bhfuil tú cinnte gur mian leat \"{{name}}\" a scriosadh? Ní féidir an gníomh seo a chealú. Ní scriosfar na leabharmharcanna féin.",
+      "delete_session": "Scrios Seisiún",
+      "description": "Féach ar do sheisiúin allmhairithe mórchóir agus bainistigh iad. Cruthaítear seisiúin go huathoibríoch nuair a allmhairíonn tú leabharmharcanna."
+    },
+    "backups": {
+      "backups": "Cúltaca",
+      "page_title": "Cúltaca",
+      "page_description": "Cruthaigh agus bainistigh cúltacaí de do leabharmharcanna go huathoibríoch. Déantar cúltacaí a chomhbhrú agus a stóráil go daingean.",
+      "configuration": {
+        "title": "Cumraíocht Cúltaca",
+        "enable_automatic_backups": "Cumasaigh Cúltacaí Uathoibríocha",
+        "enable_automatic_backups_description": "Cruthaigh cúltacaí de do leabharmharcanna go huathoibríoch",
+        "backup_frequency": "Minicíocht Cúltacaí",
+        "backup_frequency_description": "Cé chomh minic ba chóir cúltacaí a chruthú",
+        "retention_period": "Tréimhse Coinneála (laethanta)",
+        "retention_period_description": "Cé mhéad lá a choinnítear cúltacaí sula scriostar iad",
+        "frequency": {
+          "daily": "Go laethúil",
+          "weekly": "Go seachtainiúil"
+        },
+        "select_frequency": "Roghnaigh minicíocht",
+        "save_settings": "Sábháil Socruithe"
+      },
+      "list": {
+        "title": "Do Chúltacaí",
+        "create_backup_now": "Cruthaigh Cúltaca Anois",
+        "no_backups": "Níl aon chúltacaí agat fós. Cumasaigh cúltacaí uathoibríocha nó cruthaigh ceann de láimh.",
+        "table": {
+          "created_at": "Cruthaithe Ag",
+          "bookmarks": "Leabharmharcanna",
+          "size": "Méid",
+          "status": "Stádas",
+          "actions": "Gníomhartha"
+        },
+        "status": {
+          "success": "Rath",
+          "failed": "Theip",
+          "pending": "Ar feitheamh"
+        },
+        "actions": {
+          "download_backup": "Íoslódáil Cúltaca",
+          "delete_backup": "Scrios Cúltaca"
+        }
+      },
+      "dialogs": {
+        "delete_backup_title": "Scrios an Cúltaca?",
+        "delete_backup_description": "An bhfuil tú cinnte gur mhaith leat an cóip chúltaca seo a scriosadh? Ní féidir an gníomh seo a chealú."
+      },
+      "toasts": {
+        "backup_queued": "Cuireadh an post cúltaca sa phróca! Déanfar é a phróiseáil go luath.",
+        "backup_deleted": "Scriosadh an cúltaca!"
+      }
     }
   },
   "lists": {
@@ -327,7 +417,63 @@
       "title": "Liosta Poiblí",
       "description": "Lig do dhaoine eile an liosta seo a fheiceáil",
       "share_link": "Nasc Comhroinnte"
-    }
+    },
+    "delete_list": {
+      "title": "Scrios Liosta",
+      "description": "Ní scriosann liosta a scriosadh aon leabharmharcanna sa liosta sin.",
+      "delete_children": "Scrios liostaí leanaí (go hathchúrsach)",
+      "delete_children_description": "Mura bhfuil an bosca seo ticáilte, beidh gach liosta díreach leanaí ina liostaí fréimhe"
+    },
+    "shared": "Roinnte",
+    "collaborators": {
+      "manage": "Bainistigh Comhoibritheoirí",
+      "view": "Féach ar Chomhoibritheoirí",
+      "collaborators": "Comhoibritheoirí",
+      "add": "Cuir Comhoibritheoir leis",
+      "current": "Comhoibritheoirí Reatha",
+      "enter_email": "Cuir isteach seoladh ríomhphoist",
+      "please_enter_email": "Cuir isteach seoladh ríomhphoist, le do thoil",
+      "added_successfully": "Comhoibritheoir curtha leis go rathúil",
+      "failed_to_add": "Theip ar an gcomhoibritheoir a chur leis",
+      "removed": "Comhoibritheoir bainte",
+      "failed_to_remove": "Theip ar an gcomhoibritheoir a bhaint",
+      "role_updated": "Ról nuashonraithe",
+      "failed_to_update_role": "Theip ar an ról a nuashonrú",
+      "viewer": "Breathnóir",
+      "editor": "Eagarthóir",
+      "owner": "Úinéir",
+      "viewer_description": "Is féidir leabharmharcanna a fheiceáil sa liosta",
+      "editor_description": "Is féidir leabharmharcanna a chur leis agus a bhaint",
+      "no_collaborators": "Níl aon chomhoibritheoirí ann fós. Cuir duine leis chun comhoibriú a thosú!",
+      "no_collaborators_readonly": "Níl aon chomhoibritheoirí don liosta seo.",
+      "people_with_access": "Daoine a bhfuil rochtain acu ar an liosta seo",
+      "add_or_remove": "Cuir daoine leis nó bain daoine ar féidir leo rochtain a fháil ar an liosta seo",
+      "invitation_sent": "Cuireadh seolta go rathúil",
+      "invitation_revoked": "Cuireadh ar ceal",
+      "failed_to_revoke": "Theip ar an gcuireadh a chur ar ceal",
+      "pending": "Ar feitheamh",
+      "revoke": "Cuir ar ceal",
+      "declined": "Diúltaithe"
+    },
+    "leave_list": {
+      "title": "Fág Liosta",
+      "confirm_message": "An bhfuil tú cinnte gur mhaith leat {{icon}} {{name}} a fhágáil?",
+      "warning": "Ní bheidh tú in ann cluaisíní a fheiceáil nó rochtain a fháil orthu sa liosta seo a thuilleadh. Is féidir le húinéir an liosta tú a chur ar ais leis más gá.",
+      "action": "Fág Liosta",
+      "success": "D'fhág tú \"{{icon}} {{name}}\""
+    },
+    "invitations": {
+      "pending": "Cuirí ar Feitheamh",
+      "description": "Athbhreithnigh agus freagair cuireadh comhoibrithe liosta",
+      "invited_by": "Ar cuireadh ar aghaidh ag",
+      "accept": "Glac leis",
+      "decline": "Diúltaigh",
+      "accepted": "Glactha leis an gcuireadh",
+      "declined": "Diúltaíodh don chuireadh",
+      "failed_to_accept": "Theip ar ghlacadh leis an gcuireadh",
+      "failed_to_decline": "Theip ar dhiúltú don chuireadh"
+    },
+    "shared_lists": "Liostaí Comhroinnte"
   },
   "tags": {
     "unused_tags": "Clibeanna Neamhúsáidte",
@@ -340,7 +486,18 @@
     "all_tags": "Gach Clib",
     "your_tags_info": "Clibeanna a bhí ceangailte uair amháin ar a laghad agat",
     "ai_tags": "Clibeanna AI",
-    "drag_and_drop_merging_info": "Tarraing agus scaoil clibeanna ar a chéile chun iad a chumasc"
+    "drag_and_drop_merging_info": "Tarraing agus scaoil clibeanna ar a chéile chun iad a chumasc",
+    "create_tag": "Cruthaigh Clib",
+    "create_tag_description": "Cruthaigh clib nua gan é a cheangal le haon leabharmharc",
+    "tag_name": "Ainm an Chlib",
+    "enter_tag_name": "Cuir isteach ainm an chlib",
+    "sort_by_usage": "Sórtáil de réir Úsáide",
+    "sort_by_relevance": "Sórtáil de réir Ábharthachta",
+    "no_custom_tags": "Níl aon chlibeanna saincheaptha agat fós",
+    "no_ai_tags": "Níl aon chlibeanna AI agat fós",
+    "no_unused_tags": "Níl aon chlibeanna neamhúsáidte agat",
+    "no_unused_tags_match_your_search": "Ní fhreagraíonn aon chlibeanna neamhúsáidte d’inneall cuardaigh duit",
+    "no_tags_match_your_search": "Ní fhreagraíonn aon chlibeanna d’inneall cuardaigh duit"
   },
   "search": {
     "is_favorited": "Is Fearr",
@@ -378,7 +535,9 @@
     "is_not_from_feed": "Níl sé ó Fhotha RSS",
     "and": "Agus",
     "or": "Nó",
-    "history": "Cuardaigh Déanaí"
+    "history": "Cuardaigh Déanaí",
+    "title_contains": "Tá Teideal I Láthair",
+    "title_does_not_contain": "Níl Teideal I Láthair"
   },
   "editor": {
     "disabled_submissions": "Tá aighneachtaí díchumasaithe",
@@ -453,6 +612,10 @@
       "updated": "Tá an liosta nuashonraithe!",
       "merged": "Tá an liosta cumaisc!",
       "deleted": "Scriosadh an liosta!"
+    },
+    "tags": {
+      "created": "Tá an clib cruthaithe!",
+      "failed_to_create": "Theip ar chlib a chruthú"
     }
   },
   "admin": {
@@ -475,7 +638,76 @@
       "job": "Post",
       "queued": "Ar feitheamh",
       "pending": "Ar feitheamh",
-      "failed": "Theip air"
+      "failed": "Theip air",
+      "jobs": {
+        "crawler": {
+          "title": "Poist Chrawlóirí",
+          "description": "Crawl gréasáin agus eastóscadh ábhair ó URLanna"
+        },
+        "inference": {
+          "title": "Poist Inferrerachta",
+          "description": "Clibeáil ábhar le hintleacht shaorga agus achoimriúchán"
+        },
+        "indexing": {
+          "title": "Poist Innéacsaithe",
+          "description": "Nuashonruithe ar innéacs cuardaigh"
+        },
+        "asset_preprocessing": {
+          "title": "Poist Réamhphróiseála Sócmhainní",
+          "description": "Réamhphróiseáil íomhánna agus doiciméad (scáileáin scáileáin, eastóscadh téacs, etc.)"
+        },
+        "tidy_assets": {
+          "title": "Poist Shlachtaithe Sócmhainní",
+          "description": "Glanadh sócmhainní agus barrfheabhsú stórála"
+        },
+        "video": {
+          "title": "Poist Íoslódála Físe",
+          "description": "Eastóscadh agus íoslódáil físe"
+        },
+        "webhook": {
+          "title": "Poist Ghréasáin",
+          "description": "Fógraí gréasáin seachtracha"
+        },
+        "feed": {
+          "title": "Poist Fotha RSS",
+          "description": "Próiseáil fotha RSS agus nuashonruithe ábhair"
+        },
+        "admin_maintenance": {
+          "title": "Tascanna Cothabhála Riaracháin",
+          "description": "Glanadh riaracháin agus cothabháil sócmhainní"
+        }
+      },
+      "monitor_and_manage": "Déan monatóireacht agus bainistigh scuainí post cúlra agus tascanna próiseála córais",
+      "active": "Gníomhach",
+      "available_actions": "Gníomhartha ar Fáil",
+      "status": {
+        "title": "Tuiscint ar Stáit Phóist",
+        "queued": {
+          "title": "Sa scuaine",
+          "description": "Poist atá ag fanacht sa scuaine le próiseáil. Tosóidh siad go huathoibríoch nuair a bheidh acmhainní ar fáil."
+        },
+        "unprocessed": {
+          "title": "Neamhphróiseáilte",
+          "description": "Leabharmharcanna nár próiseáladh go fóill. Is dócha go bhfuil siad sin ar feitheamh cheana féin le próiseáil, mura bhfuil, b'fhéidir go mbeidh ort iad a athsheoladh de láimh."
+        },
+        "failed": {
+          "title": "Theipt orthu",
+          "description": "Leabharmharcanna ar tháinig earráidí orthu le linn na próiseála. B'fhéidir go mbeidh gá le haird láimhe orthu seo."
+        }
+      },
+      "actions": {
+        "recrawl_failed_links_only": "Naisc ar theip orthu amháin a athscríobh",
+        "recrawl_all_links": "Gach nasc a athscríobh",
+        "without_inference": "Gan Inbhearú",
+        "regenerate_ai_tags_for_failed_bookmarks_only": "Clibeanna AI a athghiniúint le haghaidh leabharmharcanna ar theip orthu amháin",
+        "regenerate_ai_tags_for_all_bookmarks": "Clibeanna AI a athghiniúint le haghaidh gach leabharmharc",
+        "regenerate_ai_summaries_for_failed_bookmarks_only": "Achoimrí AI a athghiniúint le haghaidh leabharmharcanna ar theip orthu amháin",
+        "regenerate_ai_summaries_for_all_bookmarks": "Achoimrí AI a athghiniúint le haghaidh gach leabharmharc",
+        "reindex_all_bookmarks": "Gach leabharmharc a athinnéacsú",
+        "clean_assets": "Sócmhainní crochta a ghlanadh & Meiteashonraí a athshioncronú",
+        "reprocess_assets_fix_mode": "Sócmhainní neamhphróiseáilte a athphróiseáil",
+        "migrate_large_link_html_content": "Bog an HTML Mór Inlíne go Sócmhainní"
+      }
     },
     "admin_settings": "Socruithe Riaracháin",
     "actions": {
@@ -502,6 +734,18 @@
       "confirm_password": "Deimhnigh Pasfhocal",
       "delete_user_confirm_description": "An bhfuil tú cinnte gur mhaith leat úsáideoir \"{{name}}\" a scriosadh?",
       "unlimited": "Gan teorainn"
+    },
+    "service_connections": {
+      "title": "Naisc Sheirbhíse",
+      "description": "Déan monatóireacht ar shláinte agus ar nascacht spleáchais córais sheachtraigh",
+      "search_engine": "Inneall Cuardaigh",
+      "browser": "Brabhsálaí",
+      "queue_system": "Córas Scuaine",
+      "status": {
+        "not_configured": "Níl sé Cumraithe",
+        "connected": "Ceangailte",
+        "disconnected": "Dícheangailte"
+      }
     }
   },
   "bookmark_editor": {
@@ -554,5 +798,27 @@
       "title": "Clibeanna Dúblacha",
       "merge_all_suggestions": "An bhfuil tú cinnte gur mhaith leat gach moladh a chumasc?"
     }
+  },
+  "view_options": {
+    "title": "Roghanna Amhairc",
+    "layout": "Leagan Amach",
+    "columns": "Colúin",
+    "display_options": "Roghanna Taispeána",
+    "show_note_previews": "Nótaí a Thaispeáint",
+    "show_tags": "Taispeáin Clibeanna",
+    "show_title": "Taispeáin Teideal",
+    "image_options": "Roghanna Íomhá",
+    "image_fit_cover": "Clúdaigh (Líon)",
+    "image_fit_contain": "Cuimsigh (Oiriúnaigh)"
+  },
+  "version": {
+    "new_release_available": "Nótaí scaoileadh nua ar fáil",
+    "whats_new_title": "Cad atá nua in v{{version}}",
+    "release_notes_description": "Seo na nuashonruithe is déanaí a aimsíodh ó nótaí scaoileadh GitHub.",
+    "loading_release_notes": "Ag luchtú nótaí scaoileadh…",
+    "unable_to_load_release_notes": "Ní féidir nótaí scaoileadh a luchtú faoi láthair. Bain triail as arís níos déanaí.",
+    "no_release_notes": "Níor foilsíodh aon nótaí scaoilte don leagan seo.",
+    "release_notes_synced": "Déantar nótaí scaoilte a shioncronú ó GitHub.",
+    "view_on_github": "Féach ar GitHub"
   }
 }

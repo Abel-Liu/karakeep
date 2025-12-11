@@ -86,7 +86,11 @@
       "relevant_first": "Meest relevant eerst"
     },
     "open_editor": "Editor openen",
-    "toggle_show_archived": "Gearchiveerde items weergeven"
+    "toggle_show_archived": "Gearchiveerde items weergeven",
+    "confirm": "Bevestigen",
+    "regenerate": "Opnieuw genereren",
+    "load_more": "Laad meer",
+    "edit_notes": "Notities bewerken"
   },
   "settings": {
     "ai": {
@@ -112,7 +116,8 @@
       "import_bookmarks_from_linkwarden_export": "Bladwijzers importeren uit Linkwarden-export",
       "import_bookmarks_from_karakeep_export": "Bladwijzers importeren uit Karakeep-export",
       "export_links_and_notes": "Links en notities exporteren",
-      "import_bookmarks_from_tab_session_manager_export": "Bladwijzers importeren uit Tab Session Manager"
+      "import_bookmarks_from_tab_session_manager_export": "Bladwijzers importeren uit Tab Session Manager",
+      "import_bookmarks_from_mymind_export": "Bladwijzers importeren uit mijnmind-export"
     },
     "broken_links": {
       "broken_links": "Gebroken Links",
@@ -125,7 +130,12 @@
       "key_success": "Sleutel werd succesvol aangemaakt",
       "api_keys": "API Sleutels",
       "new_api_key": "Nieuwe API Sleutel",
-      "new_api_key_desc": "Geef je API sleutel een unieke naam"
+      "new_api_key_desc": "Geef je API sleutel een unieke naam",
+      "regenerate_api_key": "API-sleutel opnieuw genereren",
+      "key_regenerated": "Sleutel is succesvol opnieuw gegenereerd",
+      "key_regenerated_please_copy": "Kopieer de nieuwe sleutel en bewaar hem op een veilige plaats. De oude sleutel is ingetrokken en werkt niet meer.",
+      "regenerate_warning": "Weet je zeker dat je de API-sleutel '{{name}}' opnieuw wilt genereren?",
+      "regenerate_confirmation": "Hiermee wordt de huidige sleutel ingetrokken en een nieuwe gegenereerd. Alle applicaties die de huidige sleutel gebruiken, werken niet meer."
     },
     "info": {
       "user_info": "Gebruikersinfo",
@@ -281,6 +291,10 @@
       },
       "storage_breakdown": {
         "title": "Opslagoverzicht"
+      },
+      "bookmark_sources": {
+        "title": "Bookmarkbronnen",
+        "empty": "Geen brongegevens beschikbaar"
       }
     },
     "subscription": {
@@ -303,6 +317,82 @@
       "loading_usage": "Gebruiksinformatie laden...",
       "free": "Gratis",
       "paid": "Betaald"
+    },
+    "import_sessions": {
+      "title": "Sessies importeren",
+      "description": "Bekijk en beheer je bulk import sessies. Sessies worden automatisch aangemaakt wanneer je bladwijzers importeert.",
+      "load_error": "Importeren van sessies mislukt",
+      "no_sessions": "Nog geen import sessies",
+      "no_sessions_detail": "Import sessies verschijnen hier automatisch wanneer je bladwijzers importeert.",
+      "created_at": "Aangemaakt {{time}}",
+      "progress": "Voortgang",
+      "status": {
+        "pending": "In behandeling",
+        "in_progress": "Bezig",
+        "completed": "Voltooid",
+        "failed": "Mislukt",
+        "processing": "Verwerken"
+      },
+      "badges": {
+        "pending": "{{count}} in behandeling",
+        "processing": "{{count}} bezig",
+        "completed": "{{count}} voltooid",
+        "failed": "{{count}} mislukt"
+      },
+      "imported_to": "Geïmporteerd naar:",
+      "view_list": "Lijst bekijken",
+      "delete_dialog_title": "Importsessie verwijderen",
+      "delete_dialog_description": "Weet je zeker dat je “{{name}}” wilt verwijderen? Dit kan niet ongedaan worden gemaakt. De bladwijzers zelf worden niet verwijderd.",
+      "delete_session": "Sessie verwijderen"
+    },
+    "backups": {
+      "backups": "Back-ups",
+      "page_title": "Back-ups",
+      "page_description": "Maak automatisch back-ups van je bladwijzers en beheer ze. Back-ups worden gecomprimeerd en veilig opgeslagen.",
+      "configuration": {
+        "title": "Back-up configuratie",
+        "enable_automatic_backups": "Automatische back-ups inschakelen",
+        "enable_automatic_backups_description": "Maak automatisch back-ups van je bladwijzers",
+        "backup_frequency": "Back-up frequentie",
+        "backup_frequency_description": "Hoe vaak back-ups moeten worden gemaakt",
+        "retention_period": "Bewaarperiode (dagen)",
+        "retention_period_description": "Hoeveel dagen back-ups moeten worden bewaard voordat ze worden verwijderd",
+        "frequency": {
+          "daily": "Dagelijks",
+          "weekly": "Wekelijks"
+        },
+        "select_frequency": "Selecteer frequentie",
+        "save_settings": "Instellingen opslaan"
+      },
+      "list": {
+        "title": "Jouw back-ups",
+        "create_backup_now": "Nu een back-up maken",
+        "no_backups": "Je hebt nog geen back-ups. Schakel automatische back-ups in of maak er handmatig een.",
+        "table": {
+          "created_at": "Gemaakt op",
+          "bookmarks": "Bladwijzers",
+          "size": "Grootte",
+          "status": "Status",
+          "actions": "Acties"
+        },
+        "status": {
+          "success": "Gelukt",
+          "failed": "Mislukt",
+          "pending": "In behandeling"
+        },
+        "actions": {
+          "download_backup": "Backup downloaden",
+          "delete_backup": "Back-up verwijderen"
+        }
+      },
+      "dialogs": {
+        "delete_backup_title": "Back-up verwijderen?",
+        "delete_backup_description": "Weet je zeker dat je deze back-up wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt."
+      },
+      "toasts": {
+        "backup_queued": "Back-uptaak is in de wachtrij geplaatst! Het wordt binnenkort verwerkt.",
+        "backup_deleted": "Back-up is verwijderd!"
+      }
     }
   },
   "admin": {
@@ -325,7 +415,76 @@
       "job": "Taak",
       "video_jobs": "Taken voor het downloaden van video's",
       "webhook_jobs": "Webhook-taken",
-      "feed_jobs": "RSS-feedtaken"
+      "feed_jobs": "RSS-feedtaken",
+      "jobs": {
+        "crawler": {
+          "title": "Crawler Jobs",
+          "description": "Webcrawling en contentextractie van URL's"
+        },
+        "inference": {
+          "title": "Inference Jobs",
+          "description": "AI-gestuurde tagging en samenvatting van content"
+        },
+        "indexing": {
+          "title": "Indexing Jobs",
+          "description": "Zoekindexupdates"
+        },
+        "asset_preprocessing": {
+          "title": "Asset Preprocessing Jobs",
+          "description": "Voorbewerking van afbeeldingen en documenten (screenshots, tekstuitlezing, enz.)"
+        },
+        "tidy_assets": {
+          "title": "Tidy Assets Jobs",
+          "description": "Asset opschonen en opslagoptimalisatie"
+        },
+        "video": {
+          "title": "Video Download Jobs",
+          "description": "Video-extractie en download"
+        },
+        "webhook": {
+          "title": "Webhook Jobs",
+          "description": "Externe webhooknotificaties"
+        },
+        "feed": {
+          "title": "RSS Feed Jobs",
+          "description": "RSS-feedverwerking en contentupdates"
+        },
+        "admin_maintenance": {
+          "title": "Admin onderhoudstaken",
+          "description": "Administratieve opschoon en asset onderhoud"
+        }
+      },
+      "monitor_and_manage": "Monitor en beheer achtergrondtaakwachtrijen en systeemverwerkingstaken",
+      "active": "Actief",
+      "available_actions": "Beschikbare acties",
+      "status": {
+        "title": "Inzicht in taakstatussen",
+        "queued": {
+          "title": "In de wachtrij",
+          "description": "Taken die in de wachtrij staan om verwerkt te worden. Ze starten automatisch wanneer er resources beschikbaar zijn."
+        },
+        "unprocessed": {
+          "title": "Niet verwerkt",
+          "description": "Bladwijzers die nog niet zijn verwerkt. Ze staan hoogstwaarschijnlijk al in de wachtrij voor verwerking, zo niet, dan moet je ze mogelijk handmatig opnieuw in de wachtrij plaatsen."
+        },
+        "failed": {
+          "title": "Mislukt",
+          "description": "Bladwijzers die fouten hebben ondervonden tijdens de verwerking. Deze hebben mogelijk handmatige aandacht nodig."
+        }
+      },
+      "actions": {
+        "recrawl_failed_links_only": "Alleen mislukte links opnieuw crawlen",
+        "recrawl_all_links": "Alle links opnieuw crawlen",
+        "without_inference": "Zonder gevolgtrekking",
+        "regenerate_ai_tags_for_failed_bookmarks_only": "Alleen AI-tags voor mislukte bladwijzers opnieuw genereren",
+        "regenerate_ai_tags_for_all_bookmarks": "AI-tags voor alle bladwijzers opnieuw genereren",
+        "regenerate_ai_summaries_for_failed_bookmarks_only": "Alleen AI-samenvattingen voor mislukte bladwijzers opnieuw genereren",
+        "regenerate_ai_summaries_for_all_bookmarks": "AI-samenvattingen voor alle bladwijzers opnieuw genereren",
+        "reindex_all_bookmarks": "Alle bladwijzers opnieuw indexeren",
+        "clean_assets": "Zwerfbestanden opschonen en metadata opnieuw synchroniseren",
+        "reprocess_assets_fix_mode": "Niet-verwerkte bestanden opnieuw verwerken",
+        "migrate_large_link_html_content": "Verplaats grote inline HTML-content naar assets."
+      }
     },
     "users_list": {
       "users_list": "Gebruikerslijst",
@@ -352,6 +511,18 @@
       "reindex_all_bookmarks": "Alle bladwijzers opnieuw indexeren",
       "regenerate_ai_summaries_for_failed_bookmarks_only": "AI-samenvattingen opnieuw genereren, alleen voor mislukte bladwijzers",
       "regenerate_ai_summaries_for_all_bookmarks": "AI-samenvattingen opnieuw genereren voor alle bladwijzers"
+    },
+    "service_connections": {
+      "title": "Serviceverbindingen",
+      "description": "Bewaak de gezondheid en connectiviteit van externe systeemafhankelijkheden",
+      "search_engine": "Zoekmachine",
+      "browser": "Browser",
+      "queue_system": "Wachtsysteem",
+      "status": {
+        "not_configured": "Niet geconfigureerd",
+        "connected": "Verbonden",
+        "disconnected": "Niet verbonden"
+      }
     }
   },
   "tags": {
@@ -365,7 +536,18 @@
     "unused_tags": "Ongebruikte Labels",
     "drag_and_drop_merging_info": "Sleep labels naar elkaar toe om ze samen te voegen",
     "unused_tags_info": "Labels die niet toegekend zijn aan een bladwijzer",
-    "delete_all_unused_tags": "Verwijder Alle Ongebruikte Labels"
+    "delete_all_unused_tags": "Verwijder Alle Ongebruikte Labels",
+    "create_tag": "Tag aanmaken",
+    "create_tag_description": "Maak een nieuwe tag aan zonder deze aan een bladwijzer te koppelen",
+    "tag_name": "Tagnaam",
+    "enter_tag_name": "Voer de tagnaam in",
+    "sort_by_usage": "Sorteer op gebruik",
+    "sort_by_relevance": "Sorteer op relevantie",
+    "no_custom_tags": "Nog geen aangepaste tags",
+    "no_ai_tags": "Nog geen AI-tags",
+    "no_unused_tags": "Je hebt geen ongebruikte tags",
+    "no_unused_tags_match_your_search": "Geen ongebruikte tags komen overeen met je zoekopdracht",
+    "no_tags_match_your_search": "Geen tags komen overeen met je zoekopdracht"
   },
   "preview": {
     "view_original": "Toon origineel",
@@ -467,7 +649,63 @@
       "title": "RSS-feed",
       "description": "Een RSS-feed inschakelen voor deze lijst",
       "feed_url": "RSS-feed URL"
-    }
+    },
+    "delete_list": {
+      "title": "Lijst verwijderen",
+      "description": "Het verwijderen van een lijst verwijdert geen bladwijzers in die lijst.",
+      "delete_children": "Verwijder kinderlijsten (recursief)",
+      "delete_children_description": "Indien niet aangevinkt, worden alle directe kinderlijsten rootlijsten"
+    },
+    "shared": "Gedeeld",
+    "collaborators": {
+      "manage": "Medewerkers beheren",
+      "view": "Medewerkers bekijken",
+      "collaborators": "Medewerkers",
+      "add": "Medewerker toevoegen",
+      "current": "Huidige medewerkers",
+      "enter_email": "E-mailadres invoeren",
+      "please_enter_email": "Voer een e-mailadres in",
+      "added_successfully": "Medewerker succesvol toegevoegd",
+      "failed_to_add": "Kon medewerker niet toevoegen",
+      "removed": "Medewerker verwijderd",
+      "failed_to_remove": "Kon medewerker niet verwijderen",
+      "role_updated": "Rol bijgewerkt",
+      "failed_to_update_role": "Kon rol niet bijwerken",
+      "viewer": "Viewer",
+      "editor": "Editor",
+      "owner": "Eigenaar",
+      "viewer_description": "Kan bladwijzers in de lijst bekijken",
+      "editor_description": "Kan bladwijzers toevoegen en verwijderen",
+      "no_collaborators": "Nog geen medewerkers. Voeg iemand toe om te beginnen met samenwerken!",
+      "no_collaborators_readonly": "Geen medegebruikers voor deze lijst.",
+      "people_with_access": "Mensen die toegang hebben tot deze lijst",
+      "add_or_remove": "Mensen toevoegen of verwijderen die toegang hebben tot deze lijst",
+      "invitation_sent": "Uitnodiging succesvol verstuurd",
+      "invitation_revoked": "Uitnodiging ingetrokken",
+      "failed_to_revoke": "Kon uitnodiging niet intrekken",
+      "pending": "In behandeling",
+      "revoke": "Intrekken",
+      "declined": "Afgewezen"
+    },
+    "leave_list": {
+      "title": "Lijst verlaten",
+      "confirm_message": "Weet je zeker dat je {{icon}} {{name}} wilt verlaten?",
+      "warning": "Je kunt geen bladwijzers meer bekijken of openen in deze lijst. De eigenaar van de lijst kan je indien nodig weer toevoegen.",
+      "action": "Lijst verlaten",
+      "success": "Je hebt \"{{icon}} {{name}}\" verlaten"
+    },
+    "invitations": {
+      "pending": "Openstaande uitnodigingen",
+      "description": "Bekijk en beantwoord uitnodigingen voor samenwerking in lijsten",
+      "invited_by": "Uitgenodigd door",
+      "accept": "Accepteren",
+      "decline": "Weigeren",
+      "accepted": "Uitnodiging geaccepteerd",
+      "declined": "Uitnodiging geweigerd",
+      "failed_to_accept": "Kon uitnodiging niet accepteren",
+      "failed_to_decline": "Kon uitnodiging niet weigeren"
+    },
+    "shared_lists": "Gedeelde lijsten"
   },
   "search": {
     "full_text_search": "Volledige tekst zoeken",
@@ -505,7 +743,9 @@
     "week_s_ago": " Weken geleden",
     "month_s_ago": " Maanden geleden",
     "year_s_ago": " Jaar geleden",
-    "history": "Recente zoekopdrachten"
+    "history": "Recente zoekopdrachten",
+    "title_contains": "Titel bevat",
+    "title_does_not_contain": "Titel bevat niet"
   },
   "dialogs": {
     "bookmarks": {
@@ -527,6 +767,10 @@
       "created": "Lijst is aangemaakt!",
       "merged": "Lijst is samengevoegd!",
       "deleted": "Lijst is verwijderd!"
+    },
+    "tags": {
+      "created": "Tag is aangemaakt!",
+      "failed_to_create": "Kon tag niet aanmaken"
     }
   },
   "cleanups": {
@@ -554,5 +798,27 @@
       "title": "Nog geen bladwijzers",
       "description": "Sla interessante artikelen, links en pagina's op om ze later snel te kunnen openen."
     }
+  },
+  "view_options": {
+    "title": "Weergaveopties",
+    "layout": "Lay-out",
+    "columns": "Kolommen",
+    "display_options": "Weergaveopties",
+    "show_note_previews": "Notities weergeven",
+    "show_tags": "Tags weergeven",
+    "show_title": "Titel weergeven",
+    "image_options": "Afbeeldingsopties",
+    "image_fit_cover": "Cover (vullen)",
+    "image_fit_contain": "Bevatten (passen)"
+  },
+  "version": {
+    "new_release_available": "Nieuwe release-opmerkingen beschikbaar",
+    "whats_new_title": "Wat is er nieuw in v{{version}}",
+    "release_notes_description": "Hier zijn de meest recente updates opgehaald uit de GitHub-release-opmerkingen.",
+    "loading_release_notes": "Release-opmerkingen aan het laden…",
+    "unable_to_load_release_notes": "Kan de release-opmerkingen momenteel niet laden. Probeer het later nog eens.",
+    "no_release_notes": "Er zijn geen release-opmerkingen gepubliceerd voor deze versie.",
+    "release_notes_synced": "Release-opmerkingen worden gesynchroniseerd vanuit GitHub.",
+    "view_on_github": "Bekijken op GitHub"
   }
 }

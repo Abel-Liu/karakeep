@@ -20,6 +20,24 @@ const allEnv = z.object({
   PORT: z.coerce.number().default(3000),
   WORKERS_HOST: z.string().default("127.0.0.1"),
   WORKERS_PORT: z.coerce.number().default(0),
+  WORKERS_ENABLED_WORKERS: z
+    .string()
+    .default("")
+    .transform((val) =>
+      val
+        .split(",")
+        .map((w) => w.trim())
+        .filter((w) => w),
+    ),
+  WORKERS_DISABLED_WORKERS: z
+    .string()
+    .default("")
+    .transform((val) =>
+      val
+        .split(",")
+        .map((w) => w.trim())
+        .filter((w) => w),
+    ),
   API_URL: z.string().url().default("http://localhost:3000"),
   NEXTAUTH_URL: z
     .string()
@@ -47,6 +65,7 @@ const allEnv = z.object({
   EMBEDDING_TEXT_MODEL: z.string().default("text-embedding-3-small"),
   INFERENCE_CONTEXT_LENGTH: z.coerce.number().default(2048),
   INFERENCE_MAX_OUTPUT_TOKENS: z.coerce.number().default(2048),
+  INFERENCE_USE_MAX_COMPLETION_TOKENS: stringBool("false"),
   INFERENCE_SUPPORTS_STRUCTURED_OUTPUT: optionalStringBool(),
   INFERENCE_OUTPUT_SCHEMA: z
     .enum(["structured", "json", "plain"])
@@ -63,11 +82,13 @@ const allEnv = z.object({
   BROWSER_WEB_URL: z.string().optional(),
   BROWSER_WEBSOCKET_URL: z.string().optional(),
   BROWSER_CONNECT_ONDEMAND: stringBool("false"),
+  BROWSER_COOKIE_PATH: z.string().optional(),
   CRAWLER_JOB_TIMEOUT_SEC: z.coerce.number().default(60),
   CRAWLER_NAVIGATE_TIMEOUT_SEC: z.coerce.number().default(30),
   CRAWLER_NUM_WORKERS: z.coerce.number().default(1),
   INFERENCE_NUM_WORKERS: z.coerce.number().default(1),
   SEARCH_NUM_WORKERS: z.coerce.number().default(1),
+  SEARCH_JOB_TIMEOUT_SEC: z.coerce.number().default(30),
   WEBHOOK_NUM_WORKERS: z.coerce.number().default(1),
   ASSET_PREPROCESSING_NUM_WORKERS: z.coerce.number().default(1),
   RULE_ENGINE_NUM_WORKERS: z.coerce.number().default(1),
@@ -85,6 +106,9 @@ const allEnv = z.object({
     .default("")
     .transform((t) => t.split("%%").filter((a) => a)),
   CRAWLER_SCREENSHOT_TIMEOUT_SEC: z.coerce.number().default(5),
+  CRAWLER_IP_VALIDATION_DNS_RESOLVER_TIMEOUT_SEC: z.coerce.number().default(1),
+  CRAWLER_DOMAIN_RATE_LIMIT_WINDOW_MS: z.coerce.number().min(1).optional(),
+  CRAWLER_DOMAIN_RATE_LIMIT_MAX_REQUESTS: z.coerce.number().min(1).optional(),
   LOG_LEVEL: z.string().default("debug"),
   NO_COLOR: stringBool("false"),
   DEMO_MODE: stringBool("false"),
@@ -93,6 +117,7 @@ const allEnv = z.object({
   DATA_DIR: z.string().default(""),
   ASSETS_DIR: z.string().optional(),
   MAX_ASSET_SIZE_MB: z.coerce.number().default(50),
+  HTML_CONTENT_SIZE_INLINE_THRESHOLD_BYTES: z.coerce.number().default(5 * 1024),
   INFERENCE_LANG: z.string().default("english"),
   WEBHOOK_TIMEOUT_SEC: z.coerce.number().default(5),
   WEBHOOK_RETRY_TIMES: z.coerce.number().int().min(0).default(3),
@@ -140,9 +165,42 @@ const allEnv = z.object({
   PAID_BROWSER_CRAWLING_ENABLED: optionalStringBool(),
 
   // Proxy configuration
-  CRAWLER_HTTP_PROXY: z.string().optional(),
-  CRAWLER_HTTPS_PROXY: z.string().optional(),
-  CRAWLER_NO_PROXY: z.string().optional(),
+  CRAWLER_HTTP_PROXY: z
+    .string()
+    .transform((val) =>
+      val
+        .split(",")
+        .map((p) => p.trim())
+        .filter((p) => p),
+    )
+    .optional(),
+  CRAWLER_HTTPS_PROXY: z
+    .string()
+    .transform((val) =>
+      val
+        .split(",")
+        .map((p) => p.trim())
+        .filter((p) => p),
+    )
+    .optional(),
+  CRAWLER_NO_PROXY: z
+    .string()
+    .transform((val) =>
+      val
+        .split(",")
+        .map((p) => p.trim())
+        .filter((p) => p),
+    )
+    .optional(),
+  CRAWLER_ALLOWED_INTERNAL_HOSTNAMES: z
+    .string()
+    .transform((val) =>
+      val
+        .split(",")
+        .map((p) => p.trim())
+        .filter((p) => p),
+    )
+    .optional(),
 
   // Database configuration
   DB_WAL_MODE: stringBool("false"),
@@ -154,6 +212,8 @@ const serverConfigSchema = allEnv.transform((val, ctx) => {
     workers: {
       host: val.WORKERS_HOST,
       port: val.WORKERS_PORT,
+      enabledWorkers: val.WORKERS_ENABLED_WORKERS,
+      disabledWorkers: val.WORKERS_DISABLED_WORKERS,
     },
     apiUrl: val.API_URL,
     publicUrl: val.NEXTAUTH_URL,
@@ -205,6 +265,7 @@ const serverConfigSchema = allEnv.transform((val, ctx) => {
       inferredTagLang: val.INFERENCE_LANG,
       contextLength: val.INFERENCE_CONTEXT_LENGTH,
       maxOutputTokens: val.INFERENCE_MAX_OUTPUT_TOKENS,
+      useMaxCompletionTokens: val.INFERENCE_USE_MAX_COMPLETION_TOKENS,
       outputSchema:
         val.INFERENCE_SUPPORTS_STRUCTURED_OUTPUT !== undefined
           ? val.INFERENCE_SUPPORTS_STRUCTURED_OUTPUT
@@ -223,6 +284,7 @@ const serverConfigSchema = allEnv.transform((val, ctx) => {
       browserWebUrl: val.BROWSER_WEB_URL,
       browserWebSocketUrl: val.BROWSER_WEBSOCKET_URL,
       browserConnectOnDemand: val.BROWSER_CONNECT_ONDEMAND,
+      browserCookiePath: val.BROWSER_COOKIE_PATH,
       jobTimeoutSec: val.CRAWLER_JOB_TIMEOUT_SEC,
       navigateTimeoutSec: val.CRAWLER_NAVIGATE_TIMEOUT_SEC,
       downloadBannerImage: val.CRAWLER_DOWNLOAD_BANNER_IMAGE,
@@ -236,6 +298,19 @@ const serverConfigSchema = allEnv.transform((val, ctx) => {
       enableAdblocker: val.CRAWLER_ENABLE_ADBLOCKER,
       ytDlpArguments: val.CRAWLER_YTDLP_ARGS,
       screenshotTimeoutSec: val.CRAWLER_SCREENSHOT_TIMEOUT_SEC,
+      htmlContentSizeThreshold: val.HTML_CONTENT_SIZE_INLINE_THRESHOLD_BYTES,
+      ipValidation: {
+        dnsResolverTimeoutSec:
+          val.CRAWLER_IP_VALIDATION_DNS_RESOLVER_TIMEOUT_SEC,
+      },
+      domainRatelimiting:
+        val.CRAWLER_DOMAIN_RATE_LIMIT_WINDOW_MS !== undefined &&
+        val.CRAWLER_DOMAIN_RATE_LIMIT_MAX_REQUESTS !== undefined
+          ? {
+              windowMs: val.CRAWLER_DOMAIN_RATE_LIMIT_WINDOW_MS,
+              maxRequests: val.CRAWLER_DOMAIN_RATE_LIMIT_MAX_REQUESTS,
+            }
+          : null,
     },
     ocr: {
       langs: val.OCR_LANGS,
@@ -244,6 +319,7 @@ const serverConfigSchema = allEnv.transform((val, ctx) => {
     },
     search: {
       numWorkers: val.SEARCH_NUM_WORKERS,
+      jobTimeoutSec: val.SEARCH_JOB_TIMEOUT_SEC,
     },
     logLevel: val.LOG_LEVEL,
     logNoColor: val.NO_COLOR,
@@ -269,6 +345,7 @@ const serverConfigSchema = allEnv.transform((val, ctx) => {
       httpsProxy: val.CRAWLER_HTTPS_PROXY,
       noProxy: val.CRAWLER_NO_PROXY,
     },
+    allowedInternalHostnames: val.CRAWLER_ALLOWED_INTERNAL_HOSTNAMES,
     assetPreprocessing: {
       numWorkers: val.ASSET_PREPROCESSING_NUM_WORKERS,
     },
@@ -329,7 +406,9 @@ const serverConfigSchema = allEnv.transform((val, ctx) => {
   return obj;
 });
 
-const serverConfig = serverConfigSchema.parse(process.env);
+const serverConfig: Readonly<z.infer<typeof serverConfigSchema>> =
+  serverConfigSchema.parse(process.env);
+
 // Always explicitly pick up stuff from server config to avoid accidentally leaking stuff
 export const clientConfig = {
   publicUrl: serverConfig.publicUrl,

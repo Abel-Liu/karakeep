@@ -2,7 +2,7 @@ import deepEql from "deep-equal";
 import { and, eq } from "drizzle-orm";
 
 import { bookmarks, tagsOnBookmarks } from "@karakeep/db/schema";
-import { LinkCrawlerQueue } from "@karakeep/shared/queues";
+import { LinkCrawlerQueue } from "@karakeep/shared-server";
 import {
   RuleEngineAction,
   RuleEngineCondition,
@@ -189,11 +189,16 @@ export class RuleEngine {
         return `Removed from list ${action.listId}`;
       }
       case "downloadFullPageArchive": {
-        await LinkCrawlerQueue.enqueue({
-          bookmarkId: this.bookmark.id,
-          archiveFullPage: true,
-          runInference: false,
-        });
+        await LinkCrawlerQueue.enqueue(
+          {
+            bookmarkId: this.bookmark.id,
+            archiveFullPage: true,
+            runInference: false,
+          },
+          {
+            groupId: this.bookmark.userId,
+          },
+        );
         return `Enqueued full page archive`;
       }
       case "favouriteBookmark": {

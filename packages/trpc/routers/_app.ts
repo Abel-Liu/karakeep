@@ -2,9 +2,11 @@ import { router } from "../index";
 import { adminAppRouter } from "./admin";
 import { apiKeysAppRouter } from "./apiKeys";
 import { assetsAppRouter } from "./assets";
+import { backupsAppRouter } from "./backups";
 import { bookmarksAppRouter } from "./bookmarks";
 import { feedsAppRouter } from "./feeds";
 import { highlightsAppRouter } from "./highlights";
+import { importSessionsRouter } from "./importSessions";
 import { invitesAppRouter } from "./invites";
 import { listsAppRouter } from "./lists";
 import { promptsAppRouter } from "./prompts";
@@ -24,7 +26,9 @@ export const appRouter = router({
   prompts: promptsAppRouter,
   admin: adminAppRouter,
   feeds: feedsAppRouter,
+  backups: backupsAppRouter,
   highlights: highlightsAppRouter,
+  importSessions: importSessionsRouter,
   webhooks: webhooksAppRouter,
   assets: assetsAppRouter,
   rules: rulesAppRouter,

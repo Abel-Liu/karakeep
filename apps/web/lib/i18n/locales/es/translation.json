@@ -96,14 +96,20 @@
       "import_bookmarks_from_html_file": "Importar marcadores desde archivo HTML",
       "import_bookmarks_from_omnivore_export": "Importar marcadores desde exportación de Omnivore",
       "import_bookmarks_from_linkwarden_export": "Importar marcadores desde Linkwarden",
-      "import_bookmarks_from_tab_session_manager_export": "Importar marcadores desde Tab Session Manager"
+      "import_bookmarks_from_tab_session_manager_export": "Importar marcadores desde Tab Session Manager",
+      "import_bookmarks_from_mymind_export": "Importar marcadores desde la exportación de mymind"
     },
     "api_keys": {
       "api_keys": "Claves APIs",
       "new_api_key": "Crear clave API",
       "new_api_key_desc": "Dale a la clave API un nombre único",
       "key_success": "Clave creada correctamente",
-      "key_success_please_copy": "Copia la clave y guárdala en un lugar seguro. Una vez cierres este mensaje, no podrás volver a verla."
+      "key_success_please_copy": "Copia la clave y guárdala en un lugar seguro. Una vez cierres este mensaje, no podrás volver a verla.",
+      "regenerate_api_key": "Regenerar clave API",
+      "key_regenerated": "La clave se ha regenerado correctamente",
+      "key_regenerated_please_copy": "Copia la nueva clave y guárdala en un lugar seguro. La clave antigua ha sido revocada y ya no funcionará.",
+      "regenerate_warning": "¿Estás seguro de que quieres regenerar la clave API \"{{name}}\"?",
+      "regenerate_confirmation": "Esto revocará la clave actual y generará una nueva. Cualquier aplicación que utilice la clave actual dejará de funcionar."
     },
     "broken_links": {
       "broken_links": "Enlaces rotos",
@@ -234,6 +240,10 @@
       },
       "storage_breakdown": {
         "title": "Desglose del almacenamiento"
+      },
+      "bookmark_sources": {
+        "title": "Fuentes de marcadores",
+        "empty": "Sin datos de origen disponibles"
       }
     },
     "subscription": {
@@ -256,6 +266,82 @@
       "loading_usage": "Cargando información de uso...",
       "free": "Gratis",
       "paid": "De pago"
+    },
+    "import_sessions": {
+      "title": "Importar sesiones",
+      "description": "Consulta y gestiona tus sesiones de importación masiva. Las sesiones se crean automáticamente al importar marcadores.",
+      "load_error": "No se pudieron cargar las sesiones de importación",
+      "no_sessions": "Aún no hay sesiones de importación",
+      "no_sessions_detail": "Las sesiones de importación aparecerán aquí automáticamente cuando importes marcadores",
+      "created_at": "Creado {{time}}",
+      "progress": "Progreso",
+      "status": {
+        "pending": "Pendiente",
+        "in_progress": "En curso",
+        "completed": "Completado",
+        "failed": "Falló",
+        "processing": "Procesando"
+      },
+      "badges": {
+        "pending": "{{count}} pendientes",
+        "processing": "{{count}} procesando",
+        "completed": "{{count}} completados",
+        "failed": "{{count}} fallaron"
+      },
+      "imported_to": "Importado a:",
+      "view_list": "Ver lista",
+      "delete_dialog_title": "Borrar sesión de importación",
+      "delete_dialog_description": "¿Seguro que quieres borrar \"{{name}}\"? Esta acción no se puede deshacer. Los marcadores en sí no se borrarán.",
+      "delete_session": "Eliminar sesión"
+    },
+    "backups": {
+      "backups": "Copias de seguridad",
+      "page_title": "Copias de seguridad",
+      "page_description": "Crea y gestiona automáticamente copias de seguridad de tus marcadores. Las copias de seguridad se comprimen y se almacenan de forma segura.",
+      "configuration": {
+        "title": "Configuración de la copia de seguridad",
+        "enable_automatic_backups": "Activar copias de seguridad automáticas",
+        "enable_automatic_backups_description": "Crear automáticamente copias de seguridad de tus marcadores",
+        "backup_frequency": "Frecuencia de copia de seguridad",
+        "backup_frequency_description": "Con qué frecuencia se deben crear copias de seguridad",
+        "retention_period": "Período de retención (días)",
+        "retention_period_description": "Cuántos días conservar las copias de seguridad antes de eliminarlas",
+        "frequency": {
+          "daily": "Diariamente",
+          "weekly": "Semanalmente"
+        },
+        "select_frequency": "Seleccionar frecuencia",
+        "save_settings": "Guardar ajustes"
+      },
+      "list": {
+        "title": "Tus copias de seguridad",
+        "create_backup_now": "Crear copia de seguridad ahora",
+        "no_backups": "Aún no tienes ninguna copia de seguridad. Activa las copias de seguridad automáticas o crea una manualmente.",
+        "table": {
+          "created_at": "Creado en",
+          "bookmarks": "Marcadores",
+          "size": "Tamaño",
+          "status": "Estado",
+          "actions": "Acciones"
+        },
+        "status": {
+          "success": "Éxito",
+          "failed": "Fallido",
+          "pending": "Pendiente"
+        },
+        "actions": {
+          "download_backup": "Descargar copia de seguridad",
+          "delete_backup": "Borrar copia de seguridad"
+        }
+      },
+      "dialogs": {
+        "delete_backup_title": "¿Borrar copia de seguridad?",
+        "delete_backup_description": "¿Seguro que quieres borrar esta copia de seguridad? Esta acción no se puede deshacer."
+      },
+      "toasts": {
+        "backup_queued": "¡Se ha puesto en cola el trabajo de copia de seguridad! Se procesará en breve.",
+        "backup_deleted": "¡Se ha borrado la copia de seguridad!"
+      }
     }
   },
   "actions": {
@@ -297,7 +383,11 @@
       "relevant_first": "Más relevantes primero"
     },
     "open_editor": "Abrir editor",
-    "toggle_show_archived": "Mostrar archivados"
+    "toggle_show_archived": "Mostrar archivados",
+    "confirm": "Confirmar",
+    "regenerate": "Regenerar",
+    "load_more": "Cargar más",
+    "edit_notes": "Editar notas"
   },
   "layouts": {
     "compact": "Compacto",
@@ -326,7 +416,76 @@
       "webhook_jobs": "Trabajos de Webhook",
       "asset_preprocessing_jobs": "Trabajos de preprocesamiento de activos",
       "feed_jobs": "Trabajos de fuente RSS",
-      "video_jobs": "Trabajos de descarga de vídeo"
+      "video_jobs": "Trabajos de descarga de vídeo",
+      "jobs": {
+        "crawler": {
+          "title": "Trabajos de rastreador",
+          "description": "Rastreo web y extracción de contenido de URLs"
+        },
+        "inference": {
+          "title": "Trabajos de inferencia",
+          "description": "Etiquetado y resumen de contenido impulsado por IA"
+        },
+        "indexing": {
+          "title": "Trabajos de indexación",
+          "description": "Actualizaciones del índice de búsqueda"
+        },
+        "asset_preprocessing": {
+          "title": "Trabajos de preprocesamiento de activos",
+          "description": "Preprocesamiento de imágenes y documentos (capturas de pantalla, extracción de texto, etc.)"
+        },
+        "tidy_assets": {
+          "title": "Trabajos de activos ordenados",
+          "description": "Limpieza de activos y optimización de almacenamiento"
+        },
+        "video": {
+          "title": "Trabajos de descarga de video",
+          "description": "Extracción y descarga de video"
+        },
+        "webhook": {
+          "title": "Trabajos de webhook",
+          "description": "Notificaciones de webhook externas"
+        },
+        "feed": {
+          "title": "Trabajos de fuentes RSS",
+          "description": "Procesamiento de feeds RSS y actualizaciones de contenido"
+        },
+        "admin_maintenance": {
+          "title": "Tareas de mantenimiento del administrador",
+          "description": "Limpieza administrativa y mantenimiento de activos"
+        }
+      },
+      "monitor_and_manage": "Monitoriza y gestiona las colas de trabajos en segundo plano y las tareas de procesamiento del sistema",
+      "active": "Activo",
+      "available_actions": "Acciones disponibles",
+      "status": {
+        "title": "Entendiendo los estados del trabajo",
+        "queued": {
+          "title": "En cola",
+          "description": "Tareas esperando en la cola para ser procesadas. Comenzarán automáticamente cuando haya recursos disponibles."
+        },
+        "unprocessed": {
+          "title": "Sin procesar",
+          "description": "Marcadores que aún no han sido procesados. Lo más probable es que ya estén en cola para ser procesados, si no, es posible que tengas que volver a ponerlos en cola manualmente."
+        },
+        "failed": {
+          "title": "Fallidos",
+          "description": "Marcadores que encontraron errores durante el procesamiento. Estos pueden necesitar atención manual."
+        }
+      },
+      "actions": {
+        "recrawl_failed_links_only": "Volver a rastrear solo los enlaces fallidos",
+        "recrawl_all_links": "Volver a rastrear todos los enlaces",
+        "without_inference": "Sin inferencia",
+        "regenerate_ai_tags_for_failed_bookmarks_only": "Regenerar etiquetas de IA solo para los marcadores fallidos",
+        "regenerate_ai_tags_for_all_bookmarks": "Regenerar etiquetas de IA para todos los marcadores",
+        "regenerate_ai_summaries_for_failed_bookmarks_only": "Regenerar resúmenes de IA solo para los marcadores fallidos",
+        "regenerate_ai_summaries_for_all_bookmarks": "Regenerar resúmenes de IA para todos los marcadores",
+        "reindex_all_bookmarks": "Volver a indexar todos los marcadores",
+        "clean_assets": "Limpiar los activos colgantes y volver a sincronizar los metadatos",
+        "reprocess_assets_fix_mode": "Volver a procesar los activos no procesados",
+        "migrate_large_link_html_content": "Mueve contenido HTML grande en línea a los recursos"
+      }
     },
     "actions": {
       "regenerate_ai_tags_for_failed_bookmarks_only": "Regenerar etiquetas IA solo en marcadores fallidos",
@@ -352,6 +511,18 @@
       "confirm_password": "Confirmar contraseña",
       "delete_user_confirm_description": "¿Seguro que quieres eliminar al usuario \"{{name}}\"?",
       "unlimited": "Ilimitado"
+    },
+    "service_connections": {
+      "title": "Conexiones de servicio",
+      "description": "Supervisar el estado y la conectividad de las dependencias del sistema externo",
+      "search_engine": "Motor de búsqueda",
+      "browser": "Navegador",
+      "queue_system": "Sistema de colas",
+      "status": {
+        "not_configured": "No configurado",
+        "connected": "Conectado",
+        "disconnected": "Desconectado"
+      }
     }
   },
   "options": {
@@ -386,7 +557,63 @@
       "title": "Fuente RSS",
       "description": "Activar una fuente RSS para esta lista",
       "feed_url": "URL de la fuente RSS"
-    }
+    },
+    "delete_list": {
+      "title": "Eliminar lista",
+      "description": "Eliminar una lista no elimina ningún marcador de esa lista.",
+      "delete_children": "Eliminar listas secundarias (de forma recursiva)",
+      "delete_children_description": "Si no está marcado, todas las listas secundarias directas se convertirán en listas raíz"
+    },
+    "shared": "Compartido",
+    "collaborators": {
+      "manage": "Gestionar colaboradores",
+      "view": "Ver colaboradores",
+      "collaborators": "Colaboradores",
+      "add": "Añadir colaborador",
+      "current": "Colaboradores actuales",
+      "enter_email": "Introduce la dirección de correo electrónico",
+      "please_enter_email": "Por favor, introduce una dirección de correo electrónico",
+      "added_successfully": "Colaborador añadido correctamente",
+      "failed_to_add": "No se pudo añadir el colaborador",
+      "removed": "Colaborador eliminado",
+      "failed_to_remove": "No se pudo eliminar el colaborador",
+      "role_updated": "Rol actualizado",
+      "failed_to_update_role": "No se pudo actualizar el rol",
+      "viewer": "Visor",
+      "editor": "Editor",
+      "owner": "Propietario",
+      "viewer_description": "Puede ver los marcadores en la lista",
+      "editor_description": "Puede añadir y eliminar marcadores",
+      "no_collaborators": "Aún no hay colaboradores. ¡Añade a alguien para empezar a colaborar!",
+      "no_collaborators_readonly": "No hay colaboradores en esta lista.",
+      "people_with_access": "Personas que tienen acceso a esta lista",
+      "add_or_remove": "Añade o elimina personas que puedan acceder a esta lista",
+      "invitation_sent": "Invitación enviada correctamente",
+      "invitation_revoked": "Invitación revocada",
+      "failed_to_revoke": "No se pudo revocar la invitación",
+      "pending": "Pendiente",
+      "revoke": "Revocar",
+      "declined": "Rechazada"
+    },
+    "leave_list": {
+      "title": "Salir de la lista",
+      "confirm_message": "¿Estás seguro de que quieres salir de {{icon}} {{name}}?",
+      "warning": "Ya no podrás ver ni acceder a los marcadores de esta lista. El propietario de la lista puede volverte a añadir si es necesario.",
+      "action": "Salir de la lista",
+      "success": "Has abandonado \"{{icon}} {{name}}\""
+    },
+    "invitations": {
+      "pending": "Invitaciones pendientes",
+      "description": "Revisa y responde a las invitaciones de colaboración en la lista",
+      "invited_by": "Invitado por",
+      "accept": "Aceptar",
+      "decline": "Rechazar",
+      "accepted": "Invitación aceptada",
+      "declined": "Invitación rechazada",
+      "failed_to_accept": "No se pudo aceptar la invitación",
+      "failed_to_decline": "No se pudo rechazar la invitación"
+    },
+    "shared_lists": "Listas compartidas"
   },
   "tags": {
     "all_tags": "Todas las etiquetas",
@@ -399,7 +626,18 @@
     "delete_all_unused_tags": "Eliminar etiquetas no usadas",
     "unused_tags": "Etiquetas sin usar",
     "unused_tags_info": "Etiquetas sin marcadores",
-    "drag_and_drop_merging_info": "Arrastra y suelta etiquetas sobre otras para unirlas"
+    "drag_and_drop_merging_info": "Arrastra y suelta etiquetas sobre otras para unirlas",
+    "create_tag": "Crear etiqueta",
+    "create_tag_description": "Crea una nueva etiqueta sin adjuntarla a ningún marcador",
+    "tag_name": "Nombre de la etiqueta",
+    "enter_tag_name": "Introduce el nombre de la etiqueta",
+    "sort_by_usage": "Ordenar por uso",
+    "sort_by_relevance": "Ordenar por relevancia",
+    "no_custom_tags": "Aún no hay etiquetas personalizadas",
+    "no_ai_tags": "Aún no hay etiquetas de IA",
+    "no_unused_tags": "No tienes ninguna etiqueta sin usar",
+    "no_unused_tags_match_your_search": "Ninguna etiqueta sin usar coincide con tu búsqueda",
+    "no_tags_match_your_search": "Ninguna etiqueta coincide con tu búsqueda"
   },
   "preview": {
     "view_original": "Ver original",
@@ -483,6 +721,10 @@
       "updated": "¡La lista ha sido actualizada!",
       "merged": "¡La lista se ha fusionado!",
       "deleted": "¡La lista ha sido eliminada!"
+    },
+    "tags": {
+      "created": "¡Se ha creado la etiqueta!",
+      "failed_to_create": "No se ha podido crear la etiqueta"
     }
   },
   "cleanups": {
@@ -531,7 +773,9 @@
     "week_s_ago": " Hace semana(s)",
     "month_s_ago": " Hace mes(es)",
     "year_s_ago": " Hace año(s)",
-    "history": "Búsquedas recientes"
+    "history": "Búsquedas recientes",
+    "title_contains": "El título contiene",
+    "title_does_not_contain": "El título no contiene"
   },
   "dialogs": {
     "bookmarks": {
@@ -554,5 +798,27 @@
       "title": "Aún no hay marcadores",
       "description": "Guarda artículos, enlaces y páginas interesantes para acceder a ellos rápidamente más tarde."
     }
+  },
+  "view_options": {
+    "title": "Ver opciones",
+    "layout": "Disposición",
+    "columns": "Columnas",
+    "display_options": "Opciones de visualización",
+    "show_note_previews": "Mostrar notas",
+    "show_tags": "Mostrar etiquetas",
+    "show_title": "Mostrar título",
+    "image_options": "Opciones de imagen",
+    "image_fit_cover": "Portada (rellenar)",
+    "image_fit_contain": "Contener (ajustar)"
+  },
+  "version": {
+    "new_release_available": "Nuevas notas de la versión disponibles",
+    "whats_new_title": "¿Qué hay de nuevo en la v{{version}}?",
+    "release_notes_description": "Aquí están las últimas actualizaciones obtenidas de las notas de la versión de GitHub.",
+    "loading_release_notes": "Cargando las notas de la versión…",
+    "unable_to_load_release_notes": "No se pueden cargar las notas de la versión ahora mismo. Por favor, inténtelo de nuevo más tarde.",
+    "no_release_notes": "No se publicaron notas de la versión para esta versión.",
+    "release_notes_synced": "Las notas de la versión están sincronizadas desde GitHub.",
+    "view_on_github": "Ver en GitHub"
   }
 }

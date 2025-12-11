@@ -21,10 +21,12 @@ import { QuotaApproved } from "./storageQuota";
 const ROOT_PATH = serverConfig.assetsDir;
 
 export const enum ASSET_TYPES {
+  IMAGE_GIF = "image/gif",
   IMAGE_JPEG = "image/jpeg",
   IMAGE_PNG = "image/png",
   IMAGE_WEBP = "image/webp",
   APPLICATION_PDF = "application/pdf",
+  APPLICATION_ZIP = "application/zip",
   TEXT_HTML = "text/html",
 
   VIDEO_MP4 = "video/mp4",
@@ -39,6 +41,7 @@ export const VIDEO_ASSET_TYPES: Set<string> = new Set<string>([
 ]);
 
 export const IMAGE_ASSET_TYPES: Set<string> = new Set<string>([
+  ASSET_TYPES.IMAGE_GIF,
   ASSET_TYPES.IMAGE_JPEG,
   ASSET_TYPES.IMAGE_PNG,
   ASSET_TYPES.IMAGE_WEBP,
@@ -63,6 +66,7 @@ export const SUPPORTED_ASSET_TYPES: Set<string> = new Set<string>([
   ...SUPPORTED_UPLOAD_ASSET_TYPES,
   ASSET_TYPES.TEXT_HTML,
   ASSET_TYPES.VIDEO_MP4,
+  ASSET_TYPES.APPLICATION_ZIP,
 ]);
 
 export const zAssetMetadataSchema = z.object({

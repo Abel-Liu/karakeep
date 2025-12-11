@@ -86,7 +86,11 @@
       "relevant_first": "最相关优先"
     },
     "open_editor": "打开编辑器",
-    "toggle_show_archived": "显示已存档"
+    "toggle_show_archived": "显示已存档",
+    "confirm": "确认",
+    "regenerate": "重新生成",
+    "load_more": "加载更多",
+    "edit_notes": "编辑备注"
   },
   "settings": {
     "back_to_app": "返回应用",
@@ -143,14 +147,20 @@
       "export_links_and_notes": "导出链接和笔记",
       "imported_bookmarks": "已导入书签",
       "import_bookmarks_from_linkwarden_export": "导入 Linkwarden 导出的书签",
-      "import_bookmarks_from_tab_session_manager_export": "从 Tab Session Manager 导入书签"
+      "import_bookmarks_from_tab_session_manager_export": "从 Tab Session Manager 导入书签",
+      "import_bookmarks_from_mymind_export": "从我的 mind 导出导入书签"
     },
     "api_keys": {
       "api_keys": "API密钥",
       "new_api_key": "新API密钥",
       "new_api_key_desc": "给您的API密钥一个唯一名称",
       "key_success": "密钥创建成功",
-      "key_success_please_copy": "请复制密钥并妥善保存。一旦关闭对话框，您将无法再次访问它。"
+      "key_success_please_copy": "请复制密钥并妥善保存。一旦关闭对话框，您将无法再次访问它。",
+      "regenerate_api_key": "重新生成 API 密钥",
+      "key_regenerated": "密钥已成功重新生成",
+      "key_regenerated_please_copy": "请复制新密钥并将其保存在安全的地方。旧密钥已被撤销，将不再起作用。",
+      "regenerate_warning": "你确定要重新生成 API 密钥“{{name}}”吗？",
+      "regenerate_confirmation": "这将撤销当前密钥并生成一个新密钥。任何使用当前密钥的应用程序都将停止工作。"
     },
     "broken_links": {
       "broken_links": "失效链接",
@@ -281,6 +291,10 @@
       },
       "storage_breakdown": {
         "title": "存储细分"
+      },
+      "bookmark_sources": {
+        "title": "书签来源",
+        "empty": "没有可用的来源数据"
       }
     },
     "subscription": {
@@ -303,6 +317,82 @@
       "loading_usage": "正在加载使用信息...",
       "free": "免费",
       "paid": "已付费"
+    },
+    "import_sessions": {
+      "title": "导入会话",
+      "description": "查看和管理你的批量导入会话。当你导入书签时，会自动创建会话。",
+      "load_error": "加载导入会话失败",
+      "no_sessions": "还没有导入会话",
+      "no_sessions_detail": "当你导入书签时，导入会话会自动出现在这里",
+      "created_at": "创建于 {{time}}",
+      "progress": "进度",
+      "status": {
+        "pending": "待定",
+        "in_progress": "正在进行",
+        "completed": "已完成",
+        "failed": "失败",
+        "processing": "正在处理"
+      },
+      "badges": {
+        "pending": "{{count}} 待定",
+        "processing": "{{count}} 正在处理",
+        "completed": "{{count}} 已完成",
+        "failed": "{{count}} 失败"
+      },
+      "imported_to": "导入至：",
+      "view_list": "查看列表",
+      "delete_dialog_title": "删除导入会话",
+      "delete_dialog_description": "确定要删除 “{{name}}” 吗？此操作无法撤销。书签本身不会被删除。",
+      "delete_session": "删除会话"
+    },
+    "backups": {
+      "backups": "备份",
+      "page_title": "备份",
+      "page_description": "自动创建和管理您的书签备份。备份经过压缩并安全存储。",
+      "configuration": {
+        "title": "备份配置",
+        "enable_automatic_backups": "启用自动备份",
+        "enable_automatic_backups_description": "自动创建您的书签备份",
+        "backup_frequency": "备份频率",
+        "backup_frequency_description": "应该多久创建一次备份",
+        "retention_period": "保留期限（天）",
+        "retention_period_description": "备份在删除前保留的天数",
+        "frequency": {
+          "daily": "每天",
+          "weekly": "每周"
+        },
+        "select_frequency": "选择频率",
+        "save_settings": "保存设置"
+      },
+      "list": {
+        "title": "您的备份",
+        "create_backup_now": "立即创建备份",
+        "no_backups": "您还没有任何备份。启用自动备份或手动创建一个。",
+        "table": {
+          "created_at": "创建于",
+          "bookmarks": "书签",
+          "size": "大小",
+          "status": "状态",
+          "actions": "操作"
+        },
+        "status": {
+          "success": "成功",
+          "failed": "失败",
+          "pending": "待定"
+        },
+        "actions": {
+          "download_backup": "下载备份",
+          "delete_backup": "删除备份"
+        }
+      },
+      "dialogs": {
+        "delete_backup_title": "删除备份？",
+        "delete_backup_description": "你确定要删除这个备份吗？这个操作没法撤销哦。"
+      },
+      "toasts": {
+        "backup_queued": "备份任务已加入队列！很快就会处理。",
+        "backup_deleted": "备份已删除！"
+      }
     }
   },
   "admin": {
@@ -326,7 +416,76 @@
       "feed_jobs": "RSS 订阅作业",
       "video_jobs": "视频下载作业",
       "webhook_jobs": "Webhook 作业",
-      "asset_preprocessing_jobs": "资源预处理作业"
+      "asset_preprocessing_jobs": "资源预处理作业",
+      "jobs": {
+        "crawler": {
+          "title": "爬虫任务",
+          "description": "从 URL 抓取网页内容并提取信息"
+        },
+        "inference": {
+          "title": "推理任务",
+          "description": "用人工智能给内容打标签和做总结"
+        },
+        "indexing": {
+          "title": "索引任务",
+          "description": "搜索索引更新"
+        },
+        "asset_preprocessing": {
+          "title": "资源预处理任务",
+          "description": "图片和文档预处理（截图、文本提取等）"
+        },
+        "tidy_assets": {
+          "title": "整理资源任务",
+          "description": "资源清理和存储优化"
+        },
+        "video": {
+          "title": "视频下载任务",
+          "description": "视频提取和下载"
+        },
+        "webhook": {
+          "title": "Webhook 任务",
+          "description": "外部 webhook 通知"
+        },
+        "feed": {
+          "title": "RSS 订阅任务",
+          "description": "RSS 订阅源处理和内容更新"
+        },
+        "admin_maintenance": {
+          "title": "管理员维护任务",
+          "description": "管理清理和资产维护"
+        }
+      },
+      "monitor_and_manage": "监控和管理后台任务队列和系统处理任务",
+      "active": "活跃",
+      "available_actions": "可用操作",
+      "status": {
+        "title": "了解任务状态",
+        "queued": {
+          "title": "已加入队列",
+          "description": "正在排队等待处理的任务。当资源可用时，它们将自动启动。"
+        },
+        "unprocessed": {
+          "title": "未处理",
+          "description": "尚未处理的书签。如果它们没有排队，它们很可能已经在排队等待处理，如果没有，你可能需要手动重新将它们加入队列。"
+        },
+        "failed": {
+          "title": "失败",
+          "description": "处理过程中遇到错误的书签。这些书签可能需要手动处理。"
+        }
+      },
+      "actions": {
+        "recrawl_failed_links_only": "仅重新抓取失败链接",
+        "recrawl_all_links": "重新抓取所有链接",
+        "without_inference": "不进行推断",
+        "regenerate_ai_tags_for_failed_bookmarks_only": "仅为失败的书签重新生成 AI 标签",
+        "regenerate_ai_tags_for_all_bookmarks": "为所有书签重新生成 AI 标签",
+        "regenerate_ai_summaries_for_failed_bookmarks_only": "仅为失败的书签重新生成 AI 摘要",
+        "regenerate_ai_summaries_for_all_bookmarks": "为所有书签重新生成 AI 摘要",
+        "reindex_all_bookmarks": "重新索引所有书签",
+        "clean_assets": "清理悬空资产并重新同步元数据",
+        "reprocess_assets_fix_mode": "重新处理未处理的资产",
+        "migrate_large_link_html_content": "将大型内联 HTML 内容移动到 Assets"
+      }
     },
     "actions": {
       "recrawl_failed_links_only": "仅重新抓取失败链接",
@@ -352,6 +511,18 @@
       "confirm_password": "确认密码",
       "delete_user_confirm_description": "你确定要删除用户“{{name}}”吗？",
       "unlimited": "无限制"
+    },
+    "service_connections": {
+      "title": "服务连接",
+      "description": "监测外部系统依赖的健康状况和连接性",
+      "search_engine": "搜索引擎",
+      "browser": "浏览器",
+      "queue_system": "队列系统",
+      "status": {
+        "not_configured": "未配置",
+        "connected": "已连接",
+        "disconnected": "已断开连接"
+      }
     }
   },
   "options": {
@@ -386,7 +557,63 @@
       "title": "公共列表",
       "description": "允许其他人查看此列表",
       "share_link": "分享链接"
-    }
+    },
+    "delete_list": {
+      "title": "删除列表",
+      "description": "删除列表不会删除该列表中的任何书签。",
+      "delete_children": "删除子列表（递归）",
+      "delete_children_description": "如果未选中，所有直接的子列表都将成为根列表"
+    },
+    "shared": "共享",
+    "collaborators": {
+      "manage": "管理协作者",
+      "view": "查看协作者",
+      "collaborators": "协作者",
+      "add": "添加协作者",
+      "current": "当前协作者",
+      "enter_email": "输入电子邮件地址",
+      "please_enter_email": "请输入一个电子邮件地址",
+      "added_successfully": "已成功添加协作者",
+      "failed_to_add": "添加协作者失败",
+      "removed": "已移除协作者",
+      "failed_to_remove": "移除协作者失败",
+      "role_updated": "角色已更新",
+      "failed_to_update_role": "更新角色失败",
+      "viewer": "查看者",
+      "editor": "编辑者",
+      "owner": "拥有者",
+      "viewer_description": "可以在列表中查看书签",
+      "editor_description": "可以添加和移除书签",
+      "no_collaborators": "还没有协作者。添加一个开始协作吧！",
+      "no_collaborators_readonly": "此列表没有协作者。",
+      "people_with_access": "有权访问此列表的人员",
+      "add_or_remove": "添加或删除可以访问此列表的人员",
+      "invitation_sent": "邀请已成功发送",
+      "invitation_revoked": "邀请已撤销",
+      "failed_to_revoke": "撤销邀请失败",
+      "pending": "待定",
+      "revoke": "撤销",
+      "declined": "已拒绝"
+    },
+    "leave_list": {
+      "title": "离开列表",
+      "confirm_message": "您确定要离开 {{icon}} {{name}} 吗？",
+      "warning": "您将无法再查看或访问此列表中的书签。列表所有者可以在需要时重新添加您。",
+      "action": "离开列表",
+      "success": "你已经离开了“{{icon}} {{name}}”"
+    },
+    "invitations": {
+      "pending": "待处理的邀请",
+      "description": "审核并响应列表协作邀请",
+      "invited_by": "邀请人",
+      "accept": "接受",
+      "decline": "拒绝",
+      "accepted": "邀请已接受",
+      "declined": "邀请已拒绝",
+      "failed_to_accept": "接受邀请失败",
+      "failed_to_decline": "拒绝邀请失败"
+    },
+    "shared_lists": "共享列表"
   },
   "tags": {
     "all_tags": "所有标签",
@@ -399,7 +626,18 @@
     "delete_all_unused_tags": "删除所有未使用标签",
     "drag_and_drop_merging": "拖放合并",
     "drag_and_drop_merging_info": "拖放标签以相互合并",
-    "sort_by_name": "按名称排序"
+    "sort_by_name": "按名称排序",
+    "create_tag": "创建标签",
+    "create_tag_description": "创建一个新标签，不附加到任何书签",
+    "tag_name": "标签名称",
+    "enter_tag_name": "输入标签名称",
+    "sort_by_usage": "按使用情况排序",
+    "sort_by_relevance": "按相关性排序",
+    "no_custom_tags": "还没有自定义标签",
+    "no_ai_tags": "还没有 AI 标签呢",
+    "no_unused_tags": "你没有未使用的标签",
+    "no_unused_tags_match_your_search": "没有未使用的标签符合你的搜索",
+    "no_tags_match_your_search": "没有标签符合你的搜索内容"
   },
   "preview": {
     "view_original": "查看原文",
@@ -483,6 +721,10 @@
       "updated": "列表已更新！",
       "merged": "列表已合并！",
       "deleted": "列表已删除！"
+    },
+    "tags": {
+      "created": "标签已创建！",
+      "failed_to_create": "创建标签失败"
     }
   },
   "cleanups": {
@@ -528,7 +770,9 @@
     "year_s": " {years} 年",
     "day_s_ago": " {days} 天前",
     "week_s_ago": " {weeks} 周前",
-    "history": "最近搜索"
+    "history": "最近搜索",
+    "title_contains": "标题包含",
+    "title_does_not_contain": "标题不包含"
   },
   "dialogs": {
     "bookmarks": {
@@ -554,5 +798,27 @@
     "pick_a_date": "选择一个日期",
     "save_changes": "保存更改",
     "extracted_content": "提取的内容"
+  },
+  "view_options": {
+    "title": "查看选项",
+    "layout": "布局",
+    "columns": "列",
+    "display_options": "显示选项",
+    "show_note_previews": "显示备注",
+    "show_tags": "显示标签",
+    "show_title": "显示标题",
+    "image_options": "图像选项",
+    "image_fit_cover": "封面（填充）",
+    "image_fit_contain": "包含（适应）"
+  },
+  "version": {
+    "new_release_available": "有新的版本说明啦",
+    "whats_new_title": "v{{version}} 有啥新玩意儿？",
+    "release_notes_description": "这是从 GitHub 版本说明里搞来的最新更新。",
+    "loading_release_notes": "加载版本说明中……",
+    "unable_to_load_release_notes": "现在没法加载版本说明。稍后再试试呗。",
+    "no_release_notes": "这个版本没发布版本说明。",
+    "release_notes_synced": "版本说明是从 GitHub 同步过来的。",
+    "view_on_github": "在 GitHub 上瞅瞅"
   }
 }

@@ -21,7 +21,9 @@
     "@radix-ui/react-popover": "^1.1.14",
     "@radix-ui/react-select": "^2.2.5",
     "@radix-ui/react-slot": "^1.2.3",
-    "@tanstack/react-query": "^5.80.3",
+    "@tanstack/query-async-storage-persister": "5.90.2",
+    "@tanstack/react-query": "5.90.2",
+    "@tanstack/react-query-persist-client": "5.90.2",
     "@trpc/client": "^11.4.3",
     "@trpc/react-query": "^11.4.3",
     "@trpc/server": "^11.4.3",
@@ -39,18 +41,18 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "2.0.1",
+    "@crxjs/vite-plugin": "2.2.0",
     "@karakeep/prettier-config": "workspace:^0.1.0",
     "@karakeep/tailwind-config": "workspace:^0.1.0",
     "@karakeep/tsconfig": "workspace:^0.1.0",
     "@types/chrome": "^0.0.260",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.6",
-    "@vitejs/plugin-react-swc": "^3.11.0",
+    "@vitejs/plugin-react-swc": "^4.0.1",
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9",
     "vite": "^7.0.6"
   },
   "prettier": "@karakeep/prettier-config"

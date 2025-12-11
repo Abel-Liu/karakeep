@@ -1,5 +1,6 @@
 import React from "react";
 import { ActionButton } from "@/components/ui/action-button";
+import { MarkdownReadonly } from "@/components/ui/markdown/markdown-readonly";
 import LoadingSpinner from "@/components/ui/spinner";
 import { toast } from "@/components/ui/use-toast";
 import { useClientConfig } from "@/lib/clientConfig";
@@ -16,9 +17,11 @@ import { BookmarkTypes, ZBookmark } from "@karakeep/shared/types/bookmarks";
 function AISummary({
   bookmarkId,
   summary,
+  readOnly = false,
 }: {
   bookmarkId: string;
   summary: string;
+  readOnly?: boolean;
 }) {
   const [isExpanded, setIsExpanded] = React.useState(false);
   const { mutate: resummarize, isPending: isResummarizing } =
@@ -52,35 +55,41 @@ function AISummary({
         onClick={() => !isExpanded && setIsExpanded(true)}
       >
         <div className="h-full rounded-lg bg-accent p-2">
-          <p
-            className={`text-sm text-gray-700 dark:text-gray-300 ${!isExpanded && "line-clamp-3"}`}
+          <MarkdownReadonly
+            className={`text-sm ${!isExpanded && "line-clamp-3"}`}
           >
             {summary}
-          </p>
+          </MarkdownReadonly>
           {isExpanded && (
             <span className="flex justify-end gap-2 pt-2">
-              <ActionButton
-                variant="none"
-                size="none"
-                spinner={<LoadingSpinner className="size-4" />}
-                className="rounded-full bg-gray-200 p-1 text-gray-600 dark:bg-gray-700 dark:text-gray-400"
-                aria-label={isExpanded ? "Collapse" : "Expand"}
-                loading={isResummarizing}
-                onClick={() => resummarize({ bookmarkId })}
-              >
-                <RefreshCw size={16} />
-              </ActionButton>
-              <ActionButton
-                size="none"
-                variant="none"
-                spinner={<LoadingSpinner className="size-4" />}
-                className="rounded-full bg-gray-200 p-1 text-gray-600 dark:bg-gray-700 dark:text-gray-400"
-                aria-label={isExpanded ? "Collapse" : "Expand"}
-                loading={isUpdatingBookmark}
-                onClick={() => updateBookmark({ bookmarkId, summary: null })}
-              >
-                <Trash2 size={16} />
-              </ActionButton>
+              {!readOnly && (
+                <>
+                  <ActionButton
+                    variant="none"
+                    size="none"
+                    spinner={<LoadingSpinner className="size-4" />}
+                    className="rounded-full bg-gray-200 p-1 text-gray-600 dark:bg-gray-700 dark:text-gray-400"
+                    aria-label={isExpanded ? "Collapse" : "Expand"}
+                    loading={isResummarizing}
+                    onClick={() => resummarize({ bookmarkId })}
+                  >
+                    <RefreshCw size={16} />
+                  </ActionButton>
+                  <ActionButton
+                    size="none"
+                    variant="none"
+                    spinner={<LoadingSpinner className="size-4" />}
+                    className="rounded-full bg-gray-200 p-1 text-gray-600 dark:bg-gray-700 dark:text-gray-400"
+                    aria-label={isExpanded ? "Collapse" : "Expand"}
+                    loading={isUpdatingBookmark}
+                    onClick={() =>
+                      updateBookmark({ bookmarkId, summary: null })
+                    }
+                  >
+                    <Trash2 size={16} />
+                  </ActionButton>
+                </>
+              )}
               <button
                 className="rounded-full bg-gray-200 p-1 text-gray-600 dark:bg-gray-700 dark:text-gray-400"
                 aria-label="Collapse"
@@ -98,8 +107,10 @@ function AISummary({
 
 export default function SummarizeBookmarkArea({
   bookmark,
+  readOnly = false,
 }: {
   bookmark: ZBookmark;
+  readOnly?: boolean;
 }) {
   const { t } = useTranslation();
   const { mutate, isPending } = useSummarizeBookmark({
@@ -117,8 +128,14 @@ export default function SummarizeBookmarkArea({
   }
 
   if (bookmark.summary) {
-    return <AISummary bookmarkId={bookmark.id} summary={bookmark.summary} />;
-  } else if (!clientConfig.inference.isConfigured) {
+    return (
+      <AISummary
+        bookmarkId={bookmark.id}
+        summary={bookmark.summary}
+        readOnly={readOnly}
+      />
+    );
+  } else if (!clientConfig.inference.isConfigured || readOnly) {
     return null;
   } else {
     return (

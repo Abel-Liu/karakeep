@@ -38,7 +38,11 @@
     "add": "Thêm",
     "fetch_now": "Lấy dữ liệu ngay",
     "open_editor": "Mở trình chỉnh sửa",
-    "toggle_show_archived": "Hiển thị đã lưu trữ"
+    "toggle_show_archived": "Hiển thị đã lưu trữ",
+    "confirm": "Xác nhận",
+    "regenerate": "Tạo lại",
+    "load_more": "Tải thêm",
+    "edit_notes": "Sửa ghi chú"
   },
   "layouts": {
     "list": "Danh sách",
@@ -63,7 +67,8 @@
       "import_bookmarks_from_pocket_export": "Nhập dấu trang từ bản xuất Pocket",
       "import_bookmarks_from_omnivore_export": "Nhập dấu trang từ xuất Omnivore",
       "import_bookmarks_from_karakeep_export": "Nhập dấu trang từ bản xuất Karakeep",
-      "import_bookmarks_from_tab_session_manager_export": "Nhập dấu trang từ Tab Session Manager"
+      "import_bookmarks_from_tab_session_manager_export": "Nhập dấu trang từ Tab Session Manager",
+      "import_bookmarks_from_mymind_export": "Nhập dấu trang từ tệp xuất mymind"
     },
     "webhooks": {
       "edit_auth_token": "Sửa mã xác thực",
@@ -88,7 +93,12 @@
       "api_keys": "Khóa API",
       "key_success": "Khóa đã được tạo thành công",
       "new_api_key": "Khóa API mới",
-      "new_api_key_desc": "Đặt 1 tên độc nhất cho khóa API"
+      "new_api_key_desc": "Đặt 1 tên độc nhất cho khóa API",
+      "regenerate_api_key": "Tạo lại API Key",
+      "key_regenerated": "Đã tạo lại key thành công",
+      "key_regenerated_please_copy": "Vui lòng copy key mới và lưu trữ nó ở nơi an toàn. Key cũ đã bị thu hồi và sẽ không còn hoạt động nữa.",
+      "regenerate_warning": "Bạn có chắc chắn muốn tạo lại API key \"{{name}}\" không?",
+      "regenerate_confirmation": "Hành động này sẽ thu hồi key hiện tại và tạo một key mới. Bất kỳ ứng dụng nào đang sử dụng key hiện tại sẽ ngừng hoạt động."
     },
     "ai": {
       "tagging_rule_description": "Các gợi ý mà bạn thêm vào đây sẽ được đưa vào làm quy tắc cho mô hình trong quá trình tạo nhãn. Bạn có thể xem các gợi ý cuối cùng trong phần xem trước gợi ý.",
@@ -239,6 +249,10 @@
       },
       "storage_breakdown": {
         "title": "Phân tích bộ nhớ"
+      },
+      "bookmark_sources": {
+        "title": "Nguồn đánh dấu trang",
+        "empty": "Không có dữ liệu nguồn"
       }
     },
     "subscription": {
@@ -261,6 +275,82 @@
       "loading_usage": "Đang tải thông tin sử dụng...",
       "free": "Miễn phí",
       "paid": "Trả phí"
+    },
+    "import_sessions": {
+      "title": "Nhập Phiên",
+      "description": "Xem và quản lý các phiên nhập hàng loạt của bạn. Các phiên được tạo tự động khi bạn nhập dấu trang.",
+      "load_error": "Không tải được phiên nhập",
+      "no_sessions": "Chưa có phiên nhập nào",
+      "no_sessions_detail": "Các phiên nhập sẽ tự động xuất hiện ở đây khi bạn nhập dấu trang",
+      "created_at": "Đã tạo {{time}}",
+      "progress": "Tiến trình",
+      "status": {
+        "pending": "Đang chờ xử lý",
+        "in_progress": "Đang thực hiện",
+        "completed": "Đã hoàn thành",
+        "failed": "Thất bại",
+        "processing": "Đang xử lý"
+      },
+      "badges": {
+        "pending": "{{count}} đang chờ xử lý",
+        "processing": "{{count}} đang xử lý",
+        "completed": "{{count}} đã hoàn thành",
+        "failed": "{{count}} thất bại"
+      },
+      "imported_to": "Đã nhập vào:",
+      "view_list": "Xem Danh sách",
+      "delete_dialog_title": "Xóa Phiên Nhập",
+      "delete_dialog_description": "Bạn có chắc chắn muốn xóa \"{{name}}\" không? Thao tác này không thể hoàn tác. Bản thân các dấu trang sẽ không bị xóa.",
+      "delete_session": "Xóa Phiên"
+    },
+    "backups": {
+      "backups": "Sao lưu",
+      "page_title": "Sao lưu",
+      "page_description": "Tự động tạo và quản lý sao lưu dấu trang của bạn. Bản sao lưu được nén và lưu trữ an toàn.",
+      "configuration": {
+        "title": "Cấu hình sao lưu",
+        "enable_automatic_backups": "Bật sao lưu tự động",
+        "enable_automatic_backups_description": "Tự động tạo bản sao lưu dấu trang của bạn",
+        "backup_frequency": "Tần suất sao lưu",
+        "backup_frequency_description": "Tần suất tạo bản sao lưu",
+        "retention_period": "Thời gian lưu giữ (ngày)",
+        "retention_period_description": "Số ngày giữ bản sao lưu trước khi xóa",
+        "frequency": {
+          "daily": "Hàng ngày",
+          "weekly": "Hàng tuần"
+        },
+        "select_frequency": "Chọn tần suất",
+        "save_settings": "Lưu cài đặt"
+      },
+      "list": {
+        "title": "Các bản sao lưu của bạn",
+        "create_backup_now": "Tạo bản sao lưu ngay",
+        "no_backups": "Bạn chưa có bản sao lưu nào. Bật sao lưu tự động hoặc tạo thủ công.",
+        "table": {
+          "created_at": "Đã tạo vào",
+          "bookmarks": "Dấu trang",
+          "size": "Kích thước",
+          "status": "Trạng thái",
+          "actions": "Hành động"
+        },
+        "status": {
+          "success": "Thành công",
+          "failed": "Thất bại",
+          "pending": "Đang chờ"
+        },
+        "actions": {
+          "download_backup": "Tải xuống bản sao lưu",
+          "delete_backup": "Xóa bản sao lưu"
+        }
+      },
+      "dialogs": {
+        "delete_backup_title": "Xóa bản sao lưu?",
+        "delete_backup_description": "Mày có chắc là muốn xóa bản sao lưu này không? Hành động này không thể hoàn tác đâu đó."
+      },
+      "toasts": {
+        "backup_queued": "Công việc sao lưu đã được đưa vào hàng đợi! Nó sẽ sớm được xử lý thôi.",
+        "backup_deleted": "Đã xóa bản sao lưu!"
+      }
     }
   },
   "admin": {
@@ -283,7 +373,76 @@
       "queued": "Đã xếp hàng",
       "pending": "Đang chờ xử lý",
       "crawler_jobs": "Việc làm của trình thu thập dữ liệu",
-      "indexing_jobs": "Đang lập chỉ mục công việc"
+      "indexing_jobs": "Đang lập chỉ mục công việc",
+      "jobs": {
+        "crawler": {
+          "title": "Các Công Việc Thu Thập Dữ Liệu",
+          "description": "Thu thập dữ liệu web và trích xuất nội dung từ các URL"
+        },
+        "inference": {
+          "title": "Các Công Việc Suy Luận",
+          "description": "Gắn thẻ và tóm tắt nội dung bằng AI"
+        },
+        "indexing": {
+          "title": "Các Công Việc Lập Chỉ Mục",
+          "description": "Cập nhật chỉ mục tìm kiếm"
+        },
+        "asset_preprocessing": {
+          "title": "Các Công Việc Tiền Xử Lý Tài Sản",
+          "description": "Xử lý trước hình ảnh và tài liệu (chụp ảnh màn hình, trích xuất văn bản, v.v.)"
+        },
+        "tidy_assets": {
+          "title": "Các Công Việc Dọn Dẹp Tài Sản",
+          "description": "Dọn dẹp tài sản và tối ưu hóa lưu trữ"
+        },
+        "video": {
+          "title": "Các Công Việc Tải Xuống Video",
+          "description": "Trích xuất và tải xuống video"
+        },
+        "webhook": {
+          "title": "Các Công Việc Webhook",
+          "description": "Thông báo webhook bên ngoài"
+        },
+        "feed": {
+          "title": "Các Công Việc Nguồn Cấp RSS",
+          "description": "Xử lý nguồn cấp RSS và cập nhật nội dung"
+        },
+        "admin_maintenance": {
+          "title": "Công việc bảo trì quản trị",
+          "description": "Dọn dẹp hành chính và bảo trì tài sản"
+        }
+      },
+      "monitor_and_manage": "Theo dõi và quản lý hàng đợi công việc nền và các tác vụ xử lý hệ thống",
+      "active": "Đang hoạt động",
+      "available_actions": "Các Hành Động Khả Dụng",
+      "status": {
+        "title": "Tìm Hiểu Trạng Thái Công Việc",
+        "queued": {
+          "title": "Đã xếp hàng chờ",
+          "description": "Các công việc đang chờ trong hàng đợi để được xử lý. Chúng sẽ tự động bắt đầu khi có tài nguyên."
+        },
+        "unprocessed": {
+          "title": "Chưa xử lý",
+          "description": "Các dấu trang chưa được xử lý. Chúng rất có thể đã được xếp hàng chờ xử lý, nếu không, bạn có thể cần phải xếp hàng lại theo cách thủ công."
+        },
+        "failed": {
+          "title": "Thất bại",
+          "description": "Các dấu trang gặp lỗi trong quá trình xử lý. Chúng có thể cần được chú ý thủ công."
+        }
+      },
+      "actions": {
+        "recrawl_failed_links_only": "Thu thập lại thông tin chỉ các liên kết bị lỗi",
+        "recrawl_all_links": "Thu thập lại thông tin tất cả các liên kết",
+        "without_inference": "Không suy luận",
+        "regenerate_ai_tags_for_failed_bookmarks_only": "Tạo lại thẻ AI chỉ cho các dấu trang bị lỗi",
+        "regenerate_ai_tags_for_all_bookmarks": "Tạo lại thẻ AI cho tất cả các dấu trang",
+        "regenerate_ai_summaries_for_failed_bookmarks_only": "Tạo lại tóm tắt AI chỉ cho các dấu trang bị lỗi",
+        "regenerate_ai_summaries_for_all_bookmarks": "Tạo lại tóm tắt AI cho tất cả các dấu trang",
+        "reindex_all_bookmarks": "Lập chỉ mục lại tất cả các dấu trang",
+        "clean_assets": "Xóa các tài sản treo lơ lửng & Đồng bộ lại siêu dữ liệu",
+        "reprocess_assets_fix_mode": "Xử lý lại các tài sản chưa được xử lý",
+        "migrate_large_link_html_content": "Chuyển Nội Dung HTML Lớn Nội Tuyến sang Tài Sản"
+      }
     },
     "admin_settings": "Cài đặt quản trị viên",
     "users_list": {
@@ -310,6 +469,18 @@
       "without_inference": "Không có suy luận",
       "regenerate_ai_summaries_for_failed_bookmarks_only": "Tạo lại tóm tắt AI chỉ cho các bookmark bị lỗi",
       "regenerate_ai_summaries_for_all_bookmarks": "Tạo lại tóm tắt AI cho tất cả các bookmark"
+    },
+    "service_connections": {
+      "title": "Kết nối Dịch vụ",
+      "description": "Theo dõi tình trạng và khả năng kết nối của các phụ thuộc hệ thống bên ngoài",
+      "search_engine": "Công cụ Tìm kiếm",
+      "browser": "Trình duyệt",
+      "queue_system": "Hệ thống Hàng đợi",
+      "status": {
+        "not_configured": "Chưa Cấu hình",
+        "connected": "Đã kết nối",
+        "disconnected": "Đã ngắt kết nối"
+      }
     }
   },
   "common": {
@@ -385,7 +556,63 @@
       "title": "Danh sách công khai",
       "description": "Cho phép người khác xem danh sách này",
       "share_link": "Chia sẻ liên kết"
-    }
+    },
+    "delete_list": {
+      "title": "Xóa Danh Sách",
+      "description": "Xóa một danh sách không xóa bất kỳ dấu trang nào trong danh sách đó.",
+      "delete_children": "Xóa danh sách con (đệ quy)",
+      "delete_children_description": "Nếu không được chọn, tất cả các danh sách con trực tiếp sẽ trở thành danh sách gốc"
+    },
+    "shared": "Được chia sẻ",
+    "collaborators": {
+      "manage": "Quản lý Cộng tác viên",
+      "view": "Xem Cộng tác viên",
+      "collaborators": "Cộng tác viên",
+      "add": "Thêm Cộng tác viên",
+      "current": "Cộng tác viên Hiện tại",
+      "enter_email": "Nhập địa chỉ email",
+      "please_enter_email": "Vui lòng nhập địa chỉ email",
+      "added_successfully": "Đã thêm cộng tác viên thành công",
+      "failed_to_add": "Không thêm được cộng tác viên",
+      "removed": "Đã xóa cộng tác viên",
+      "failed_to_remove": "Không xóa được cộng tác viên",
+      "role_updated": "Đã cập nhật vai trò",
+      "failed_to_update_role": "Không cập nhật được vai trò",
+      "viewer": "Người xem",
+      "editor": "Biên tập viên",
+      "owner": "Chủ sở hữu",
+      "viewer_description": "Có thể xem dấu trang trong danh sách",
+      "editor_description": "Có thể thêm và xóa dấu trang",
+      "no_collaborators": "Chưa có cộng tác viên nào. Thêm ai đó để bắt đầu cộng tác!",
+      "no_collaborators_readonly": "Không có cộng tác viên nào cho danh sách này.",
+      "people_with_access": "Những người có quyền truy cập vào danh sách này",
+      "add_or_remove": "Thêm hoặc xóa những người có thể truy cập danh sách này",
+      "invitation_sent": "Đã gửi lời mời thành công",
+      "invitation_revoked": "Đã thu hồi lời mời",
+      "failed_to_revoke": "Không thu hồi được lời mời",
+      "pending": "Đang chờ",
+      "revoke": "Thu hồi",
+      "declined": "Đã từ chối"
+    },
+    "leave_list": {
+      "title": "Rời khỏi danh sách",
+      "confirm_message": "Bạn có chắc chắn muốn rời khỏi {{icon}} {{name}} không?",
+      "warning": "Bạn sẽ không còn có thể xem hoặc truy cập dấu trang trong danh sách này nữa. Chủ sở hữu danh sách có thể thêm bạn lại nếu cần.",
+      "action": "Rời khỏi danh sách",
+      "success": "Bạn đã rời khỏi \"{{icon}} {{name}}\""
+    },
+    "invitations": {
+      "pending": "Lời mời đang chờ",
+      "description": "Xem lại và phản hồi lời mời cộng tác danh sách",
+      "invited_by": "Được mời bởi",
+      "accept": "Chấp nhận",
+      "decline": "Từ chối",
+      "accepted": "Đã chấp nhận lời mời",
+      "declined": "Đã từ chối lời mời",
+      "failed_to_accept": "Không chấp nhận được lời mời",
+      "failed_to_decline": "Không từ chối được lời mời"
+    },
+    "shared_lists": "Danh sách dùng chung"
   },
   "search": {
     "is_favorited": "Được ưa thích",
@@ -423,7 +650,9 @@
     "week_s_ago": " Tuần trước",
     "month_s_ago": " Tháng trước",
     "year_s_ago": " Năm trước",
-    "history": "Tìm kiếm gần đây"
+    "history": "Tìm kiếm gần đây",
+    "title_contains": "Chứa trong tiêu đề",
+    "title_does_not_contain": "Không chứa trong tiêu đề"
   },
   "tags": {
     "all_tags": "Tất cả nhãn",
@@ -436,7 +665,18 @@
     "drag_and_drop_merging_info": "Kéo và thả các thẻ lên nhau để hợp nhất chúng",
     "your_tags_info": "Các thẻ đã được bạn đính kèm ít nhất một lần",
     "ai_tags": "Thẻ AI",
-    "ai_tags_info": "Các thẻ chỉ được đính kèm tự động (bởi AI)"
+    "ai_tags_info": "Các thẻ chỉ được đính kèm tự động (bởi AI)",
+    "create_tag": "Tạo Thẻ",
+    "create_tag_description": "Tạo một thẻ mới mà không cần đính kèm nó vào bất kỳ dấu trang nào",
+    "tag_name": "Tên Thẻ",
+    "enter_tag_name": "Nhập tên thẻ",
+    "sort_by_usage": "Sắp xếp theo mức độ sử dụng",
+    "sort_by_relevance": "Sắp xếp theo mức độ liên quan",
+    "no_custom_tags": "Chưa có thẻ tùy chỉnh nào",
+    "no_ai_tags": "Chưa có thẻ AI nào",
+    "no_unused_tags": "Bạn không có thẻ chưa sử dụng nào",
+    "no_unused_tags_match_your_search": "Không có thẻ chưa sử dụng nào phù hợp với tìm kiếm của bạn",
+    "no_tags_match_your_search": "Không có thẻ nào phù hợp với tìm kiếm của bạn"
   },
   "options": {
     "dark_mode": "Chế độ tối",
@@ -528,6 +768,10 @@
       "updated": "Danh sách đã được cập nhật!",
       "merged": "Đã hợp nhất danh sách!",
       "deleted": "Đã xóa danh sách!"
+    },
+    "tags": {
+      "created": "Đã tạo thẻ thành công!",
+      "failed_to_create": "Không tạo được thẻ"
     }
   },
   "preview": {
@@ -554,5 +798,27 @@
       "title": "Chưa có dấu trang nào",
       "description": "Lưu các bài viết, liên kết và trang thú vị để truy cập nhanh sau này."
     }
+  },
+  "view_options": {
+    "title": "Tùy chọn xem",
+    "layout": "Bố cục",
+    "columns": "Cột",
+    "display_options": "Tùy chọn hiển thị",
+    "show_note_previews": "Hiện ghi chú",
+    "show_tags": "Hiển thị thẻ",
+    "show_title": "Hiển thị tiêu đề",
+    "image_options": "Tùy chọn hình ảnh",
+    "image_fit_cover": "Bìa (Lấp đầy)",
+    "image_fit_contain": "Chứa (Vừa vặn)"
+  },
+  "version": {
+    "new_release_available": "Có ghi chú phát hành mới đó",
+    "whats_new_title": "Có gì mới trong v{{version}}?",
+    "release_notes_description": "Đây là những cập nhật mới nhất lấy từ ghi chú phát hành trên GitHub.",
+    "loading_release_notes": "Đang tải ghi chú phát hành…",
+    "unable_to_load_release_notes": "Không thể tải ghi chú phát hành ngay bây giờ. Lát nữa thử lại nha.",
+    "no_release_notes": "Không có ghi chú phát hành nào cho phiên bản này cả.",
+    "release_notes_synced": "Ghi chú phát hành được đồng bộ hóa từ GitHub đó.",
+    "view_on_github": "Xem trên GitHub nè"
   }
 }

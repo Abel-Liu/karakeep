@@ -4,7 +4,6 @@ import React, {
   useCallback,
   useEffect,
   useImperativeHandle,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -12,6 +11,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Command,
+  CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
@@ -25,14 +25,12 @@ import {
 import { useDoBookmarkSearch } from "@/lib/hooks/bookmark-search";
 import { useTranslation } from "@/lib/i18n/client";
 import { cn } from "@/lib/utils";
-import { History } from "lucide-react";
 
 import { useSearchHistory } from "@karakeep/shared-react/hooks/search-history";
 
 import { EditListModal } from "../lists/EditListModal";
 import QueryExplainerTooltip from "./QueryExplainerTooltip";
-
-const MAX_DISPLAY_SUGGESTIONS = 5;
+import { useSearchAutocomplete } from "./useSearchAutocomplete";
 
 function useFocusSearchOnKeyPress(
   inputRef: React.RefObject<HTMLInputElement | null>,
@@ -85,35 +83,56 @@ const SearchInput = React.forwardRef<
     removeItem: (k: string) => localStorage.removeItem(k),
   });
 
-  const [value, setValue] = React.useState(searchQuery);
+  const [value, setValue] = useState(searchQuery);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [newNestedListModalOpen, setNewNestedListModalOpen] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const isHistorySelected = useRef(false);
+  const isComposing = useRef(false);
 
   const handleValueChange = useCallback(
     (newValue: string) => {
       setValue(newValue);
-      debounceSearch(newValue);
+      // Only trigger debounced search if not in IME composition mode
+      if (!isComposing.current) {
+        debounceSearch(newValue);
+      }
       isHistorySelected.current = false; // Reset flag when user types
     },
     [debounceSearch],
   );
 
-  const suggestions = useMemo(() => {
-    if (value.trim() === "") {
-      // Show recent items when not typing
-      return history.slice(0, MAX_DISPLAY_SUGGESTIONS);
-    } else {
-      // Show filtered items when typing
-      return history
-        .filter((item) => item.toLowerCase().includes(value.toLowerCase()))
-        .slice(0, MAX_DISPLAY_SUGGESTIONS);
-    }
-  }, [history, value]);
+  const handleCompositionStart = useCallback(() => {
+    isComposing.current = true;
+  }, []);
 
-  const isPopoverVisible = isPopoverOpen && suggestions.length > 0;
+  const handleCompositionEnd = useCallback(
+    (e: React.CompositionEvent<HTMLInputElement>) => {
+      isComposing.current = false;
+      // Trigger search with the final composed value
+      const target = e.target as HTMLInputElement;
+      debounceSearch(target.value);
+    },
+    [debounceSearch],
+  );
+
+  const {
+    suggestionGroups,
+    hasSuggestions,
+    isPopoverVisible,
+    handleSuggestionSelect,
+    handleCommandKeyDown,
+  } = useSearchAutocomplete({
+    value,
+    onValueChange: handleValueChange,
+    inputRef,
+    isPopoverOpen,
+    setIsPopoverOpen,
+    t,
+    history,
+  });
+
   const handleHistorySelect = useCallback(
     (term: string) => {
       isHistorySelected.current = true;
@@ -123,27 +142,8 @@ const SearchInput = React.forwardRef<
       setIsPopoverOpen(false);
       inputRef.current?.blur();
     },
-    [doSearch],
+    [doSearch, addTerm],
   );
-
-  const handleCommandKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      const selectedItem = document.querySelector(
-        '[cmdk-item][data-selected="true"]',
-      );
-      const isPlaceholderSelected =
-        selectedItem?.getAttribute("data-value") === "-";
-      if (!selectedItem || isPlaceholderSelected) {
-        e.preventDefault();
-        setIsPopoverOpen(false);
-        inputRef.current?.blur();
-      }
-    } else if (e.key === "Escape") {
-      e.preventDefault();
-      setIsPopoverOpen(false);
-      inputRef.current?.blur();
-    }
-  }, []);
 
   useFocusSearchOnKeyPress(inputRef, value, setValue, setIsPopoverOpen);
   useImperativeHandle(ref, () => inputRef.current!);
@@ -210,6 +210,8 @@ const SearchInput = React.forwardRef<
                 placeholder={t("common.search")}
                 value={value}
                 onValueChange={handleValueChange}
+                onCompositionStart={handleCompositionStart}
+                onCompositionEnd={handleCompositionEnd}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 className={cn("h-10", className)}
@@ -222,28 +224,50 @@ const SearchInput = React.forwardRef<
             onOpenAutoFocus={(e) => e.preventDefault()}
             onCloseAutoFocus={(e) => e.preventDefault()}
           >
-            <CommandList>
-              <CommandGroup
-                heading={t("search.history")}
-                className="max-h-60 overflow-y-auto"
-              >
-                {/* prevent cmdk auto select the first suggestion -> https://github.com/pacocoursey/cmdk/issues/171*/}
-                <CommandItem value="-" className="hidden" />
-                {suggestions.map((term) => (
-                  <CommandItem
-                    key={term}
-                    value={term}
-                    onSelect={() => handleHistorySelect(term)}
-                    onMouseDown={() => {
-                      isHistorySelected.current = true;
-                    }}
-                    className="cursor-pointer"
-                  >
-                    <History className="mr-2 h-4 w-4" />
-                    <span>{term}</span>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
+            <CommandList className="max-h-96 overflow-y-auto">
+              <CommandEmpty>{t("search.no_suggestions")}</CommandEmpty>
+              {hasSuggestions && <CommandItem value="-" className="hidden" />}
+              {suggestionGroups.map((group) => (
+                <CommandGroup key={group.id} heading={group.label}>
+                  {group.items.map((item) => {
+                    if (item.type === "history") {
+                      return (
+                        <CommandItem
+                          key={item.id}
+                          value={item.label}
+                          onSelect={() => handleHistorySelect(item.term)}
+                          onMouseDown={() => {
+                            isHistorySelected.current = true;
+                          }}
+                          className="cursor-pointer"
+                        >
+                          <item.Icon className="mr-2 h-4 w-4" />
+                          <span>{item.label}</span>
+                        </CommandItem>
+                      );
+                    }
+
+                    return (
+                      <CommandItem
+                        key={item.id}
+                        value={item.label}
+                        onSelect={() => handleSuggestionSelect(item)}
+                        className="cursor-pointer"
+                      >
+                        <item.Icon className="mr-2 h-4 w-4" />
+                        <div className="flex flex-col">
+                          <span>{item.label}</span>
+                          {item.description && (
+                            <span className="text-xs text-muted-foreground">
+                              {item.description}
+                            </span>
+                          )}
+                        </div>
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
+              ))}
             </CommandList>
           </PopoverContent>
         </Popover>

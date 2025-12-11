@@ -74,7 +74,76 @@
       "inference_jobs": "Inferensjobber",
       "tidy_assets_jobs": "Rydd opp i ressursjobber",
       "job": "Jobb",
-      "queued": "I kø"
+      "queued": "I kø",
+      "jobs": {
+        "crawler": {
+          "title": "Crawler-jobber",
+          "description": "Web-crawling og innholdsekstrahering fra URL-er"
+        },
+        "inference": {
+          "title": "Inferens-jobber",
+          "description": "AI-drevet merking og oppsummering av innhold"
+        },
+        "indexing": {
+          "title": "Indekseringsjobber",
+          "description": "Søkeindeksoppdateringer"
+        },
+        "asset_preprocessing": {
+          "title": "Jobber for forhåndsbehandling av ressurser",
+          "description": "Forhåndsbehandling av bilder og dokumenter (skjermbilder, tekstuttrekk osv.)"
+        },
+        "tidy_assets": {
+          "title": "Ryddige ressursjobber",
+          "description": "Opprydding av ressurser og lagringsoptimalisering"
+        },
+        "video": {
+          "title": "Nedlastingsjobber for video",
+          "description": "Videoekstrahering og nedlasting"
+        },
+        "webhook": {
+          "title": "Webhook-jobber",
+          "description": "Eksterne webhook-varsler"
+        },
+        "feed": {
+          "title": "RSS-feed-jobber",
+          "description": "RSS-feed-behandling og innholdsoppdateringer"
+        },
+        "admin_maintenance": {
+          "title": "Admin-vedlikeholdsjobber",
+          "description": "Administrativ opprydding og ressursvedlikehold"
+        }
+      },
+      "monitor_and_manage": "Overvåk og administrer bakgrunnsjobbkøer og systembehandlingsoppgaver",
+      "active": "Aktiv",
+      "available_actions": "Tilgjengelige handlinger",
+      "status": {
+        "title": "Forstå jobbtilstander",
+        "queued": {
+          "title": "I kø",
+          "description": "Jobber som venter på tur for å bli behandlet. De starter automatisk når ressurser er tilgjengelige."
+        },
+        "unprocessed": {
+          "title": "Ubehandlet",
+          "description": "Bokmerker som ikke er behandlet ennå. De er mest sannsynlig allerede satt i kø for behandling, hvis ikke må du kanskje sette dem i kø manuelt på nytt."
+        },
+        "failed": {
+          "title": "Mislyktes",
+          "description": "Bokmerker som støtte på feil under behandling. Disse kan trenge manuell oppmerksomhet."
+        }
+      },
+      "actions": {
+        "recrawl_failed_links_only": "Gjennomgå bare mislykkede lenker på nytt",
+        "recrawl_all_links": "Gjennomgå alle lenker på nytt",
+        "without_inference": "Uten Inferences",
+        "regenerate_ai_tags_for_failed_bookmarks_only": "Gjenskap AI-tagger bare for mislykkede bokmerker",
+        "regenerate_ai_tags_for_all_bookmarks": "Gjenskap AI-tagger for alle bokmerker",
+        "regenerate_ai_summaries_for_failed_bookmarks_only": "Gjenskap AI-sammendrag bare for mislykkede bokmerker",
+        "regenerate_ai_summaries_for_all_bookmarks": "Gjenskap AI-sammendrag for alle bokmerker",
+        "reindex_all_bookmarks": "Reindekser alle bokmerker",
+        "clean_assets": "Fjern løse filer og synkroniser metadata på nytt",
+        "reprocess_assets_fix_mode": "Behandle aktiva som ikke er behandlet, på nytt",
+        "migrate_large_link_html_content": "Flytt stort HTML-innhold på nettet til aktiva"
+      }
     },
     "actions": {
       "regenerate_ai_tags_for_failed_bookmarks_only": "Regenerer AI-tagger bare for mislykkede bokmerker",
@@ -88,7 +157,19 @@
       "regenerate_ai_summaries_for_failed_bookmarks_only": "Gjenopprett AI-sammendrag kun for mislykkede bokmerker",
       "regenerate_ai_summaries_for_all_bookmarks": "Gjenopprett AI-sammendrag for alle bokmerker"
     },
-    "admin_settings": "Admin-innstillinger"
+    "admin_settings": "Admin-innstillinger",
+    "service_connections": {
+      "title": "Tilkoblinger for tjenester",
+      "description": "Overvåk helsen og tilkoblingen til eksterne systemavhengigheter",
+      "search_engine": "Søkemotor",
+      "browser": "Nettleser",
+      "queue_system": "Køsystem",
+      "status": {
+        "not_configured": "Ikke konfigurert",
+        "connected": "Tilkoblet",
+        "disconnected": "Frakoblet"
+      }
+    }
   },
   "actions": {
     "unselect_all": "Fjern alle valg",
@@ -129,7 +210,11 @@
     "ignore": "Ignorer",
     "favorite": "Favoritt",
     "open_editor": "Åpne redigeringsprogram",
-    "toggle_show_archived": "Vis arkiverte"
+    "toggle_show_archived": "Vis arkiverte",
+    "confirm": "Bekreft",
+    "regenerate": "Regenerer",
+    "load_more": "Last inn mer",
+    "edit_notes": "Rediger notater"
   },
   "settings": {
     "info": {
@@ -178,14 +263,20 @@
       "import_bookmarks_from_karakeep_export": "Importer bokmerker fra Karakeepp-eksport",
       "export_links_and_notes": "Eksporter lenker og notater",
       "imported_bookmarks": "Importerte bokmerker",
-      "import_bookmarks_from_tab_session_manager_export": "Importer bokmerker fra Tab Session Manager"
+      "import_bookmarks_from_tab_session_manager_export": "Importer bokmerker fra Tab Session Manager",
+      "import_bookmarks_from_mymind_export": "Importer bokmerker fra mymind-eksporten min"
     },
     "api_keys": {
       "new_api_key": "Ny API-nøkkel",
       "key_success": "Nøkkelen ble opprettet",
       "new_api_key_desc": "Gi API-nøkkelen din et unikt navn",
       "api_keys": "API-nøkler",
-      "key_success_please_copy": "Vennligst kopier nøkkelen og oppbevar den et trygt sted. Når du lukker dialogen, vil du ikke ha tilgang til den igjen."
+      "key_success_please_copy": "Vennligst kopier nøkkelen og oppbevar den et trygt sted. Når du lukker dialogen, vil du ikke ha tilgang til den igjen.",
+      "regenerate_api_key": "Regenerer API-nøkkel",
+      "key_regenerated": "Nøkkelen ble regenerert",
+      "key_regenerated_please_copy": "Kopier den nye nøkkelen og oppbevar den på et trygt sted. Den gamle nøkkelen er trukket tilbake og vil ikke lenger fungere.",
+      "regenerate_warning": "Er du sikker på at du vil regenerere API-nøkkelen \"{{name}}\"?",
+      "regenerate_confirmation": "Dette vil tilbakekalle den nåværende nøkkelen og generere en ny. Alle applikasjoner som bruker den nåværende nøkkelen, slutter å virke."
     },
     "webhooks": {
       "edit_webhook": "Rediger Webhook",
@@ -324,6 +415,10 @@
       },
       "storage_breakdown": {
         "title": "Lagringsoversikt"
+      },
+      "bookmark_sources": {
+        "title": "Bokmerk kilder",
+        "empty": "Ingen kildedata tilgjengelig"
       }
     },
     "subscription": {
@@ -346,6 +441,82 @@
       "loading_usage": "Laster inn bruksinformasjon …",
       "free": "Gratis",
       "paid": "Betalt"
+    },
+    "import_sessions": {
+      "title": "Importer sesjoner",
+      "description": "Se og administrer bulkimport-sesjonene dine. Sesjoner opprettes automatisk når du importerer bokmerker.",
+      "load_error": "Kunne ikke laste inn importsesjoner",
+      "no_sessions": "Ingen importsesjoner enda",
+      "no_sessions_detail": "Importsesjoner vises her automatisk når du importerer bokmerker",
+      "created_at": "Opprettet {{time}}",
+      "progress": "Fremdrift",
+      "status": {
+        "pending": "Venter",
+        "in_progress": "Pågår",
+        "completed": "Fullført",
+        "failed": "Mislyktes",
+        "processing": "Behandler"
+      },
+      "badges": {
+        "pending": "{{count}} venter",
+        "processing": "{{count}} behandler",
+        "completed": "{{count}} fullført",
+        "failed": "{{count}} feilet"
+      },
+      "imported_to": "Importert til:",
+      "view_list": "Vis liste",
+      "delete_dialog_title": "Slett importsesjon",
+      "delete_dialog_description": "Er du sikker på at du vil slette «{{name}}»? Denne handlingen kan ikke angres. Selve bokmerkene blir ikke slettet.",
+      "delete_session": "Slett økt"
+    },
+    "backups": {
+      "backups": "Sikkerhetskopieringer",
+      "page_title": "Sikkerhetskopieringer",
+      "page_description": "Lag og administrer sikkerhetskopieringer av bokmerkene dine automatisk. Sikkerhetskopieringene komprimeres og lagres sikkert.",
+      "configuration": {
+        "title": "Konfigurasjon av sikkerhetskopiering",
+        "enable_automatic_backups": "Aktiver automatiske sikkerhetskopieringer",
+        "enable_automatic_backups_description": "Lag sikkerhetskopieringer av bokmerkene dine automatisk",
+        "backup_frequency": "Frekvens for sikkerhetskopiering",
+        "backup_frequency_description": "Hvor ofte sikkerhetskopieringer skal opprettes",
+        "retention_period": "Oppbevaringsperiode (dager)",
+        "retention_period_description": "Hvor mange dager sikkerhetskopieringer skal beholdes før de slettes",
+        "frequency": {
+          "daily": "Daglig",
+          "weekly": "Ukentlig"
+        },
+        "select_frequency": "Velg frekvens",
+        "save_settings": "Lagre innstillinger"
+      },
+      "list": {
+        "title": "Dine sikkerhetskopieringer",
+        "create_backup_now": "Lag sikkerhetskopiering nå",
+        "no_backups": "Du har ingen sikkerhetskopieringer ennå. Aktiver automatiske sikkerhetskopieringer eller lag en manuelt.",
+        "table": {
+          "created_at": "Opprettet",
+          "bookmarks": "Bokmerker",
+          "size": "Størrelse",
+          "status": "Status",
+          "actions": "Handlinger"
+        },
+        "status": {
+          "success": "Vellykket",
+          "failed": "Mislyktes",
+          "pending": "Venter"
+        },
+        "actions": {
+          "download_backup": "Last ned sikkerhetskopi",
+          "delete_backup": "Slett sikkerhetskopi"
+        }
+      },
+      "dialogs": {
+        "delete_backup_title": "Slett sikkerhetskopi?",
+        "delete_backup_description": "Er du sikker på at du vil slette denne sikkerhetskopien? Dette kan ikke angres."
+      },
+      "toasts": {
+        "backup_queued": "Sikkerhetskopieringsjobben er satt i kø! Den behandles snart.",
+        "backup_deleted": "Sikkerhetskopien er slettet!"
+      }
     }
   },
   "options": {
@@ -380,7 +551,63 @@
       "share_link": "Del lenke",
       "description": "Tillat andre å se denne lista"
     },
-    "share_list": "Del liste"
+    "share_list": "Del liste",
+    "delete_list": {
+      "title": "Slett liste",
+      "description": "Hvis du sletter ei liste, slettes ikke bokmerkene i lista.",
+      "delete_children": "Slett underlister (rekursivt)",
+      "delete_children_description": "Hvis dette ikke er haket av, vil alle direkte underlister bli topplister"
+    },
+    "shared": "Delt",
+    "collaborators": {
+      "manage": "Administrer samarbeidspartnere",
+      "view": "Vis samarbeidspartnere",
+      "collaborators": "Samarbeidspartnere",
+      "add": "Legg til samarbeidspartner",
+      "current": "Nåværende samarbeidspartnere",
+      "enter_email": "Skriv inn e-postadresse",
+      "please_enter_email": "Vennligst skriv inn en e-postadresse",
+      "added_successfully": "Samarbeidspartner lagt til",
+      "failed_to_add": "Kunne ikke legge til samarbeidspartner",
+      "removed": "Samarbeidspartner fjernet",
+      "failed_to_remove": "Kunne ikke fjerne samarbeidspartner",
+      "role_updated": "Rolle oppdatert",
+      "failed_to_update_role": "Kunne ikke oppdatere rolle",
+      "viewer": "Visningsrettigheter",
+      "editor": "Redigeringsrettigheter",
+      "owner": "Eier",
+      "viewer_description": "Kan se bokmerker i listen",
+      "editor_description": "Kan legge til og fjerne bokmerker",
+      "no_collaborators": "Ingen samarbeidspartnere ennå. Legg til noen for å starte samarbeidet!",
+      "no_collaborators_readonly": "Ingen samarbeidspartnere for denne lista.",
+      "people_with_access": "Folk som har tilgang til denne lista",
+      "add_or_remove": "Legg til eller fjern folk som har tilgang til denne lista",
+      "invitation_sent": "Invitasjonen er sendt!",
+      "invitation_revoked": "Invitasjonen er tilbakekalt",
+      "failed_to_revoke": "Kunne ikke tilbakekalle inviasjonen",
+      "pending": "Venter",
+      "revoke": "Tilbakekall",
+      "declined": "Avslått"
+    },
+    "leave_list": {
+      "title": "Forlat liste",
+      "confirm_message": "Er du sikker på at du vil forlate {{icon}} {{name}}?",
+      "warning": "Du vil ikke lenger kunne se eller få tilgang til bokmerker i denne lista. Listeeieren kan legge deg tilbake hvis nødvendig.",
+      "action": "Forlat liste",
+      "success": "Du har forlatt \"{{icon}} {{name}}\""
+    },
+    "invitations": {
+      "pending": "Ventende invitasjoner",
+      "description": "Se gjennom og svar på invitasjoner for listesamarbeid",
+      "invited_by": "Invitert av",
+      "accept": "Aksepter",
+      "decline": "Avslå",
+      "accepted": "Invitasjonen er akseptert",
+      "declined": "Invitasjonen er avslått",
+      "failed_to_accept": "Kunne ikke akseptere invitasjonen",
+      "failed_to_decline": "Kunne ikke avslå invitasjonen"
+    },
+    "shared_lists": "Delte lister"
   },
   "tags": {
     "all_tags": "Alle tagger",
@@ -393,7 +620,18 @@
     "drag_and_drop_merging": "Sammenslåing med dra og slipp",
     "drag_and_drop_merging_info": "Dra og slipp tagger oppå hverandre for å slå dem sammen",
     "unused_tags_info": "Tag-er som ikke er knyttet til noen bokmerker",
-    "delete_all_unused_tags": "Slett alle ubrukte tagger"
+    "delete_all_unused_tags": "Slett alle ubrukte tagger",
+    "create_tag": "Lag tagg",
+    "create_tag_description": "Lag en ny tagg uten å feste den til noe bokmerke",
+    "tag_name": "Taggnavn",
+    "enter_tag_name": "Skriv inn taggnavn",
+    "sort_by_usage": "Sorter etter bruk",
+    "sort_by_relevance": "Sorter etter relevans",
+    "no_custom_tags": "Ingen egendefinerte tagger ennå",
+    "no_ai_tags": "Ingen AI-tagger ennå",
+    "no_unused_tags": "Du har ingen ubrukte tagger",
+    "no_unused_tags_match_your_search": "Ingen ubrukte tagger passer søket ditt",
+    "no_tags_match_your_search": "Ingen tagger samsvarer med søket ditt"
   },
   "search": {
     "is_not_favorited": "Er ikke favorittmerket",
@@ -431,7 +669,9 @@
     "week_s_ago": " Uker siden",
     "month_s_ago": " Måneder siden",
     "year_s_ago": " År siden",
-    "history": "Nylige søk"
+    "history": "Nylige søk",
+    "title_contains": "Tittel inneholder",
+    "title_does_not_contain": "Tittel inneholder ikke"
   },
   "editor": {
     "text_toolbar": {
@@ -506,6 +746,10 @@
       "updated": "Lista er oppdatert!",
       "merged": "Liste er slått sammen!",
       "deleted": "Liste er slettet!"
+    },
+    "tags": {
+      "created": "Taggen er oppretta!",
+      "failed_to_create": "Klarte ikke å opprette taggen"
     }
   },
   "cleanups": {
@@ -554,5 +798,27 @@
     "pick_a_date": "Velg en dato",
     "save_changes": "Lagre endringer",
     "extracted_content": "Ekstrahert innhold"
+  },
+  "view_options": {
+    "title": "Visningsalternativer",
+    "layout": "Oppsett",
+    "columns": "Kolonner",
+    "display_options": "Visningsinnstillinger",
+    "show_note_previews": "Vis notater",
+    "show_tags": "Vis tagger",
+    "show_title": "Vis tittel",
+    "image_options": "Bildeinnstillinger",
+    "image_fit_cover": "Dekk (Fyll)",
+    "image_fit_contain": "Innehold (Tilpass)"
+  },
+  "version": {
+    "new_release_available": "Nye versjonsmerknader tilgjengelig",
+    "whats_new_title": "Hva er nytt i v{{version}}",
+    "release_notes_description": "Her er de nyeste oppdateringene hentet fra GitHub-versjonsmerknadene.",
+    "loading_release_notes": "Laster inn versjonsmerknader…",
+    "unable_to_load_release_notes": "Kunne ikke laste inn versjonsmerknader akkurat nå. Prøv igjen senere.",
+    "no_release_notes": "Ingen versjonsmerknader ble publisert for denne versjonen.",
+    "release_notes_synced": "Versjonsmerknadene er synkronisert fra GitHub.",
+    "view_on_github": "Vis på GitHub"
   }
 }
