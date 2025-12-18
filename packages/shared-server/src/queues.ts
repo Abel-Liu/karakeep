@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import serverConfig from "@karakeep/shared/config";
 import { EnqueueOptions, getQueueClient } from "@karakeep/shared/queueing";
 import { zRuleEngineEventSchema } from "@karakeep/shared/types/rules";
 

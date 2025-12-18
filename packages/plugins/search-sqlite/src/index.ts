@@ -6,11 +6,12 @@ import type {
   SearchOptions,
   SearchResponse,
 } from "@karakeep/shared/search";
-import { PluginProvider } from "@karakeep/shared/plugins";
 import { db } from "@karakeep/db";
-import { bookmarks, bookmarkLinks } from "@karakeep/db/schema";
-import { envConfig } from "./env";
+import { bookmarkLinks, bookmarks } from "@karakeep/db/schema";
 import logger from "@karakeep/shared/logger";
+import { PluginProvider } from "@karakeep/shared/plugins";
+
+import { envConfig } from "./env";
 
 class SQLiteIndexClient implements SearchIndexClient {
   async addDocuments(documents: BookmarkSearchDocument[]): Promise<void> {
@@ -39,9 +40,8 @@ class SQLiteIndexClient implements SearchIndexClient {
     // 解析用户ID过滤器
     let userId: string | undefined;
     for (const f of filter) {
-      const match = f.match(/userId = '([^']+)'/);
-      if (match) {
-        userId = match[1];
+      if (f.field === "userId" && f.type === "eq") {
+        userId = f.value;
         break;
       }
     }
@@ -56,10 +56,10 @@ class SQLiteIndexClient implements SearchIndexClient {
 
     // 构建搜索条件
     const terms = query
-      ? query.split(/\s+/).filter(term => term.trim() !== '')
+      ? query.split(/\s+/).filter((term) => term.trim() !== "")
       : [];
 
-    const termConditions = terms.map(term => {
+    const termConditions = terms.map((term) => {
       const searchTerm = `%${term}%`;
       return or(
         like(bookmarks.title, searchTerm),
@@ -67,7 +67,7 @@ class SQLiteIndexClient implements SearchIndexClient {
         like(bookmarks.summary, searchTerm),
         like(bookmarkLinks.title, searchTerm),
         like(bookmarkLinks.description, searchTerm),
-        like(bookmarkLinks.url, searchTerm)
+        like(bookmarkLinks.url, searchTerm),
       );
     });
 
@@ -75,39 +75,31 @@ class SQLiteIndexClient implements SearchIndexClient {
     const searchConditions = and(...termConditions);
 
     // 获取搜索结果
-    const searchResults = await db.select({
-      id: bookmarks.id,
-      title: bookmarks.title,
-      note: bookmarks.note,
-      summary: bookmarks.summary,
-      createdAt: bookmarks.createdAt,
-      modifiedAt: bookmarks.modifiedAt,
-      link: bookmarkLinks,
-    })
+    const searchResults = await db
+      .select({
+        id: bookmarks.id,
+        title: bookmarks.title,
+        note: bookmarks.note,
+        summary: bookmarks.summary,
+        createdAt: bookmarks.createdAt,
+        modifiedAt: bookmarks.modifiedAt,
+        link: bookmarkLinks,
+      })
       .from(bookmarks)
       .leftJoin(bookmarkLinks, eq(bookmarks.id, bookmarkLinks.id))
-      .where(
-        and(
-          eq(bookmarks.userId, userId),
-          searchConditions
-        )
-      )
+      .where(and(eq(bookmarks.userId, userId), searchConditions))
       .limit(limit)
       .offset(offset)
       .orderBy(sql`${bookmarks.createdAt} DESC`);
 
     // 获取总数
-    const countResult = await db.select({
-      count: sql<number>`count(*)`
-    })
+    const countResult = await db
+      .select({
+        count: sql<number>`count(*)`,
+      })
       .from(bookmarks)
       .leftJoin(bookmarkLinks, eq(bookmarks.id, bookmarkLinks.id))
-      .where(
-        and(
-          eq(bookmarks.userId, userId),
-          searchConditions
-        )
-      );
+      .where(and(eq(bookmarks.userId, userId), searchConditions));
 
     logger.info(`Search count:${JSON.stringify(countResult)}`);
 
@@ -115,7 +107,7 @@ class SQLiteIndexClient implements SearchIndexClient {
 
     // 计算相关性分数（简单的词频统计）
     const hits = searchResults.map((bookmark, index) => {
-      let score = 1.0 - (index * 0.1); // 简单的时间衰减分数
+      let score = 1.0 - index * 0.1; // 简单的时间衰减分数
 
       // 提高标题匹配的权重
       if (bookmark.title?.toLowerCase().includes(query.toLowerCase())) {
