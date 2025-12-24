@@ -70,6 +70,11 @@ async function dummyDrizzleReturnType() {
       text: true,
       asset: true,
       assets: true,
+      bookmarksInLists: {
+        with: {
+          list: true,
+        },
+      },
     },
   });
   if (!x) {
@@ -151,7 +156,15 @@ export class Bookmark extends BareBookmark {
     bookmark: BookmarkQueryReturnType,
     includeContent: boolean,
   ): Promise<ZBookmark> {
-    const { tagsOnBookmarks, link, text, asset, assets, ...rest } = bookmark;
+    const {
+      tagsOnBookmarks,
+      link,
+      text,
+      asset,
+      assets,
+      bookmarksInLists,
+      ...rest
+    } = bookmark;
 
     let content: ZBookmarkContent = {
       type: BookmarkTypes.UNKNOWN,
@@ -223,6 +236,11 @@ export class Bookmark extends BareBookmark {
         assetType: mapDBAssetTypeToUserType(a.assetType),
         fileName: a.fileName,
       })),
+      lists: bookmarksInLists.map((l) => ({
+        hasCollaborators: false,
+        userRole: "owner",
+        ...l.list,
+      })),
       ...rest,
     };
   }
@@ -238,6 +256,11 @@ export class Bookmark extends BareBookmark {
         tagsOnBookmarks: {
           with: {
             tag: true,
+          },
+        },
+        bookmarksInLists: {
+          with: {
+            list: true,
           },
         },
         link: true,
@@ -417,6 +440,8 @@ export class Bookmark extends BareBookmark {
       .leftJoin(bookmarkTexts, eq(bookmarkTexts.id, sq.id))
       .leftJoin(bookmarkAssets, eq(bookmarkAssets.id, sq.id))
       .leftJoin(assets, eq(assets.bookmarkId, sq.id))
+      .leftJoin(bookmarksInLists, eq(bookmarksInLists.bookmarkId, sq.id))
+      .leftJoin(bookmarkLists, eq(bookmarkLists.id, bookmarksInLists.listId))
       .orderBy(desc(sq.createdAt), desc(sq.id));
 
     const bookmarksRes = results.reduce<Record<string, ZBookmark>>(
@@ -472,6 +497,7 @@ export class Bookmark extends BareBookmark {
             content,
             tags: [],
             assets: [],
+            lists: [],
           };
         }
 
@@ -487,6 +513,14 @@ export class Bookmark extends BareBookmark {
           acc[bookmarkId].tags.push({
             ...row.bookmarkTags,
             attachedBy: row.tagsOnBookmarks.attachedBy,
+          });
+        }
+
+        if (row.bookmarkLists) {
+          acc[bookmarkId].lists.push({
+            ...row.bookmarkLists,
+            hasCollaborators: false,
+            userRole: "owner",
           });
         }
 

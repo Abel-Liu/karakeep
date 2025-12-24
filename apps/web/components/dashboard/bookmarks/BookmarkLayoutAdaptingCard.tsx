@@ -275,12 +275,12 @@ function CompactView({ bookmark, title, footer, className }: Props) {
           </div>
           <BookmarkActionBar bookmark={bookmark} />
         </div>
-        {/* want to show dashbaord list here, style is ok, just return list data and put into span */}
-        {/* <div className="justify -mt-2 mb-1 flex w-full shrink-0 justify-between px-2 text-gray-500">
-          <div className="flex items-center gap-2 overflow-hidden text-nowrap font-light">
-            <span>aaaaaaa</span>
+
+        <div className="justify -mt-2 mb-1 flex w-full shrink-0 justify-between px-2 text-gray-500">
+          <div className="flex items-center gap-2 overflow-hidden text-nowrap text-xs">
+            <span>{(bookmark.lists ?? []).map((l) => l.name).join(", ")}</span>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );

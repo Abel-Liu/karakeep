@@ -44,6 +44,7 @@ import {
   zSearchBookmarksRequestSchema,
   zUpdateBookmarksRequestSchema,
 } from "@karakeep/shared/types/bookmarks";
+import { ZBookmarkList } from "@karakeep/shared/types/lists";
 import { normalizeTagName } from "@karakeep/shared/utils/tag";
 
 import type { AuthedContext } from "../index";
@@ -267,6 +268,7 @@ export const bookmarksAppRouter = router({
         return {
           alreadyExists: false,
           tags: [] as ZBookmarkTags[],
+          lists: [] as ZBookmarkList[],
           assets: [],
           content,
           ...bookmark,

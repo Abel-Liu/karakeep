@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { zBookmarkListSchema } from "./lists";
 import { zCursorV2 } from "./pagination";
 import { zBookmarkTagSchema } from "./tags";
 
@@ -115,6 +116,7 @@ export type ZBareBookmark = z.infer<typeof zBareBookmarkSchema>;
 export const zBookmarkSchema = zBareBookmarkSchema.merge(
   z.object({
     tags: z.array(zBookmarkTagSchema),
+    lists: z.array(zBookmarkListSchema),
     content: zBookmarkContentSchema,
     assets: z.array(zAssetSchema),
   }),
@@ -126,6 +128,7 @@ const zBookmarkTypeLinkSchema = zBareBookmarkSchema.merge(
     tags: z.array(zBookmarkTagSchema),
     content: zBookmarkedLinkSchema,
     assets: z.array(zAssetSchema),
+    lists: z.array(zBookmarkListSchema),
   }),
 );
 export type ZBookmarkTypeLink = z.infer<typeof zBookmarkTypeLinkSchema>;
@@ -135,6 +138,7 @@ const zBookmarkTypeTextSchema = zBareBookmarkSchema.merge(
     tags: z.array(zBookmarkTagSchema),
     content: zBookmarkedTextSchema,
     assets: z.array(zAssetSchema),
+    lists: z.array(zBookmarkListSchema),
   }),
 );
 export type ZBookmarkTypeText = z.infer<typeof zBookmarkTypeTextSchema>;
@@ -144,6 +148,7 @@ const zBookmarkTypeAssetSchema = zBareBookmarkSchema.merge(
     tags: z.array(zBookmarkTagSchema),
     content: zBookmarkedAssetSchema,
     assets: z.array(zAssetSchema),
+    lists: z.array(zBookmarkListSchema),
   }),
 );
 export type ZBookmarkTypeAsset = z.infer<typeof zBookmarkTypeAssetSchema>;
